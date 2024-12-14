@@ -25,5 +25,8 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
-    - name: Verify syntax
+    - name: mvn validate
       run: mvn validate
+
+    - name: Verify mvn
+      run: mvn verify
