@@ -15,7 +15,7 @@ public class HelloApplication extends Application {
 //        Image icon = new Image("@../icon/icon.png");
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-
+l
         stage.setTitle("Hello!");
         stage.getIcons().add(new Image(Objects.requireNonNull(HelloApplication.class.getResourceAsStream("/com/ouroboros/sleepingqueen/icon/icon.png"))));
         stage.setScene(scene);
