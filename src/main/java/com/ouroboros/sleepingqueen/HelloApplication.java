@@ -12,7 +12,6 @@ import java.util.Objects;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-//        Image icon = new Image("@../icon/icon.png");
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("view/hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
