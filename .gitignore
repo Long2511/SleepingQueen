@@ -8,6 +8,7 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/*.xml
 *.iws
 *.iml
 *.ipr
@@ -36,3 +37,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/out/production/SleepingQueen/com/ouroboros/sleepingqueen/HelloApplication.class
+/out/production/SleepingQueen/com/ouroboros/sleepingqueen/HelloController.class
+/out/production/SleepingQueen/module-info.class
