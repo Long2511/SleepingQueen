@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'Great Vibes';
+    src: url('../font/GreatVibes-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Medieval Sharp';
+    src: url('../font/PlaywriteTZGuides-Regular.ttf');
+}
+
+.label {
+    -fx-font-family: "Great Vibes", cursive;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 1, 0, 0);
+}
+
+.game-information-box {
+    -fx-effect: dropshadow(gaussian, rgba(181, 114, 229, 0.75), 5, 1, 0, 0);
+    -fx-background-color: "pink";
+}
+
+.button {
+    -fx-font-family: "Medieval Sharp", cursive;
+    -fx-font-size: 15px;
+    -fx-background-color: rgba(181, 114, 229, 0.75);
+    -fx-border-radius: 50;
+}
+
+.button:hover {
+    -fx-background-color: rgba(134, 84, 170, 0.75);
+    -fx-font-size: 15px;
+}
+
+.text-area {
+
+    -fx-display-caret: true;
+}
+
+.text-area .content {
+    -fx-background-color: rgb(243, 183, 193);
+}
+
+.static-split .split-pane *.horizontal-grabber {
+    -fx-background-color: transparent;
+}
+
+.static-split .split-pane *.vertical-grabber {
+    -fx-background-color: transparent;
+}
