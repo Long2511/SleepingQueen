@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.PreGameScreenController">
+    <children>
+        <ImageView fitHeight="734.0" fitWidth="1306.0">
+            <image>
+                <Image url="@../image/pregame-image.png" />
+            </image>
+        </ImageView>
+        <Button cancelButton="true" layoutX="47.0" layoutY="55.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="32.0" prefWidth="67.0" stylesheets="@../css/styles.css" text="Return" />
+        <AnchorPane layoutX="323.0" layoutY="91.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+        <Pane id="game-information-box" layoutX="79.0" layoutY="136.0" prefHeight="461.0" prefWidth="487.0" styleClass="game-information-box" stylesheets="@../css/styles.css">
+            <children>
+                <Text layoutX="105.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Join with your friend" wrappingWidth="278.13671875">
+                    <font>
+                        <Font name="Great Vibes" size="40" />
+                    </font>
+                </Text>
+            <TextField layoutX="58.0" layoutY="295.0" prefHeight="32.0" prefWidth="372.0" />
+            <Button layoutX="35.0" layoutY="358.0" mnemonicParsing="false" onAction="#handleJoinGameButtonAction" prefHeight="68.0" prefWidth="433.0" text="Join game " />
+            <Text layoutX="21.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                <font>
+                    <Font name="Great Vibes" size="35" />
+                </font>
+            </Text>
+            <Text layoutX="27.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Join the game with your friend using the code" wrappingWidth="449.85986328125">
+               <font>
+                  <Font name="Great Vibes" size="35" />
+               </font>
+            </Text>
+            </children>
+        </Pane>
+        <Pane id="game-information-box" layoutX="758.0" layoutY="128.0" prefHeight="461.0" prefWidth="487.0" styleClass="game-information-box" stylesheets="@../css/styles.css ">
+            <children>
+                <Text layoutX="178.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create game">
+                    <font>
+                        <Font name="Great Vibes" size="40" />
+                    </font>
+                </Text>
+            <Text layoutX="66.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create game for you and your friend">
+                <font>
+                    <Font name="Great Vibes" size="35" />
+                </font>
+            </Text>
+            <Button layoutX="30.0" layoutY="351.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="433.0" text="Create game" />
+            </children>
+        </Pane>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+    </children>
+</AnchorPane>
