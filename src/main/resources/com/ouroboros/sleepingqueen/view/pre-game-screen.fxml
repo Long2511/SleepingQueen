@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.PreGameScreenController">
+<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.PreGameScreenController">
     <children>
         <ImageView fitHeight="734.0" fitWidth="1306.0">
             <image>
@@ -22,7 +27,7 @@
                     </font>
                 </Text>
             <TextField layoutX="58.0" layoutY="295.0" prefHeight="32.0" prefWidth="372.0" />
-            <Button layoutX="35.0" layoutY="358.0" mnemonicParsing="false" onAction="#handleJoinGameButtonAction" prefHeight="68.0" prefWidth="433.0" text="Join game " />
+            <Button layoutX="28.0" layoutY="352.0" mnemonicParsing="false" onAction="#handleJoinGameButtonAction" prefHeight="68.0" prefWidth="433.0" text="Join game " />
             <Text layoutX="21.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0">
                 <font>
                     <Font name="Great Vibes" size="35" />
@@ -47,7 +52,7 @@
                     <Font name="Great Vibes" size="35" />
                 </font>
             </Text>
-            <Button layoutX="30.0" layoutY="351.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="433.0" text="Create game" />
+            <Button layoutX="36.0" layoutY="365.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="433.0" text="Create game" />
             </children>
         </Pane>
       <ButtonBar prefHeight="40.0" prefWidth="200.0" />

@@ -18,7 +18,7 @@
         <Text layoutX="439.0" layoutY="341.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label"
               text="Sleeping queen" wrappingWidth="420.4700927734375">
             <font>
-                <Font name="Great Vibes" size="84.0"/>
+                <Font name="Great Vibes" size="90.0"/>
             </font>
             <fill>
                 <LinearGradient endX="1.0" endY="1.0">
