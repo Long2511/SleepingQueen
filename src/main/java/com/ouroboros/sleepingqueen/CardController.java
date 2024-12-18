@@ -1,15 +1,16 @@
 package com.ouroboros.sleepingqueen;
 
-import com.ouroboros.sleepingqueen.deck.*;
+import com.ouroboros.sleepingqueen.deck.Card;
+import com.ouroboros.sleepingqueen.deck.CardDeck;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 
 public class CardController implements Initializable{
     @FXML
