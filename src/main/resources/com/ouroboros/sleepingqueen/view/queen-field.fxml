@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="TOP_CENTER" hgap="19.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="828.0" style="-fx-background-color: #F8DCDC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.card.QueenFieldController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="201.0" minWidth="10.0" prefWidth="108.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="459.0" minWidth="10.0" prefWidth="413.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="108.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="108.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+       <fx:include fx:id="queen1" source="queen-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+       <fx:include fx:id="queen2" source="queen-on-board.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+       <fx:include fx:id="queen3" source="queen-on-board.fxml" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+       <fx:include fx:id="queen4" source="queen-on-board.fxml" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+       <fx:include fx:id="queen5" source="queen-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+       <fx:include fx:id="queen6" source="queen-on-board.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+       <fx:include fx:id="queen7" source="queen-on-board.fxml" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+       <fx:include fx:id="queen8" source="queen-on-board.fxml" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+       <fx:include fx:id="queen9" source="queen-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+       <fx:include fx:id="queen10" source="queen-on-board.fxml" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+       <fx:include fx:id="queen11" source="queen-on-board.fxml" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+       <fx:include fx:id="queen12" source="queen-on-board.fxml" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="18.0" right="18.0" top="10.0" />
+   </padding>
+</GridPane>
