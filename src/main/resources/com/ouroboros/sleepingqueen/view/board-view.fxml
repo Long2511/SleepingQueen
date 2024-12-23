@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-
-<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.BoardViewController">
-   <children>
-      <HBox prefHeight="562.0" prefWidth="1280.0">
-         <children>
-            <fx:include id="mini-player-field" source="mini-player-field.fxml" />
-         </children>
-      </HBox>
-      <HBox layoutX="226.0" layoutY="7.0" prefHeight="559.0" prefWidth="828.0" AnchorPane.topAnchor="0.0">
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="720" prefWidth="1280"
+            xmlns="http://javafx.com/javafx/17.0.12" fx:controller="com.ouroboros.sleepingqueen.BoardViewController">
+    <children>
+        <HBox prefHeight="562.0" prefWidth="1280.0">
             <children>
-            <HBox prefHeight="559.0" prefWidth="323.0" />
-                <fx:include id="queen-field" source="queen-field.fxml" />
+                <fx:include id="mini-player-field" source="mini-player-field.fxml"/>
             </children>
-      </HBox>
-      <HBox prefHeight="559.0" prefWidth="323.0" AnchorPane.leftAnchor="477.0" AnchorPane.rightAnchor="477.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <fx:include id="deck-field" source="deck-on-board.fxml" />
-         </children>
-      </HBox>
-   </children>
+        </HBox>
+        <HBox layoutX="226.0" layoutY="7.0" prefHeight="562.0" prefWidth="828.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="559.0" prefWidth="323.0"/>
+                <fx:include id="queen-field" source="queen-field.fxml"/>
+            </children>
+        </HBox>
+        <HBox prefHeight="559.0" prefWidth="323.0" AnchorPane.leftAnchor="477.0" AnchorPane.rightAnchor="477.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <fx:include id="deck-field" source="deck-on-board.fxml"/>
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>
