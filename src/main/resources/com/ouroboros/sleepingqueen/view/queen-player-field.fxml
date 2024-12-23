@@ -17,37 +17,37 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox id="queen1-player" prefHeight="44.0" prefWidth="31.0">
          <GridPane.margin>
             <Insets bottom="7.0" left="9.2" right="2.3" top="7.0" />
          </GridPane.margin>
-          <children>
-              <fx:include fx:id="queenplayer1" source="queen-player-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-          </children>
+         <children>
+             <fx:include fx:id="Queen1Player" source="queen-player-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+         </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+      <VBox id="queen2-player" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets bottom="7.0" left="6.9" right="4.6" top="7.0" />
          </GridPane.margin>
-          <children>
-              <fx:include fx:id="queenplayer2" source="queen-player-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-          </children>
+         <children>
+             <fx:include fx:id="Queen2Player" source="queen-player-on-board.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+         </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+      <VBox id="queen3-player" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="2">
          <GridPane.margin>
             <Insets bottom="7.0" left="4.6" right="6.9" top="7.0" />
          </GridPane.margin>
-          <children>
-              <fx:include fx:id="queenplayer3" source="queen-player-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-          </children>
+         <children>
+             <fx:include fx:id="Queen3Player" source="queen-player-on-board.fxml" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+         </children>
       </VBox>
-      <VBox prefHeight="200" prefWidth="100" GridPane.columnIndex="3">
+      <VBox id="queen4-player" prefHeight="44.0" prefWidth="31.0" GridPane.columnIndex="3">
          <GridPane.margin>
             <Insets bottom="7.0" left="2.3" right="9.2" top="7.0" />
          </GridPane.margin>
-          <children>
-              <fx:include fx:id="queenplayer4" source="queen-player-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-          </children>
+         <children>
+             <fx:include fx:id="Queen4Player" source="queen-player-on-board.fxml" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+         </children>
       </VBox>
    </children>
 </GridPane>
