@@ -31,7 +31,7 @@ public class DeckOnBoardController {
         // Set draw deck animation
         drawCardAnimation = new TranslateTransition();
         drawCardAnimation.setNode(deck);
-        drawCardAnimation.setDuration(Duration.millis(1000));
+        drawCardAnimation.setDuration(Duration.millis(300));
 //        drawCardAnimation.setCycleCount(1);
         drawCardAnimation.setInterpolator(Interpolator.LINEAR);
         drawCardAnimation.setByY(-(179+171));
