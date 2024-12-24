@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
+import static com.ouroboros.sleepingqueen.multiplayer.GameClient.discoverServerAddress;
+
 public class PreGameScreenController {
 
     @FXML
@@ -24,7 +26,8 @@ public class PreGameScreenController {
     private void handleJoinGameButtonAction(ActionEvent event) throws IOException {
         String playerName = playerNameField.getText();
         String gameId = gameIdField.getText();
-        new GameClient().startClient(playerName, gameId, 0);
+        String serverAddress = discoverServerAddress();
+        new GameClient().startClient(playerName, gameId, 0, serverAddress);
         SceneChanger.changeScene(event, "/com/ouroboros/sleepingqueen/view/board-view.fxml");
     }
 

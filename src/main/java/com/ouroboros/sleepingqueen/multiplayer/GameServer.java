@@ -3,13 +3,13 @@ package com.ouroboros.sleepingqueen.multiplayer;
 import com.ouroboros.sleepingqueen.deck.Card;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameServer {
     private static final int PORT = 8080;
+    private static final int BROADCAST_PORT = 8888;
     private List<Game> games = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -52,6 +52,27 @@ public class GameServer {
                     for (Card card : game.getGameDeck()) {
                         System.out.println(card);
                     }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void listenForBroadcasts() {
+        try (DatagramSocket socket = new DatagramSocket(BROADCAST_PORT)) {
+            byte[] buffer = new byte[256];
+            while (true) {
+                DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                socket.receive(packet);
+                String message = new String(packet.getData(), 0, packet.getLength());
+                if ("DISCOVER_SERVER_REQUEST".equals(message)) {
+                    InetAddress clientAddress = packet.getAddress();
+                    int clientPort = packet.getPort();
+                    String response = "DISCOVER_SERVER_RESPONSE:" + InetAddress.getLocalHost().getHostAddress();
+                    byte[] responseData = response.getBytes();
+                    DatagramPacket responsePacket = new DatagramPacket(responseData, responseData.length, clientAddress, clientPort);
+                    socket.send(responsePacket);
                 }
             }
         } catch (IOException e) {
