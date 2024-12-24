@@ -40,7 +40,7 @@ public class CardReader {
     }
 
 
-    public void read() throws IOException, URISyntaxException, ParseException {
+    public void Read() {
         JSONParser parser = new JSONParser();
 
         // Use getResourceAsStream to read the file from the resources folder
@@ -69,12 +69,19 @@ public class CardReader {
         }
     }
 
-    public static void main(String[] args) {
-        CardReader cardReader = new CardReader();
-        try {
-            cardReader.read();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public List<Card> getQueenCardList() {
+        return queenCardList;
     }
+    public List<Card> getCardNotQueenList() {
+        return cardNotQueenList;
+    }
+
+//    public static void main(String[] args) {
+//        CardReader cardReader = new CardReader();
+//        try {
+//            cardReader.Read();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
