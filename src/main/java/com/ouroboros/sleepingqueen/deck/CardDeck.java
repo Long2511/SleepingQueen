@@ -32,8 +32,11 @@ public class CardDeck {
     public Card draw() {
         if (deck.empty()) return null;
 
-        discarded.add(deck.peek());
         return deck.pop();
+    }
+
+    public void addDiscarded(Card card) {
+        discarded.add(card);
     }
 
     /**
