@@ -1,5 +1,6 @@
 package com.ouroboros.sleepingqueen.deck;
 
+import com.ouroboros.sleepingqueen.dao.JSONCardDAO;
 import com.ouroboros.sleepingqueen.deck.cardcollection.*;
 
 import java.util.Collections;
@@ -11,13 +12,13 @@ public class CardDeck {
 
     private List<Card> deck;
     private List<Card> queens;
+    private JSONCardDAO cardDAO;
     private int currentCardIndex;
 
     public CardDeck() {
-        CardReader cardReader = new CardReader();
-        cardReader.Read();
-        this.deck = cardReader.getCardNotQueenList();
-        this.queens = cardReader.getQueenCardList();
+        cardDAO = new JSONCardDAO();
+        this.deck = cardDAO.getAllCardNotQueen();
+        this.queens = cardDAO.getAllQueenCard();
         currentCardIndex = 0;
         shuffle();
     }
