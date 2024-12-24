@@ -11,8 +11,8 @@ import java.io.IOException;
 
 public class SceneChanger {
 
-    public static void changeScene(ActionEvent event, String fxmlFilePath) throws IOException {
-        FXMLLoader loader = new FXMLLoader(SceneChanger.class.getResource(fxmlFilePath));
+    public static void changeScene(ActionEvent event, String fxmlFile) throws IOException {
+        FXMLLoader loader = new FXMLLoader(SceneChanger.class.getResource(fxmlFile));
         Parent root = loader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
