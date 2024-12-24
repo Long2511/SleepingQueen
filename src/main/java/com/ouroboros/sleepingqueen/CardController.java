@@ -33,7 +33,7 @@ public class CardController implements Initializable{
         lastPlayedCard = cardDeck.draw();
         if (lastPlayedCard == null) {
             System.out.println("No more cards");
-            cardDeck.reset();
+            cardDeck.reshuffle();
             lastPlayedCard = cardDeck.draw();  // repick
         }
         System.out.println(lastPlayedCard.getCardImgPath());

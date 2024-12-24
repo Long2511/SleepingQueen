@@ -13,45 +13,55 @@ import java.util.List;
 
 public class JSONCardDAO implements CardDAO {
 
-    private final String CARD_DATA_PATH = "/com/ouroboros/sleepingqueen/cardData/cardData.json";
+    private final String NORMAL_CARD_DATA_PATH = "/com/ouroboros/sleepingqueen/cardData/normalCardData.json";
+    private final String QUEEN_CARD_DATA_PATH = "/com/ouroboros/sleepingqueen/cardData/queenCardData.json";
 
     List<Card> queenCardList;
-    List<Card> cardNotQueenList; // List of all cards EXCEPT Queen Cards
+    List<Card> normalCardList; // List of all cards EXCEPT Queen Cards
 
     public JSONCardDAO() {
         queenCardList = new ArrayList<Card>();
-        cardNotQueenList = new ArrayList<Card>();
-        JSONParser parser = new JSONParser();
+        normalCardList = new ArrayList<Card>();
+        readFromJSON(queenCardList, QUEEN_CARD_DATA_PATH);
+        readFromJSON(normalCardList, NORMAL_CARD_DATA_PATH);
+    }
 
-        // Use getResourceAsStream to read the file from the resources folder
-        try (FileReader reader = new FileReader(getClass().getResource(CARD_DATA_PATH).toURI().getPath())) {
+    public void readFromJSON(List<Card> cardList, String path) {
+        JSONParser parser = new JSONParser();
+        try (FileReader reader = new FileReader(getClass().getResource(path).toURI().getPath())) {
             JSONArray cards = (JSONArray) parser.parse(reader);
 
             for (Object card : cards) {
                 JSONObject cardObject = (JSONObject) card;
                 String name = (String) cardObject.get("cardName");
-                int quantity = Integer.parseInt((String) cardObject.get("quantity"));
-                String type = (String) cardObject.get("cardType");
+                int quantity = (int) (long) cardObject.get("quantity");
                 String description = (String) cardObject.get("cardDescription");
                 String image = (String) cardObject.get("cardImage");
-//                System.out.println("Name: " + name + ", Description: " + description + ", Image: " + image);
+                String cardType = (String) cardObject.get("cardType");
+
                 for (int i = 0; i < quantity; i++) {
-                    if (type.equals("QUEEN")) {
-                        queenCardList.add(createCard(name, description, image, type));
+                    if (cardType.equals("QUEEN")) {
+                        int point = (int) (long) cardObject.get("point");
+                        cardList.add(createQueenCard(name, description, image, point));
                     } else {
-                        cardNotQueenList.add(createCard(name, description, image, type));
+                        cardList.add(createNormalCard(name, description, image, cardType));
                     }
                 }
             }
         } catch (Exception e) {
             System.out.println("File not found or error reading file");
             e.printStackTrace();
+
         }
     }
 
-    public Card createCard(String name, String description, String image, String cardType) {
+
+    public Card createQueenCard(String name, String description, String image, int point) {
+        return new QueenCard(name, description, image, point);
+    }
+
+    public Card createNormalCard(String name, String description, String image, String cardType) {
         return switch (cardType) {
-            case "QUEEN" -> new QueenCard(name, description, image);
             case "KING" -> new KingCard(name, description, image);
             case "JESTER" -> new JesterCard(name, description, image);
             case "KNIGHT" -> new KnightCard(name, description, image);
@@ -62,9 +72,10 @@ public class JSONCardDAO implements CardDAO {
         };
     }
 
+
     @Override
     public List<Card> getAllCardNotQueen() {
-        return cardNotQueenList;
+        return normalCardList;
     }
 
     @Override
@@ -72,3 +83,4 @@ public class JSONCardDAO implements CardDAO {
         return queenCardList;
     }
 }
+

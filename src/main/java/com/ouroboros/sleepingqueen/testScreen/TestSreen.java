@@ -20,7 +20,7 @@ public class TestSreen extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainScreen.class.getResource("view/board-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainScreen.class.getResource("view/card-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
 
 
