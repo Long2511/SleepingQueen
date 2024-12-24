@@ -1,5 +1,6 @@
-package com.ouroboros.sleepingqueen;
+package com.ouroboros.sleepingqueen.testScreen;
 
+import com.ouroboros.sleepingqueen.MainScreen;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
