@@ -1,0 +1,142 @@
+[
+  {
+    "cardName": "Rose Queen",
+    "quantity": "1",
+    "cardType": "QUEEN",
+    "cardDescription": "The Rose Queen only worth 5 points, but she has a special ability: When you awake her from the center, you have the privilege to select another Sleeping Queen.",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen.jpeg"
+  },
+  {
+    "cardName": "Cat Queen",
+    "quantity": "1",
+    "cardType": "QUEEN",
+    "cardDescription": "The Cat Queen worth 15 points. You cannot hold her with the Dog Queen at the same time.",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen.jpeg"
+  },
+  {
+    "cardName": "Dog Queen",
+    "quantity": "1",
+    "cardType": "QUEEN",
+    "cardDescription": "The Dog Queen worth 15 points. You cannot hold her with the Cat Queen at the same time.",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen.jpeg"
+  },
+  {
+    "cardName": "King",
+    "quantity": "8",
+    "cardType": "KING",
+    "cardDescription": "Play the King to awake a Sleeping Queen.",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king.jpeg"
+  },
+  {
+    "cardName": "Jester",
+    "quantity": "5",
+    "cardType": "JESTER",
+    "cardDescription": "Play the Jester...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/jester.jpeg"
+  },
+  {
+    "cardName": "Knight",
+    "quantity": "4",
+    "cardType": "KNIGHT",
+    "cardDescription": "Play the Knight...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/knight.jpeg"
+  },
+  {
+    "cardName": "Sleeping Potion",
+    "quantity": "4",
+    "cardType": "POTION",
+    "cardDescription": "Play the Sleeping Potion...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/potion.jpeg"
+  },
+  {
+    "cardName": "Wand",
+    "quantity": "3",
+    "cardType": "WAND",
+    "cardDescription": "Play the Wand...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/wand.jpeg"
+  },
+  {
+    "cardName": "Dragon",
+    "quantity": "3",
+    "cardType": "DRAGON",
+    "cardDescription": "Play the Dragon...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/dragon.jpeg"
+  },
+  {
+    "cardName": "Number 1",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 1...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number1.jpeg"
+  },
+  {
+    "cardName": "Number 2",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 2...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number2.jpeg"
+  },
+  {
+    "cardName": "Number 3",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 3...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number3.jpeg"
+  },
+  {
+    "cardName": "Number 4",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 4...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number4.jpeg"
+  },
+  {
+    "cardName": "Number 5",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 5...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number5.jpeg"
+  },
+  {
+    "cardName": "Number 6",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 6...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number6.jpeg"
+  },
+  {
+    "cardName": "Number 7",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 7...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number7.jpeg"
+  },
+  {
+    "cardName": "Number 7",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 7...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number7.jpeg"
+  },
+  {
+    "cardName": "Number 8",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 8...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number8.jpeg"
+  },
+  {
+    "cardName": "Number 9",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 9...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number9.jpeg"
+  },
+  {
+    "cardName": "Number 10",
+    "quantity": "4",
+    "cardType": "NUMBER",
+    "cardDescription": "Play the Number 10...",
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number10.jpeg"
+  }
+]

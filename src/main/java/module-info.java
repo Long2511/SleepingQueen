@@ -13,6 +13,8 @@ module com.ouroboros.sleepingqueen {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires annotations;
+    requires com.fasterxml.jackson.databind;
+    requires json.simple;
 
     opens com.ouroboros.sleepingqueen to javafx.fxml;
     opens com.ouroboros.sleepingqueen.card to javafx.fxml;
