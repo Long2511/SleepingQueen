@@ -8,6 +8,7 @@ import java.util.Optional;
 
 
 public interface CardDAO {
-    List<Card> getAll();
+    List<Card> getAllCardNotQueen();
     List<Card> getAllQueenCard();
+
 }
