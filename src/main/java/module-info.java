@@ -19,4 +19,6 @@ module com.ouroboros.sleepingqueen {
 
     exports com.ouroboros.sleepingqueen;
     exports com.ouroboros.sleepingqueen.card;
+    exports com.ouroboros.sleepingqueen.testScreen;
+    opens com.ouroboros.sleepingqueen.testScreen to javafx.fxml;
 }
