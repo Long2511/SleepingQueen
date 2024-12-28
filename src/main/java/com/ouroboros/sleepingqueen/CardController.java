@@ -30,15 +30,15 @@ public class CardController implements Initializable{
     @FXML
     public void pickCard(MouseEvent e) {
         System.out.println("Card picked");
-//        lastPlayedCard = cardDeck.draw();
-//        if (lastPlayedCard == null) {
-//            System.out.println("No more cards");
-//            cardDeck.reset();
-//            lastPlayedCard = cardDeck.draw();  // repick
-//        }
-//        System.out.println(lastPlayedCard.getCardImgPath());
-//        card2Img = new Image(Objects.requireNonNull(CardController.class.getResourceAsStream(lastPlayedCard.getCardImgPath())));
-//        card2.setImage(card2Img);
+        lastPlayedCard = cardDeck.draw();
+        if (lastPlayedCard == null) {
+            System.out.println("No more cards");
+            cardDeck.reshuffle();
+            lastPlayedCard = cardDeck.draw();  // repick
+        }
+        System.out.println(lastPlayedCard.getCardImgPath());
+        card2Img = new Image(Objects.requireNonNull(CardController.class.getResourceAsStream(lastPlayedCard.getCardImgPath())));
+        card2.setImage(card2Img);
     }
 
     @Override
