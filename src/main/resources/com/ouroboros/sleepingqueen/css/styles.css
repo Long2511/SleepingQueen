@@ -46,3 +46,9 @@
 .static-split .split-pane *.vertical-grabber {
     -fx-background-color: transparent;
 }
+
+.text-field {
+    -fx-background-color: -fx-text-box-border, -fx-background ;
+    -fx-background-insets: 0, 0 0 1 0 ;
+    -fx-background-radius: 0 ;
+}
