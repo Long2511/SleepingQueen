@@ -31,7 +31,7 @@ public class DeckOnBoardController {
         // Set draw deck animation
         drawCardAnimation = new TranslateTransition();
         drawCardAnimation.setNode(deck);
-        drawCardAnimation.setDuration(Duration.millis(1000));
+        drawCardAnimation.setDuration(Duration.millis(20));
 //        drawCardAnimation.setCycleCount(1);
         drawCardAnimation.setInterpolator(Interpolator.LINEAR);
         drawCardAnimation.setByY(-(179+171));
@@ -47,6 +47,10 @@ public class DeckOnBoardController {
 
     public void drawCard(MouseEvent e) throws InterruptedException {
         lastDrawnCard = cardDeck.draw();
+        if (lastDrawnCard == null) {
+            System.out.println("Deck is empty. Reshuffle");
+            cardDeck.reshuffle();
+        }
 
         drawCardAnimation.play();
     }
