@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="723.0" prefWidth="1280" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.BoardViewController">
+<AnchorPane prefHeight="720.0" prefWidth="1280" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.BoardViewController">
     <children>
         <HBox prefHeight="562.0" prefWidth="1280.0">
             <children>
@@ -31,7 +31,7 @@
             <fx:include id="main-player-card-field" source="main-player-card-field.fxml" />
          </children>
       </HBox>
-      <HBox layoutX="1040.0" layoutY="564.0" prefHeight="159.0" prefWidth="240.0">
+      <HBox layoutX="1040.0" layoutY="564.0" prefHeight="158.0" prefWidth="240.0">
          <children>
             <fx:include id="player-score-and-menu" source="player-score-and-menu.fxml" />
          </children>
