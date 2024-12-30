@@ -13,10 +13,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class MainScreen extends Application {
-    public static void main(String[] args) {
-        launch();
-    }
-
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainScreen.class.getResource("view/main-screen.fxml"));
