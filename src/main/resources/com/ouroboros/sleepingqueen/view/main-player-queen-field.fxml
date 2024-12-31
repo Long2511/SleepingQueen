@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="158.0" prefWidth="291.0" style="-fx-background-color: #F8DCDC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <GridPane layoutX="20.0" layoutY="41.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="76.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+           <columnConstraints>
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+           <children>
+               <VBox prefHeight="200.0" prefWidth="100.0">
+                   <children>
+                       <fx:include fx:id="MainQueen1" source="main-player-queen-card.fxml" />
+                   </children>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                   <children>
+                       <fx:include fx:id="MainQueen2" source="main-player-queen-card.fxml" />
+                   </children>
+                   <GridPane.margin>
+                       <Insets left="4.17" right="8.3" />
+                   </GridPane.margin>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                   <children>
+                       <fx:include fx:id="MainQueen3" source="main-player-queen-card.fxml" />
+                   </children>
+                   <GridPane.margin>
+                       <Insets left="8.33" right="4.17" />
+                   </GridPane.margin>
+               </VBox>
+               <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
+                   <children>
+                       <fx:include fx:id="MainQueen4" source="main-player-queen-card.fxml" />
+                   </children>
+                   <GridPane.margin>
+                       <Insets left="12.5" />
+                   </GridPane.margin>
+               </VBox>
+           </children>
+       </GridPane>
+   </children>
+</AnchorPane>
