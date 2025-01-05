@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="158" prefWidth="743" style="-fx-background-color: #F8DCDC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.view.MainPlayerCardField">
+<AnchorPane prefHeight="158" prefWidth="743" style="-fx-background-color: #F8DCDC;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.MainPlayerCardField">
    <children>
       <GridPane layoutX="68.5" layoutY="8.5" prefHeight="141.0" prefWidth="606.0">
         <columnConstraints>
