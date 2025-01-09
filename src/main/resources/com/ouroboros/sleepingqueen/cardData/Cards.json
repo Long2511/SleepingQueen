@@ -1,0 +1,129 @@
+{
+  "cards": [
+    {
+      "type": "Queen",
+      "name": "Sunflower Queen",
+      "score": 5
+    },
+    {
+      "type": "Queen",
+      "name": "Rainbow Queen",
+      "score": 10
+    },
+    {
+      "type": "Queen",
+      "name": "Rose Queen",
+      "score": 5
+    },
+    {
+      "type": "Queen",
+      "name": "Moon Queen",
+      "score": 10
+    },
+    {
+      "type": "Queen",
+      "name": "Starfish Queen",
+      "score": 5
+    },
+    {
+      "type": "Queen",
+      "name": "Cat Queen",
+      "score": 5
+    },
+    {
+      "type": "Queen",
+      "name": "Dog Queen",
+      "score": 5
+    },
+    {
+      "type": "Queen",
+      "name": "Ladybug Queen",
+      "score": 5
+    },
+    {
+      "type": "Queen",
+      "name": "Dragon Queen",
+      "score": 15
+    },
+    {
+      "type": "Queen",
+      "name": "Peacock Queen",
+      "score": 5
+    },
+    {
+      "type": "Queen",
+      "name": "Butterfly Queen",
+      "score": 5
+    },
+    {
+      "type": "Queen",
+      "name": "Bee Queen",
+      "score": 5
+    },
+    {
+      "type": "Special",
+      "name": "King",
+      "effect": "Wakes up a Sleeping Queen"
+    },
+    {
+      "type": "Special",
+      "name": "Knight",
+      "effect": "Steal a queen from another player"
+    },
+    {
+      "type": "Special",
+      "name": "Dragon",
+      "effect": "Blocks a Knight card"
+    },
+    {
+      "type": "Special",
+      "name": "Sleeping Potion",
+      "effect": "Send an opponent's queen back to sleep"
+    },
+    {
+      "type": "Special",
+      "name": "Magic Wand",
+      "effect": "Blocks a Sleeping Potion card"
+    },
+    {
+      "type": "Number",
+      "value": 1
+    },
+    {
+      "type": "Number",
+      "value": 2
+    },
+    {
+      "type": "Number",
+      "value": 3
+    },
+    {
+      "type": "Number",
+      "value": 4
+    },
+    {
+      "type": "Number",
+      "value": 5
+    },
+    {
+      "type": "Number",
+      "value": 6
+    },
+    {
+      "type": "Number",
+      "value": 7
+    },
+    {
+      "type": "Number",
+      "value": 8
+    },
+    {
+      "type": "Number",
+      "value": 9
+    },
+    {
+      "type": "Number",
+      "value": 10
+    }
+  ]
+}
