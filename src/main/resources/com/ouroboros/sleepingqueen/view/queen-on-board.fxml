@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="157.0" prefWidth="107.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.card.QueenOnBoardController">
-   <children>
-      <ImageView fx:id="card" fitHeight="157.0" fitWidth="107.0" onMouseClicked="#flipCard" pickOnBounds="true">
-         <image>
-            <Image url="@../cardImg/wand.jpeg" />
-         </image>
-      </ImageView>
-   </children>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="157.0" prefWidth="107.0" xmlns="http://javafx.com/javafx/8"
+      fx:controller="com.ouroboros.sleepingqueen.card.QueenOnBoardController">
+    <children>
+        <ImageView fx:id="card" fitHeight="157.0" fitWidth="107.0" onMouseClicked="#flipCard" pickOnBounds="true">
+            <image>
+                <Image url="@../cardImg/king-1.jpg"/>
+            </image>
+        </ImageView>
+    </children>
 </VBox>
