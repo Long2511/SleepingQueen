@@ -4,181 +4,181 @@
     "quantity": 1,
     "cardType": "KING",
     "cardDescription": "Play the King to awake a Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-1.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-1.jpg"
   },
   {
     "cardName": "Chewing-Gum King",
     "quantity": 1,
     "cardType": "KING",
     "cardDescription": "Play the King to awake a Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-2.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-2.jpg"
   },
   {
     "cardName": "Chess King",
     "quantity": 1,
     "cardType": "KING",
     "cardDescription": "Play the King to awake a Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-3.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-3.jpg"
   },
   {
     "cardName": "Biscuit King",
     "quantity": 1,
     "cardType": "KING",
     "cardDescription": "Play the King to awake a Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-4.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-4.jpg"
   },
   {
     "cardName": "Flame King",
     "quantity": 1,
     "cardType": "KING",
     "cardDescription": "Play the King to awake a Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-5.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-5.jpg"
   },
   {
     "cardName": "Hat King",
     "quantity": 1,
     "cardType": "KING",
     "cardDescription": "Play the King to awake a Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-6.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-6.jpg"
   },
   {
     "cardName": "Puzzle King",
     "quantity": 1,
     "cardType": "KING",
     "cardDescription": "Play the King to awake a Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-7.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-7.jpg"
   },
   {
     "cardName": "Hippie King",
     "quantity": 1,
     "cardType": "KING",
     "cardDescription": "Play the King to awake a Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-8.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/king-8.jpg"
   },
   {
     "cardName": "Jester",
     "quantity": 5,
     "cardType": "JESTER",
     "cardDescription": "Play the Jester and take a chance: If you draw a spell card, keep it and take another turn. If you draw a number card, then count the players from 1 to the number on the card starting with yourself. The player you land gets to awaken a Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/jester.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/jester.jpg"
   },
   {
     "cardName": "Red Knight",
     "quantity": 1,
     "cardType": "KNIGHT",
     "cardDescription": "Play the Knight to steal a queen from another player.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/knight-1.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/knight-1.jpg"
   },
   {
     "cardName": "Green Knight",
     "quantity": 1,
     "cardType": "KNIGHT",
     "cardDescription": "Play the Knight to steal a queen from another player.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/knight-2.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/knight-2.jpg"
   },
   {
     "cardName": "Blue Knight",
     "quantity": 1,
     "cardType": "KNIGHT",
     "cardDescription": "Play the Knight to steal a queen from another player.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/knight-3.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/knight-3.jpg"
   },
   {
     "cardName": "Black Knight",
     "quantity": 1,
     "cardType": "KNIGHT",
     "cardDescription": "Play the Knight to steal a queen from another player.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/knight-4.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/knight-4.jpg"
   },
   {
     "cardName": "Sleeping Potion",
     "quantity": 4,
     "cardType": "POTION",
     "cardDescription": "Play the Sleeping Potion to put a player's queen back to sleep.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/potion.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/potion.jpg"
   },
   {
     "cardName": "Wand",
     "quantity": 3,
     "cardType": "WAND",
     "cardDescription": "Play the Wand to protect your queen from being slept by Sleeping Potion.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/wand.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/wand.jpg"
   },
   {
     "cardName": "Dragon",
     "quantity": 3,
     "cardType": "DRAGON",
     "cardDescription": "Play the Dragon to protect your queen from being stolen by a Knight.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/dragon.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/dragon.jpg"
   },
   {
     "cardName": "Number 1",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 1 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number1.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number1.jpg"
   },
   {
     "cardName": "Number 2",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 2 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number2.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number2.jpg"
   },
   {
     "cardName": "Number 3",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 3 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number3.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number3.jpg"
   },
   {
     "cardName": "Number 4",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 4 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number4.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number4.jpg"
   },
   {
     "cardName": "Number 5",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 5 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number5.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number5.jpg"
   },
   {
     "cardName": "Number 6",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 6 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number6.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number6.jpg"
   },
   {
     "cardName": "Number 7",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 7 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number7.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number7.jpg"
   },
   {
     "cardName": "Number 8",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 8 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number8.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number8.jpg"
   },
   {
     "cardName": "Number 9",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 9 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number9.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number9.jpg"
   },
   {
     "cardName": "Number 10",
     "quantity": 4,
     "cardType": "NUMBER",
     "cardDescription": "You can play the Number 10 with other Number cards regarding the rules of the game.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number10.jpeg"
+    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/number10.jpg"
   }
 ]
