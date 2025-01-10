@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
-
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="124.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <ImageView fx:id="PlayerCard" fitHeight="170.0" fitWidth="124.0" pickOnBounds="true">
-         <image>
-            <Image url="@../cardImg/cat.jpg" />
-         </image>
-      </ImageView>
-   </children>
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="170.0" prefWidth="124.0" xmlns="http://javafx.com/javafx/23.0.1">
+    <children>
+        <ImageView fx:id="PlayerCard" fitHeight="170.0" fitWidth="124.0" pickOnBounds="true">
+            <image>
+                <Image url="@../cardImg/king-1.jpg"/>
+            </image>
+        </ImageView>
+    </children>
 </VBox>

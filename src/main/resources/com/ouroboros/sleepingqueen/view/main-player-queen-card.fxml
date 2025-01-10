@@ -3,13 +3,13 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-       <ImageView id="main-player-queen-card" fitHeight="77.0" fitWidth="50.0" pickOnBounds="true">
-           <image>
-               <Image url="@../cardImg/green.jpg" />
-           </image>
-       </ImageView>
-   </children>
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="77.0" prefWidth="50.0" xmlns="http://javafx.com/javafx/23.0.1">
+    <children>
+        <ImageView id="main-player-queen-card" fitHeight="77.0" fitWidth="50.0" pickOnBounds="true">
+            <image>
+                <Image url="@../cardImg/king-1.jpg"/>
+            </image>
+        </ImageView>
+    </children>
 </VBox>

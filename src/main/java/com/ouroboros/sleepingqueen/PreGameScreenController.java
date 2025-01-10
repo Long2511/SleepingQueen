@@ -1,6 +1,5 @@
 package com.ouroboros.sleepingqueen;
 
-import com.ouroboros.sleepingqueen.multiplayer.GameClient;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -22,9 +21,9 @@ public class PreGameScreenController {
 
     @FXML
     private void handleJoinGameButtonAction(ActionEvent event) throws IOException {
-        String playerName = playerNameField.getText();
+/*        String playerName = playerNameField.getText();
         String gameId = gameIdField.getText();
-        new GameClient().startClient(playerName, gameId, 0);
+        new GameClient().startClient(playerName, gameId, 0);*/
         SceneChanger.changeScene(event, "/com/ouroboros/sleepingqueen/view/board-view.fxml");
     }
 

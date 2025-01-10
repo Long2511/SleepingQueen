@@ -22,7 +22,7 @@ public class QueenOnBoardController {
     public void flipCard(MouseEvent e) {
         System.out.println("Queen flipped");
         if (flipped) {
-            Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/ouroboros/sleepingqueen/cardImg/facedown.jpeg")));
+            Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/ouroboros/sleepingqueen/cardImg/king-1.jpg.jpeg")));
             card.setImage(cardImg);
             flipped = false;
         } else {
@@ -31,8 +31,9 @@ public class QueenOnBoardController {
             flipped = true;
         }
     }
+
     public void render() {
-        Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/ouroboros/sleepingqueen/cardImg/facedown.jpeg")));
+        Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/ouroboros/sleepingqueen/cardImg/king-1.jpg")));
         card.setImage(cardImg);
         flipped = false;
     }
