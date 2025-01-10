@@ -74,7 +74,7 @@ public class JSONCardDAO implements CardDAO {
 
 
     @Override
-    public List<Card> getAllCardNotQueen() {
+    public List<Card> getAllNormalCard() {
         return normalCardList;
     }
 
