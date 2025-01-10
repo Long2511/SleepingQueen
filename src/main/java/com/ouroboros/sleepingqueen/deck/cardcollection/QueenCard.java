@@ -7,8 +7,8 @@ public class QueenCard extends Card {
     private int point;
 
     public QueenCard() {}
-    public QueenCard(String cardName, String description, String cardImgPath, int point) {
-        super(cardName, description, cardImgPath);
+    public QueenCard(String cardName, String description, String cardImgPath, String backImgPath, int point) {
+        super(cardName, description, cardImgPath, backImgPath);
         this.type = CardType.QUEEN;
         this.point = point;
     }

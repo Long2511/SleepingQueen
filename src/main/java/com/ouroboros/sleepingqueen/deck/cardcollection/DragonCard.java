@@ -7,8 +7,8 @@ public class DragonCard extends Card {
     public DragonCard() {
 
     }
-    public DragonCard(String cardName, String description, String cardImgPath) {
-        super(cardName, description, cardImgPath);
+    public DragonCard(String cardName, String description, String cardImgPath, String backImgPath) {
+        super(cardName, description, cardImgPath, backImgPath);
         this.type = CardType.DRAGON;
     }
 }

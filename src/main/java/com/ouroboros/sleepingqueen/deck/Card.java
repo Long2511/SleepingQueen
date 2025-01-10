@@ -2,19 +2,21 @@ package com.ouroboros.sleepingqueen.deck;
 
 public class Card {
     private String cardName;
-    private int ownedPlayer;    // 1-4 for 4 players, 0: not owned
+    private int ownedPlayer;    // 1-5 for 5 players, 0: not owned
     private String description;
 
     private int position;
 
     private String cardImgPath;
+    private String backImgPath;
     protected CardType type;
 
     public Card() {}
 
-    public Card(String cardName, String description, String cardImgPath) {
+    public Card(String cardName, String description, String cardImgPath, String backImgPath) {
         this.cardName = cardName;
         this.cardImgPath = cardImgPath;
+        this.backImgPath = backImgPath;
         this.ownedPlayer = 0;
         this.position = -1;
     }
@@ -38,5 +40,8 @@ public class Card {
 
     public String getCardImgPath() {
         return cardImgPath;
+    }
+    public String getBackImgPath() {
+        return backImgPath;
     }
 }

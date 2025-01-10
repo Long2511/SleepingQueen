@@ -8,8 +8,10 @@ public class NumberCard extends Card {
     public NumberCard() {
 
     }
-    public NumberCard(String cardName, String description, String cardImgPath) {
-        super(cardName, description, cardImgPath);
+    public NumberCard(String cardName, String description, String cardImgPath, String backImgPath) {
+        super(cardName, description, cardImgPath, backImgPath);
+        this.cardNumber = Integer.parseInt(cardName.split(" ")[1]);
+        System.out.println(this.cardNumber);
         this.type = CardType.NUMBER;
     }
 }
