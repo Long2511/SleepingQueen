@@ -5,8 +5,8 @@ import com.ouroboros.sleepingqueen.deck.CardType;
 
 public class KingCard extends Card {
     public KingCard() {}
-    public KingCard(String cardName, String description, String cardImgPath, String backImgPath) {
-        super(cardName, description, cardImgPath, backImgPath);
+    public KingCard(String cardName, String cardImgPath, String backImgPath) {
+        super(cardName, cardImgPath, backImgPath);
         this.type = CardType.KING;
     }
 }

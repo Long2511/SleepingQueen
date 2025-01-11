@@ -7,7 +7,7 @@ public class KnightCard extends Card {
     public KnightCard() {
 
     }
-    public KnightCard(String cardName, String description, String cardImgPath, String backImgPath) {
-        super(cardName, description, cardImgPath, backImgPath);
+    public KnightCard(String cardName, String cardImgPath, String backImgPath) {
+        super(cardName, cardImgPath, backImgPath);
         this.type = CardType.KNIGHT;
     }}

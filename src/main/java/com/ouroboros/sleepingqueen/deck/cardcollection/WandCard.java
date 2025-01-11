@@ -7,8 +7,8 @@ public class WandCard extends Card {
     public WandCard() {
 
     }
-    public WandCard(String cardName, String description, String cardImgPath, String backImgPath) {
-        super(cardName, description, cardImgPath, backImgPath);
+    public WandCard(String cardName, String cardImgPath, String backImgPath) {
+        super(cardName, cardImgPath, backImgPath);
         this.type = CardType.WAND;
     }
 }

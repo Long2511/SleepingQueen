@@ -7,8 +7,8 @@ public class PotionCard extends Card {
     public PotionCard() {
 
     }
-    public PotionCard(String cardName, String description, String cardImgPath, String backImgPath) {
-        super(cardName, description, cardImgPath, backImgPath);
+    public PotionCard(String cardName, String cardImgPath, String backImgPath) {
+        super(cardName, cardImgPath, backImgPath);
         this.type = CardType.POTION;
     }
 }
