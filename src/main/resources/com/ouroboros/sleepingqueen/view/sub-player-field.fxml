@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -19,22 +20,28 @@
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-             <fx:include fx:id="Player1Field" source="mini-player-layout.fxml" />
+             <fx:include fx:id="SubPlayer1Field" source="sub-player-layout.fxml" />
          </children>
-      </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
-         <children>
-             <fx:include fx:id="Player2Field" source="mini-player-layout.fxml" />
-         </children>
+         <GridPane.margin>
+            <Insets top="4.0" />
+         </GridPane.margin>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
          <children>
-             <fx:include fx:id="Player3Field" source="mini-player-layout.fxml" />
+             <fx:include fx:id="SubPlayer2Field" source="sub-player-layout.fxml" />
+         </children>
+         <GridPane.margin>
+            <Insets top="4.0" />
+         </GridPane.margin>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+         <children>
+             <fx:include fx:id="SubPlayer3Field" source="sub-player-layout.fxml" />
          </children>
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
-             <fx:include fx:id="Player4Field" source="mini-player-layout.fxml" />
+             <fx:include fx:id="SubPlayer4Field" source="sub-player-layout.fxml" />
          </children>
       </VBox>
    </children>
