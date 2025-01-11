@@ -1,43 +1,50 @@
 package com.ouroboros.sleepingqueen.card;
 
+import com.ouroboros.sleepingqueen.dao.JSONCardDAO;
+import com.ouroboros.sleepingqueen.deck.Card;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
 public class QueenFieldController {
     @FXML
-    private QueenOnBoardController queen1Controller;
+    private QueenController queen1Controller;
     @FXML
-    private QueenOnBoardController queen2Controller;
+    private QueenController queen2Controller;
     @FXML
-    private QueenOnBoardController queen3Controller;
+    private QueenController queen3Controller;
     @FXML
-    private QueenOnBoardController queen4Controller;
+    private QueenController queen4Controller;
     @FXML
-    private QueenOnBoardController queen5Controller;
+    private QueenController queen5Controller;
     @FXML
-    private QueenOnBoardController queen6Controller;
+    private QueenController queen6Controller;
     @FXML
-    private QueenOnBoardController queen7Controller;
+    private QueenController queen7Controller;
     @FXML
-    private QueenOnBoardController queen8Controller;
+    private QueenController queen8Controller;
     @FXML
-    private QueenOnBoardController queen9Controller;
+    private QueenController queen9Controller;
     @FXML
-    private QueenOnBoardController queen10Controller;
+    private QueenController queen10Controller;
     @FXML
-    private QueenOnBoardController queen11Controller;
+    private QueenController queen11Controller;
     @FXML
-    private QueenOnBoardController queen12Controller;
+    private QueenController queen12Controller;
 
-    private List<QueenOnBoardController> queenControllers;
+    private List<QueenController> queenControllers;
+    private List<Card> queenCards;
     private final int NUMBER_OF_QUEENS = 12;
+
+    private JSONCardDAO cardDAO;
 
     public void initialize() {
         System.out.println("QueenFieldController initialized");
-        queenControllers = new ArrayList<QueenOnBoardController>();
+        queenControllers = new ArrayList<QueenController>();
+//        queenCards = new ArrayList<Card>();
+        cardDAO = new JSONCardDAO();
+        queenCards = cardDAO.getAllQueenCard();
+        Collections.shuffle(queenCards, new Random());
 
         queenControllers.add(queen1Controller);
         queenControllers.add(queen2Controller);
@@ -52,7 +59,8 @@ public class QueenFieldController {
         queenControllers.add(queen11Controller);
         queenControllers.add(queen12Controller);
 
-        for (QueenOnBoardController queenController : queenControllers) {
+        for (QueenController queenController : queenControllers) {
+            queenController.setCard(queenCards.get(queenControllers.indexOf(queenController)));
             queenController.render();
         }
     }
