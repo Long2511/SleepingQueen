@@ -1,26 +1,101 @@
-[
-  {
-    "cardName": "Rose Queen",
-    "quantity": 1,
-    "cardType": "QUEEN",
-    "cardDescription": "The Rose Queen only worth 5 points, but she has a special ability: When you awake her from the center, you have the privilege to select another Sleeping Queen.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen.jpeg",
-    "point": 5
-  },
-  {
-    "cardName": "Cat Queen",
-    "quantity": 1,
-    "cardType": "QUEEN",
-    "cardDescription": "The Cat Queen worth 15 points. You cannot hold her with the Dog Queen at the same time.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen.jpeg",
-    "point": 15
-  },
-  {
-    "cardName": "Dog Queen",
-    "quantity": 1,
-    "cardType": "QUEEN",
-    "cardDescription": "The Dog Queen worth 15 points. You cannot hold her with the Cat Queen at the same time.",
-    "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen.jpeg",
-    "point": 15
-  }
-]
+{
+  "cards": [
+    {
+      "cardName": "Gateau Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "This queen has no special ability.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-01.jpg",
+      "point": 5
+    },
+    {
+      "cardName": "Moon Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "This queen has no special ability.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-02.jpg",
+      "point": 10
+    },
+    {
+      "cardName": "Sunflower Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "This queen has no special ability.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-03.jpg",
+      "point": 10
+    },
+    {
+      "cardName": "Starfish Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "This queen has no special ability.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-04.jpg",
+      "point": 5
+    },
+    {
+      "cardName": "Rose Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "The Rose Queen is only worth 5 points, but she has a special ability: When you awake her from the center, you have the privilege to select another Sleeping Queen.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-05.jpg",
+      "point": 5
+    },
+    {
+      "cardName": "Rainbow Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "This queen has no special ability.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-06.jpg",
+      "point": 5
+    },
+    {
+      "cardName": "Peacock Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "This queen has no special ability.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-07.jpg",
+      "point": 10
+    },
+    {
+      "cardName": "Crepe Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "This queen has no special ability.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-08.jpg",
+      "point": 15
+    },
+    {
+      "cardName": "Ladybug Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "This queen has no special ability.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-09.jpg",
+      "point": 10
+    },
+    {
+      "cardName": "Heart Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "This queen has no special ability. But has the highest point among all the queens.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-10.jpg",
+      "point": 20
+    },
+    {
+      "cardName": "Dog Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "The Dog Queen is worth 15 points. But you cannot hold her with the Cat Queen at the same time.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-11.jpg",
+      "point": 15
+    },
+    {
+      "cardName": "Cat Queen",
+      "quantity": 1,
+      "cardType": "QUEEN",
+      "cardDescription": "The Cat Queen is worth 15 points. But you cannot hold her with the Dog Queen at the same time.",
+      "cardImage": "/com/ouroboros/sleepingqueen/cardImg/queen-12.jpg",
+      "point": 15
+    }
+  ],
+  "backImage": "/com/ouroboros/sleepingqueen/cardImg/back-queen.jpg"
+}

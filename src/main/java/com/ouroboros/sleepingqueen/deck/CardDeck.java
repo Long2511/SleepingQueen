@@ -1,7 +1,6 @@
 package com.ouroboros.sleepingqueen.deck;
 
 import com.ouroboros.sleepingqueen.dao.JSONCardDAO;
-import com.ouroboros.sleepingqueen.deck.cardcollection.*;
 
 import java.util.*;
 
@@ -17,7 +16,7 @@ public class CardDeck {
         this.cardDAO = new JSONCardDAO();
         this.discarded = new ArrayList<>();
         this.deck = new Stack<>();
-        this.deck.addAll(cardDAO.getAllCardNotQueen());
+        this.deck.addAll(cardDAO.getAllNormalCard());
         shuffle();
     }
 
@@ -50,7 +49,7 @@ public class CardDeck {
 
     public void reset() {
         deck.clear();
-        deck.addAll(cardDAO.getAllCardNotQueen());
+        deck.addAll(cardDAO.getAllNormalCard());
         shuffle();
     }
 }

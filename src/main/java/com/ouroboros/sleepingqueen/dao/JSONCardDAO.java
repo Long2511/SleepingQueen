@@ -29,7 +29,9 @@ public class JSONCardDAO implements CardDAO {
     public void readFromJSON(List<Card> cardList, String path) {
         JSONParser parser = new JSONParser();
         try (FileReader reader = new FileReader(getClass().getResource(path).toURI().getPath())) {
-            JSONArray cards = (JSONArray) parser.parse(reader);
+            JSONObject cardData = (JSONObject) parser.parse(reader);
+            JSONArray cards = (JSONArray) cardData.get("cards");
+            String backImage = (String) cardData.get("backImage");
 
             for (Object card : cards) {
                 JSONObject cardObject = (JSONObject) card;
@@ -42,39 +44,38 @@ public class JSONCardDAO implements CardDAO {
                 for (int i = 0; i < quantity; i++) {
                     if (cardType.equals("QUEEN")) {
                         int point = (int) (long) cardObject.get("point");
-                        cardList.add(createQueenCard(name, description, image, point));
+                        cardList.add(createQueenCard(name, description, image, backImage, point));
                     } else {
-                        cardList.add(createNormalCard(name, description, image, cardType));
+                        cardList.add(createNormalCard(name, description, image, backImage, cardType));
                     }
                 }
             }
         } catch (Exception e) {
             System.out.println("File not found or error reading file");
             e.printStackTrace();
-
         }
     }
 
 
-    public Card createQueenCard(String name, String description, String image, int point) {
-        return new QueenCard(name, description, image, point);
+    public Card createQueenCard(String name, String description, String image, String backImage, int point) {
+        return new QueenCard(name, description, image, backImage, point);
     }
 
-    public Card createNormalCard(String name, String description, String image, String cardType) {
+    public Card createNormalCard(String name, String description, String image, String backImage, String cardType) {
         return switch (cardType) {
-            case "KING" -> new KingCard(name, description, image);
-            case "JESTER" -> new JesterCard(name, description, image);
-            case "KNIGHT" -> new KnightCard(name, description, image);
-            case "POTION" -> new PotionCard(name, description, image);
-            case "WAND" -> new WandCard(name, description, image);
-            case "DRAGON" -> new DragonCard(name, description, image);
-            default -> new NumberCard(name, description, image);
+            case "KING" -> new KingCard(name, description, image, backImage);
+            case "JESTER" -> new JesterCard(name, description, image, backImage);
+            case "KNIGHT" -> new KnightCard(name, description, image, backImage);
+            case "POTION" -> new PotionCard(name, description, image, backImage);
+            case "WAND" -> new WandCard(name, description, image, backImage);
+            case "DRAGON" -> new DragonCard(name, description, image, backImage);
+            default -> new NumberCard(name, description, image, backImage);
         };
     }
 
 
     @Override
-    public List<Card> getAllCardNotQueen() {
+    public List<Card> getAllNormalCard() {
         return normalCardList;
     }
 
