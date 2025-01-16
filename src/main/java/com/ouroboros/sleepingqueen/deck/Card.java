@@ -3,7 +3,6 @@ package com.ouroboros.sleepingqueen.deck;
 public class Card {
     private String cardName;
     private int ownedPlayer;    // 1-5 for 5 players, 0: not owned
-    private String description;
 
     private int position;
 
@@ -13,7 +12,7 @@ public class Card {
 
     public Card() {}
 
-    public Card(String cardName, String description, String cardImgPath, String backImgPath) {
+    public Card(String cardName, String cardImgPath, String backImgPath) {
         this.cardName = cardName;
         this.cardImgPath = cardImgPath;
         this.backImgPath = backImgPath;

@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="157.0" prefWidth="107.0" xmlns="http://javafx.com/javafx/8"
-      fx:controller="com.ouroboros.sleepingqueen.card.QueenOnBoardController">
+      fx:controller="com.ouroboros.sleepingqueen.card.QueenController">
     <children>
         <ImageView fx:id="card" fitHeight="157.0" fitWidth="107.0" onMouseClicked="#flipCard" pickOnBounds="true">
             <image>
