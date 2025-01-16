@@ -4,9 +4,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="44.0" prefWidth="31.0" xmlns="http://javafx.com/javafx/23.0.1">
+      prefHeight="120" prefWidth="74" xmlns="http://javafx.com/javafx/23.0.1">
     <children>
-        <ImageView id="queen-player-card" fitHeight="44.0" fitWidth="31.0" pickOnBounds="true">
+        <ImageView id="queen-player-card" fitHeight="120" fitWidth="74" pickOnBounds="true">
             <image>
                 <Image url="@../cardImg/queen-01.jpg"/>
             </image>
