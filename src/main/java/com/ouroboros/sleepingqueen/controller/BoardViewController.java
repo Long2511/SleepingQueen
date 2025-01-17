@@ -1,17 +1,4 @@
-package com.ouroboros.sleepingqueen;
-
-import com.ouroboros.sleepingqueen.deck.Card;
-import com.ouroboros.sleepingqueen.deck.CardDeck;
-import javafx.fxml.FXML;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
-import javafx.scene.Node;
-import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-
-import java.util.Objects;
+package com.ouroboros.sleepingqueen.controller;
 
 public class BoardViewController {
 //    @FXML
