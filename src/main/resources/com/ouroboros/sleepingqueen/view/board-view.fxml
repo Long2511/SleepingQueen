@@ -14,33 +14,33 @@
         </ImageView>
         <HBox prefHeight="562.0" prefWidth="1280.0">
             <children>
-                <fx:include id="mini-player-field" source="sub-player-field.fxml" />
+                <fx:include fx:id="mini-player-field" source="subPlayerView/sub-player-field.fxml" />
             </children>
         </HBox>
         <HBox layoutX="226.0" layoutY="7.0" prefHeight="562.0" prefWidth="828.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox prefHeight="559.0" prefWidth="323.0" />
-                <fx:include id="queen-field" source="queen-field.fxml" />
+                <fx:include fx:id="queen-field" source="queen-field.fxml" />
             </children>
         </HBox>
         <HBox prefHeight="559.0" prefWidth="323.0" AnchorPane.leftAnchor="477.0" AnchorPane.rightAnchor="477.0" AnchorPane.topAnchor="0.0">
             <children>
-                <fx:include id="deck-field" source="deck-on-board.fxml" />
+                <fx:include fx:id="deck-field" source="deck-on-board.fxml" />
             </children>
         </HBox>
       <HBox layoutY="564.0" prefHeight="153.0" prefWidth="291.0">
          <children>
-             <fx:include id="main-player-queen-field" source="main-player-queen-field.fxml" />
+             <fx:include fx:id="main-player-queen-field" source="main-player-queen-field.fxml" />
          </children>
       </HBox>
       <HBox layoutX="294.0" layoutY="564.0" prefHeight="158.0" prefWidth="743.0">
          <children>
-            <fx:include id="main-player-card-field" source="main-player-card-field.fxml" />
+            <fx:include fx:id="main-player-card-field" source="main-player-card-field.fxml" />
          </children>
       </HBox>
       <HBox layoutX="1040.0" layoutY="564.0" prefHeight="158.0" prefWidth="240.0">
          <children>
-            <fx:include id="player-score-and-menu" source="main-player-name-and-menu.fxml" />
+            <fx:include fx:id="player-score-and-menu" source="main-player-name-and-menu.fxml" />
          </children>
       </HBox>
     </children>
