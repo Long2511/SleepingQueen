@@ -9,7 +9,7 @@
     <children>
         <ImageView fx:id="card" fitHeight="157.0" fitWidth="107.0" onMouseClicked="#flipCard" pickOnBounds="true">
             <image>
-                <Image url="@../cardImg/king-1.jpg"/>
+                <Image url="@../../cardImg/king-1.jpg"/>
             </image>
         </ImageView>
     </children>

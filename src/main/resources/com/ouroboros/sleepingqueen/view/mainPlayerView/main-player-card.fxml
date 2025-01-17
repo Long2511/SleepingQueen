@@ -8,7 +8,7 @@
     <children>
         <ImageView id="main-player-card" fitHeight="141" fitWidth="94" pickOnBounds="true">
             <image>
-                <Image url="@../cardImg/king-1.jpg"/>
+                <Image url="@../../cardImg/king-1.jpg"/>
             </image>
         </ImageView>
     </children>
