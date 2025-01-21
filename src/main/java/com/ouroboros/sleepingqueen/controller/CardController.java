@@ -1,4 +1,4 @@
-package com.ouroboros.sleepingqueen;
+package com.ouroboros.sleepingqueen.controller;
 
 import com.ouroboros.sleepingqueen.deck.Card;
 import com.ouroboros.sleepingqueen.deck.CardDeck;
@@ -12,18 +12,15 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-public class CardController implements Initializable{
+public class CardController implements Initializable {
+    String card1ImgPath = "/com/ouroboros/sleepingqueen/cardImg/facedown.jpeg";
+    String card2ImgPath = "/com/ouroboros/sleepingqueen/cardImg/empty.jpeg";
+    Image card1Img = new Image(Objects.requireNonNull(CardController.class.getResourceAsStream(card1ImgPath)));
+    Image card2Img = new Image(Objects.requireNonNull(CardController.class.getResourceAsStream(card2ImgPath)));
     @FXML
     private ImageView card1;
     @FXML
     private ImageView card2;
-
-    String card1ImgPath = "/com/ouroboros/sleepingqueen/cardImg/facedown.jpeg";
-    String card2ImgPath = "/com/ouroboros/sleepingqueen/cardImg/empty.jpeg";
-
-    Image card1Img = new Image(Objects.requireNonNull(CardController.class.getResourceAsStream(card1ImgPath)));
-    Image card2Img = new Image(Objects.requireNonNull(CardController.class.getResourceAsStream(card2ImgPath)));
-
     private CardDeck cardDeck = new CardDeck();
     private Card lastPlayedCard = new Card();
 

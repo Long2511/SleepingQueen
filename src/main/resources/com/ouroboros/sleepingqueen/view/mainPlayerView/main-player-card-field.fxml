@@ -1,64 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-
-<AnchorPane prefHeight="158" prefWidth="743" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.mainPlayer.MainPlayerCardField">
-   <children>
-      <GridPane layoutX="68.5" layoutY="8.5" prefHeight="141.0" prefWidth="606.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <VBox prefHeight="141" prefWidth="94">
-               <children>
-                   <fx:include fx:id="MainCard1" source="main-player-card.fxml" />
-               </children>
-            </VBox>
-            <VBox prefHeight="141" prefWidth="94" GridPane.columnIndex="1">
-               <children>
-                   <fx:include fx:id="MainCard2" source="main-player-card.fxml" />
-               </children>
-               <GridPane.margin>
-                  <Insets left="6.8" right="20.4" />
-               </GridPane.margin>
-            </VBox>
-            <VBox prefHeight="141" prefWidth="94" GridPane.columnIndex="2">
-               <children>
-                   <fx:include fx:id="MainCard3" source="main-player-card.fxml" />
-               </children>
-               <GridPane.margin>
-                  <Insets left="13.6" right="13.6" />
-               </GridPane.margin>
-            </VBox>
-            <VBox prefHeight="141" prefWidth="94" GridPane.columnIndex="3">
-               <children>
-                   <fx:include fx:id="MainCard4" source="main-player-card.fxml" />
-               </children>
-               <GridPane.margin>
-                  <Insets left="20.4" right="6.8" />
-               </GridPane.margin>
-            </VBox>
-            <VBox prefHeight="141" prefWidth="94" GridPane.columnIndex="4">
-               <children>
-                   <fx:include fx:id="MainCard5" source="main-player-card.fxml" />
-               </children>
-               <GridPane.margin>
-                  <Insets left="27.2" />
-               </GridPane.margin>
-            </VBox>
-         </children>
-      </GridPane>
-   </children>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="158"
+            prefWidth="743"
+            style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/23.0.1"
+            fx:controller="com.ouroboros.sleepingqueen.controller.MainPlayerCardField">
+    <children>
+        <GridPane layoutX="68.5" layoutY="8.5" prefHeight="141.0" prefWidth="606.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <VBox prefHeight="141" prefWidth="94">
+                    <children>
+                        <fx:include fx:id="MainCard1" source="main-player-card.fxml"/>
+                    </children>
+                </VBox>
+                <VBox prefHeight="141" prefWidth="94" GridPane.columnIndex="1">
+                    <children>
+                        <fx:include fx:id="MainCard2" source="main-player-card.fxml"/>
+                    </children>
+                    <GridPane.margin>
+                        <Insets left="6.8" right="20.4"/>
+                    </GridPane.margin>
+                </VBox>
+                <VBox prefHeight="141" prefWidth="94" GridPane.columnIndex="2">
+                    <children>
+                        <fx:include fx:id="MainCard3" source="main-player-card.fxml"/>
+                    </children>
+                    <GridPane.margin>
+                        <Insets left="13.6" right="13.6"/>
+                    </GridPane.margin>
+                </VBox>
+                <VBox prefHeight="141" prefWidth="94" GridPane.columnIndex="3">
+                    <children>
+                        <fx:include fx:id="MainCard4" source="main-player-card.fxml"/>
+                    </children>
+                    <GridPane.margin>
+                        <Insets left="20.4" right="6.8"/>
+                    </GridPane.margin>
+                </VBox>
+                <VBox prefHeight="141" prefWidth="94" GridPane.columnIndex="4">
+                    <children>
+                        <fx:include fx:id="MainCard5" source="main-player-card.fxml"/>
+                    </children>
+                    <GridPane.margin>
+                        <Insets left="27.2"/>
+                    </GridPane.margin>
+                </VBox>
+            </children>
+        </GridPane>
+    </children>
 </AnchorPane>
