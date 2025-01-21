@@ -1,5 +1,4 @@
 package com.ouroboros.sleepingqueen.controller;
-package com.ouroboros.sleepingqueen;
 
 import com.ouroboros.sleepingqueen.card.DeckController;
 import com.ouroboros.sleepingqueen.card.QueenFieldController;
