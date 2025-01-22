@@ -6,6 +6,10 @@ import com.ouroboros.sleepingqueen.player.Player;
 import com.ouroboros.sleepingqueen.subPlayer.SubPlayerFieldController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -22,6 +26,8 @@ public class BoardViewController {
     private HBox deckField;
     @FXML
     private AnchorPane overlayPane;
+    @FXML
+    private GridPane Menu;
 
     @FXML
     private QueenFieldController queenFieldController;
@@ -38,6 +44,11 @@ public class BoardViewController {
 
 
     @FXML
+    private void handleMenuButtonClick() {
+        overlayPane.setVisible(!overlayPane.isVisible());
+    }
+
+    @FXML
     public void initialize() {
         // Try  to load Deck to the Board
         try {
@@ -46,12 +57,28 @@ public class BoardViewController {
             deckField.getChildren().add(deckPane);
             deckController = loader.getController();
             deckController.setPlayNowButtonClick(this::handlePlayNowButtonClick);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        // Try to load SubPlayerField to the Board
-        try {
+            // Load overlay
+            FXMLLoader overlayLoader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/menu.fxml"));
+            overlayPane = overlayLoader.load();
+            overlayPane.setVisible(false);
+            rootPane.getChildren().add(overlayPane);
+            overlayPane.styleProperty().set("-fx-background-color: rgba(40, 32, 46  , 0.75);");
+            StackPane.setAlignment(overlayPane, Pos.CENTER);
+
+            // Set up menu button in the overlay
+            MenuController menuOverlayController = overlayLoader.getController();
+            menuOverlayController.setOverlayPane(overlayPane);
+            AnchorPane.setTopAnchor(Menu, 564.0);
+
+            // Add key event listener for Esc key
+            rootPane.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+                if (event.getCode() == KeyCode.ESCAPE) {
+                    handleMenuButtonClick();
+                }
+            });
+
+            // Try to load SubPlayerField to the Board
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/subPlayerView/sub-player-field.fxml"));
             GridPane subPlayerPane = loader.load();
             subPlayerField.getChildren().add(subPlayerPane);
@@ -97,9 +124,5 @@ public class BoardViewController {
 
     private void handlePlayNowButtonClick() {
         System.out.println("Play now button clicked");
-    }
-
-    private void handleMenuButtonClick() {
-        overlayPane.setVisible(true);
     }
 }

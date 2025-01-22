@@ -71,4 +71,8 @@ public class DeckController {
         this.onDeckButtonClick = onDeckButtonClick;
     }
 
+    public void setOnMenuButtonClick(Runnable onMenuButtonClick) {
+        this.onDeckButtonClick = onMenuButtonClick;
+    }
+
 }
