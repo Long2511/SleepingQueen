@@ -38,12 +38,14 @@ public class QueenFieldController {
 
     private JSONCardDAO cardDAO;
 
+    @FXML
     public void initialize() {
         System.out.println("QueenFieldController initialized");
         queenControllers = new ArrayList<QueenController>();
 //        queenCards = new ArrayList<Card>();
         cardDAO = new JSONCardDAO();
         queenCards = cardDAO.getAllQueenCard();
+
         Collections.shuffle(queenCards, new Random());
 
         queenControllers.add(queen1Controller);
