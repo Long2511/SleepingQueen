@@ -11,13 +11,13 @@
     <children>
         <ImageView fx:id="discarded" fitHeight="171.0" fitWidth="123.0" pickOnBounds="true">
             <image>
-                <Image url="@../cardImg/king-1.jpg"/>
+                <Image url="@../../cardImg/king-1.jpg"/>
             </image>
         </ImageView>
         <Button mnemonicParsing="false" text="Play card"/>
         <ImageView fx:id="deck" fitHeight="171.0" fitWidth="123.0" onMouseClicked="#drawCard" pickOnBounds="true">
             <image>
-                <Image url="@../cardImg/king-1.jpg"/>
+                <Image url="@../../cardImg/king-1.jpg"/>
             </image>
         </ImageView>
     </children>

@@ -1,38 +1,26 @@
 package com.ouroboros.sleepingqueen.controller;
 
+import com.ouroboros.sleepingqueen.card.DeckController;
+import com.ouroboros.sleepingqueen.card.QueenFieldController;
+import com.ouroboros.sleepingqueen.subPlayer.SubPlayerFieldController;
+import javafx.fxml.FXML;
+
 public class BoardViewController {
 //    @FXML
-//    private GridPane centerPlayingBoard;
-//
+//    private SubPlayerFieldController subPlayerFieldController;
 //    @FXML
-//    public SplitPane splitPaneLeft;
-//
+//    private QueenFieldController queenFieldController;
 //    @FXML
+//    private DeckController deckController;
+//    @FXML
+//    private MainPlayerQueenField mainPlayerQueenField;
+//    @FXML
+//    private MainPlayerCardField mainPlayerCardField;
+//    @FXML
+//    private BoardMenuController boardMenuController;
+
+
 //    public void initialize() {
-//        splitPaneLeft.getStyleClass().add("static-split");
 //
-//        CardDeck cardDeck = new CardDeck();
-//        addCardsToGridPane(centerPlayingBoard, cardDeck);
-//
-//        for (Node splitPaneDivider : splitPaneLeft.lookupAll(".split-pane-divider")) {
-//            splitPaneDivider.setMouseTransparent(true);
-//        }
-//    }
-//
-//    private Image getImage(Card card) {
-//        return new Image(Objects.requireNonNull(BoardViewController.class.getResourceAsStream(card.getCardImgPath())));
-//    }
-//
-//    private void addCardsToGridPane(GridPane gridPane, CardDeck cardDeck) {
-//        int row = 0;
-//        int col = 1;
-//
-//        ImageView imageView = new ImageView(getImage(cardDeck.draw()));
-//        imageView.setFitWidth(100);
-//        imageView.setFitHeight(150);
-//        GridPane.setHalignment(imageView, HPos.CENTER);
-//        GridPane.setValignment(imageView, VPos.CENTER);
-//
-//        gridPane.add(imageView, col, row);
 //    }
 }
