@@ -11,7 +11,13 @@ public class BoardViewController {
     @FXML
     private HBox deckField;
 
-    private DeckController deckController;
+    public static String getPlayerCount() {
+        return playerCount;
+    }
+
+    public static void setPlayerCount(String count) {
+        playerCount = count;
+    }
 
     @FXML
     public void initialize() {

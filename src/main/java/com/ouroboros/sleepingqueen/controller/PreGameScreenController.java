@@ -8,8 +8,9 @@ import java.io.IOException;
 
 public class PreGameScreenController {
 
+
     @FXML
-    private ComboBox playerCountComboBox;
+    private ComboBox<String> playerCountComboBox;
 
 
     @FXML
@@ -20,13 +21,18 @@ public class PreGameScreenController {
 
     @FXML
     private void handleCreateGameButtonAction(ActionEvent event) throws IOException {
+        BoardViewController.setPlayerCount(getPlayerCountComboBox());
         SceneChanger.changeScene(event, "/com/ouroboros/sleepingqueen/view/board-view.fxml");
+        System.out.println(getPlayerCountComboBox());
     }
 
     public void initialize() {
         playerCountComboBox.getItems().removeAll(playerCountComboBox.getItems());
-        playerCountComboBox.getItems().addAll("2 Players", "3 Players", "4 Players", "5 Players");
-        playerCountComboBox.getSelectionModel().select("2 Players");
+        playerCountComboBox.getItems().addAll("2", "3", "4", "5");
+        playerCountComboBox.getSelectionModel().select("2");
     }
 
+    public String getPlayerCountComboBox() {
+        return playerCountComboBox.getValue().toString();
+    }
 }
