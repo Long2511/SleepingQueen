@@ -7,7 +7,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +27,10 @@ public class JSONCardDAO implements CardDAO {
         readFromJSON(normalCardList, NORMAL_CARD_DATA_PATH);
     }
 
+
     public void readFromJSON(List<Card> cardList, String path) {
         JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader(getClass().getResource(path).toURI().getPath())) {
+        try (Reader reader = new InputStreamReader(getClass().getResourceAsStream(path))) {
             JSONObject cardData = (JSONObject) parser.parse(reader);
             JSONArray cards = (JSONArray) cardData.get("cards");
             String backImage = (String) cardData.get("backImage");
