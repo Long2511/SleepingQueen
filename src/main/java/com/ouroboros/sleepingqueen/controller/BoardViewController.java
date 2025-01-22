@@ -79,15 +79,15 @@ public class BoardViewController {
             });
 
             // Try to load SubPlayerField to the Board
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/subPlayerView/sub-player-field.fxml"));
-            GridPane subPlayerPane = loader.load();
+            FXMLLoader SubPlayerFieldloader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/subPlayerView/sub-player-field.fxml"));
+            GridPane subPlayerPane = SubPlayerFieldloader.load();
             subPlayerField.getChildren().add(subPlayerPane);
-            subPlayerFieldController = loader.getController();
+            subPlayerFieldController = SubPlayerFieldloader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-//        setUpPlayer();
+        setUpPlayer();
     }
 
 
