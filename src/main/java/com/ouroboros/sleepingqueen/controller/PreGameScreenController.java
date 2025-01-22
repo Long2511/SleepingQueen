@@ -23,7 +23,6 @@ public class PreGameScreenController {
     private void handleCreateGameButtonAction(ActionEvent event) throws IOException {
         BoardViewController.setPlayerCount(getPlayerCountComboBox());
         SceneChanger.changeScene(event, "/com/ouroboros/sleepingqueen/view/board-view.fxml");
-        System.out.println(getPlayerCountComboBox());
     }
 
     public void initialize() {

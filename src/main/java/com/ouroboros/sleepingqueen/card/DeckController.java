@@ -58,14 +58,13 @@ public class DeckController {
         });
     }
 
-    public void drawCard(MouseEvent e) throws InterruptedException {
+    public Card drawCard() {
         lastDrawnCard = cardDeck.draw();
         if (lastDrawnCard == null) {
             System.out.println("Deck is empty. Reshuffle");
             cardDeck.reshuffle();
         }
-
-        drawCardAnimation.play();
+        return lastDrawnCard;
     }
 
     public void setPlayNowButtonClick(Runnable onDeckButtonClick) {

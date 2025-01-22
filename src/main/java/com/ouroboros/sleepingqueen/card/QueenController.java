@@ -14,19 +14,32 @@ public class QueenController {
 
     private Card queenCard;
     private boolean isFaceup;
+    private boolean isIdle;
 
     public void initialize() {
         System.out.println("QueenOnBoardController initialized.");
         queenCard = null;  // no data yet
         isFaceup = false;
+        isIdle = false;
     }
 
     public void setCard(Card card) {
         this.queenCard = card;
     }
+    public void setIdle(boolean isIdle) {
+        this.isIdle = isIdle;
+    }
+    public void setFaceup(boolean isFaceup) {
+        this.isFaceup = isFaceup;
+    }
 
     @FXML
     public void flipCard(MouseEvent e) {
+        // If idle, cannot be flipped
+        if (isIdle) {
+            System.out.println("This card is idle.");
+            return;
+        }
         if (queenCard == null) {
             System.out.println("No card data yet.");
             return;

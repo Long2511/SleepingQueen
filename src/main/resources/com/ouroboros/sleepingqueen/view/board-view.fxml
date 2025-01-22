@@ -25,10 +25,7 @@
                         <Image url="@../image/main-screen.png" />
                     </image>
                 </ImageView>
-                <HBox prefHeight="562.0" prefWidth="1280.0">
-                    <children>
-                        <fx:include fx:id="subPlayerField" source="subPlayerView/sub-player-field.fxml" />
-                    </children>
+                <HBox fx:id="subPlayerField" prefHeight="562.0" prefWidth="1280.0">
                 </HBox>
                 <HBox layoutX="226.0" layoutY="7.0" prefHeight="562.0" prefWidth="828.0" AnchorPane.topAnchor="0.0">
                     <children>

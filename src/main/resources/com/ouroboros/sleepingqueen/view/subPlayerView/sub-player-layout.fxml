@@ -12,7 +12,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="223.0" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.subPlayer.SubPlayerLayoutController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="281.0" prefWidth="223.0" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.ouroboros.sleepingqueen.subPlayer.SubPlayerLayoutController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="223.0" prefWidth="223.0" />
   </columnConstraints>
@@ -21,10 +22,10 @@
     <RowConstraints minHeight="-Infinity" prefHeight="27.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
-         <children>
-             <fx:include fx:id="SubPlayerQueenField" source="sub-player-queen-field.fxml" />
-         </children>
+      <VBox fx:id="SubPlayerQueenFieldBox" prefHeight="200.0" prefWidth="100.0">
+<!--         <children>-->
+<!--             <fx:include source="sub-player-queen-field.fxml" />-->
+<!--         </children>-->
          <GridPane.margin>
             <Insets left="26.0" />
          </GridPane.margin>
