@@ -8,12 +8,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="game-information-box" prefHeight="271.0" prefWidth="373.0" styleClass="content" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.controller.MenuController">
+<AnchorPane id="game-information-box" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: rgba(40, 32, 46  , 0.75);" styleClass="content" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.controller.MenuController">
     <children>
-        <Button layoutX="111.0" layoutY="94.0" onAction="#handleCloseButtonAction" prefHeight="32.0" prefWidth="151.0" stylesheets="@../css/styles.css" text="Return To Game" />
-        <Button layoutX="111.0" layoutY="143.0" mnemonicParsing="false" onAction="#handleMainMenuAction" stylesheets="@../css/styles.css" text="Back To Main Menu" />
-        <Button layoutX="111.0" layoutY="196.0" mnemonicParsing="false" onAction="#handleQuiteGameAction" prefHeight="32.0" prefWidth="151.0" stylesheets="@../css/styles.css" text="Exit game" />
-        <Text layoutX="130.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 46;" text="Menu" wrappingWidth="113.13685607910156">
+        <Button layoutX="564.0" layoutY="329.0" onAction="#handleCloseButtonAction" prefHeight="32.0" prefWidth="151.0" stylesheets="@../css/styles.css" text="Return To Game" />
+        <Button layoutX="564.0" layoutY="378.0" mnemonicParsing="false" onAction="#handleMainMenuAction" stylesheets="@../css/styles.css" text="Back To Main Menu" />
+        <Button layoutX="564.0" layoutY="431.0" mnemonicParsing="false" onAction="#handleQuiteGameAction" prefHeight="32.0" prefWidth="151.0" stylesheets="@../css/styles.css" text="Exit game" />
+        <Text layoutX="583.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 46;" styleClass="label" text="Menu" wrappingWidth="113.13685607910156">
             <font>
                 <Font name="Great Vibes" size="90.0" />
             </font>

@@ -10,12 +10,17 @@ import java.io.IOException;
 
 public class MenuController {
 
-    @FXML
     private AnchorPane overlayPane;
+
+    public void setOverlayPane(AnchorPane overlayPane) {
+        this.overlayPane = overlayPane;
+    }
 
     @FXML
     private void handleCloseButtonAction(ActionEvent event) {
-        overlayPane.setVisible(false);
+        if (overlayPane != null) {
+            overlayPane.setVisible(false);
+        }
     }
 
     @FXML
