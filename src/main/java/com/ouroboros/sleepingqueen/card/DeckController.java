@@ -1,9 +1,11 @@
 package com.ouroboros.sleepingqueen.card;
 
-import com.ouroboros.sleepingqueen.deck.*;
+import com.ouroboros.sleepingqueen.deck.Card;
+import com.ouroboros.sleepingqueen.deck.CardDeck;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,12 +19,22 @@ public class DeckController {
     @FXML
     private ImageView discarded;
 
+    @FXML
+    private Button playButton;
+
+    private Runnable onDeckButtonClick;
+
     private CardDeck cardDeck;
     private TranslateTransition drawCardAnimation;
     private Card lastDrawnCard;
 
     public void initialize() {
         System.out.println("DeckOnBoardController initialized.");
+        playButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (onDeckButtonClick != null) {
+                onDeckButtonClick.run();
+            }
+        });
         cardDeck = new CardDeck();
 
         // set back of the deck
@@ -34,7 +46,7 @@ public class DeckController {
         drawCardAnimation.setDuration(Duration.millis(20));
 //        drawCardAnimation.setCycleCount(1);
         drawCardAnimation.setInterpolator(Interpolator.LINEAR);
-        drawCardAnimation.setByY(-(179+171));
+        drawCardAnimation.setByY(-(179 + 171));
         drawCardAnimation.setCycleCount(2);
         drawCardAnimation.setAutoReverse(true);
         drawCardAnimation.setOnFinished(e -> {
@@ -42,6 +54,7 @@ public class DeckController {
 //            deck.setImage(drawnCardImage);
 //            deck.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/ouroboros/sleepingqueen/cardImg/facedown.jpeg"))));
             discarded.setImage(drawnCardImage);
+
         });
     }
 
@@ -54,4 +67,9 @@ public class DeckController {
 
         drawCardAnimation.play();
     }
+
+    public void setPlayNowButtonClick(Runnable onDeckButtonClick) {
+        this.onDeckButtonClick = onDeckButtonClick;
+    }
+
 }
