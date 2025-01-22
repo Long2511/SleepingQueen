@@ -18,31 +18,19 @@
       <RowConstraints minHeight="280.0" prefHeight="280.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
-         <children>
-             <fx:include fx:id="SubPlayer1Field" source="sub-player-layout.fxml" />
-         </children>
+      <VBox fx:id="SubPlayer1FieldBox" prefHeight="200.0" prefWidth="100.0">
          <GridPane.margin>
             <Insets top="4.0" />
          </GridPane.margin>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
-         <children>
-             <fx:include fx:id="SubPlayer2Field" source="sub-player-layout.fxml" />
-         </children>
+      <VBox fx:id="SubPlayer2FieldBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
          <GridPane.margin>
             <Insets top="4.0" />
          </GridPane.margin>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
-         <children>
-             <fx:include fx:id="SubPlayer3Field" source="sub-player-layout.fxml" />
-         </children>
+      <VBox fx:id="SubPlayer3FieldBox" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-         <children>
-             <fx:include fx:id="SubPlayer4Field" source="sub-player-layout.fxml" />
-         </children>
+      <VBox fx:id="SubPlayer4FieldBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
       </VBox>
    </children>
 </GridPane>

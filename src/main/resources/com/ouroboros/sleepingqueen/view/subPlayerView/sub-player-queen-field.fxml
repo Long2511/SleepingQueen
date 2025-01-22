@@ -16,37 +16,29 @@
       <RowConstraints minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox id="queen1-player" prefHeight="120.0" prefWidth="74.0">
+      <VBox fx:id="subQueen1Box" prefHeight="120.0" prefWidth="74.0"
+            GridPane.columnIndex="0" GridPane.rowIndex="0">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
-         <children>
-             <fx:include fx:id="SubPlayerQueen1" source="sub-player-queen-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-         </children>
       </VBox>
-      <VBox id="queen2-player" prefHeight="120.0" prefWidth="74.0" GridPane.columnIndex="1">
+      <VBox fx:id="subQueen2Box" prefHeight="120.0" prefWidth="74.0"
+            GridPane.columnIndex="1" GridPane.rowIndex="0">
          <GridPane.margin>
             <Insets left="10.5" />
          </GridPane.margin>
-         <children>
-             <fx:include fx:id="SubPlayerQueen2" source="sub-player-queen-on-board.fxml" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-         </children>
       </VBox>
-      <VBox id="queen3-player" prefHeight="120.0" prefWidth="74.0" GridPane.rowIndex="1">
+      <VBox fx:id="subQueen3Box" prefHeight="120.0" prefWidth="74.0"
+            GridPane.columnIndex="0" GridPane.rowIndex="1" >
          <GridPane.margin>
             <Insets top="4.0" />
          </GridPane.margin>
-         <children>
-             <fx:include fx:id="SubPlayerQueen3" source="sub-player-queen-on-board.fxml" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-         </children>
       </VBox>
-      <VBox id="queen4-player" prefHeight="120.0" prefWidth="74.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <VBox fx:id="subQueen4Box" prefHeight="120.0" prefWidth="74.0"
+            GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="10.5" top="4.0" />
          </GridPane.margin>
-         <children>
-             <fx:include fx:id="SubPlayerQueen4" source="sub-player-queen-on-board.fxml" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         </children>
       </VBox>
    </children>
 </GridPane>
