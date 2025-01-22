@@ -2,46 +2,50 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="720.0" prefWidth="1280" stylesheets="@../css/styles.css"
-            xmlns="http://javafx.com/javafx/23.0.1"
-            fx:controller="com.ouroboros.sleepingqueen.controller.BoardViewController">
-    <children>
-        <ImageView id="label" fitHeight="720.0" fitWidth="1280.0" styleClass="label">
-            <image>
-                <Image url="@../image/main-screen.png"/>
-            </image>
-        </ImageView>
-        <HBox prefHeight="562.0" prefWidth="1280.0">
-            <children>
-                <fx:include fx:id="subPlayerField" source="subPlayerView/sub-player-field.fxml"/>
-            </children>
-        </HBox>
-        <HBox layoutX="226.0" layoutY="7.0" prefHeight="562.0" prefWidth="828.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <HBox prefHeight="559.0" prefWidth="323.0"/>
-                <fx:include fx:id="queenField" source="boardView/queen-field.fxml"/>
-            </children>
-        </HBox>
-        <HBox prefHeight="559.0" prefWidth="323.0" AnchorPane.leftAnchor="477.0" AnchorPane.rightAnchor="477.0"
-              AnchorPane.topAnchor="0.0"
-              fx:id="deckField">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.controller.BoardViewController">
+   <children>
+      <AnchorPane prefHeight="720.0" prefWidth="1280" stylesheets="@../css/styles.css">
+          <children>
+              <ImageView id="label" fitHeight="720.0" fitWidth="1280.0" styleClass="label">
+                  <image>
+                      <Image url="@../image/main-screen.png" />
+                  </image>
+              </ImageView>
+              <HBox prefHeight="562.0" prefWidth="1280.0">
+                  <children>
+                      <fx:include fx:id="subPlayerField" source="subPlayerView/sub-player-field.fxml" />
+                  </children>
+              </HBox>
+              <HBox layoutX="226.0" layoutY="7.0" prefHeight="562.0" prefWidth="828.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                      <HBox prefHeight="559.0" prefWidth="323.0" />
+                      <fx:include fx:id="queenField" source="boardView/queen-field.fxml" />
+                  </children>
+              </HBox>
+              <HBox fx:id="deckField" prefHeight="559.0" prefWidth="323.0" AnchorPane.leftAnchor="477.0" AnchorPane.rightAnchor="477.0" AnchorPane.topAnchor="0.0">
 
         </HBox>
-        <HBox layoutY="564.0" prefHeight="153.0" prefWidth="291.0">
-            <children>
-                <fx:include fx:id="mainPlayerQueenField" source="mainPlayerView/main-player-queen-field.fxml"/>
-            </children>
-        </HBox>
-        <HBox layoutX="294.0" layoutY="564.0" prefHeight="158.0" prefWidth="743.0">
-            <children>
-                <fx:include fx:id="mainPlayerCardField" source="mainPlayerView/main-player-card-field.fxml"/>
-            </children>
-        </HBox>
-        <HBox layoutX="1040.0" layoutY="564.0" prefHeight="158.0" prefWidth="240.0">
-            <children>
-                <fx:include fx:id="Menu" source="mainPlayerView/main-player-name-and-menu.fxml"/>
-            </children>
-        </HBox>
-    </children>
-</AnchorPane>
+              <HBox layoutY="564.0" prefHeight="153.0" prefWidth="291.0">
+                  <children>
+                      <fx:include fx:id="mainPlayerQueenField" source="mainPlayerView/main-player-queen-field.fxml" />
+                  </children>
+              </HBox>
+              <HBox layoutX="294.0" layoutY="564.0" prefHeight="158.0" prefWidth="743.0">
+                  <children>
+                      <fx:include fx:id="mainPlayerCardField" source="mainPlayerView/main-player-card-field.fxml" />
+                  </children>
+              </HBox>
+              <HBox layoutX="1040.0" layoutY="564.0" prefHeight="158.0" prefWidth="240.0">
+                  <children>
+                      <fx:include fx:id="Menu" source="mainPlayerView/main-player-name-and-menu.fxml" />
+                  </children>
+              </HBox>
+          </children>
+      </AnchorPane>
+   </children>
+</StackPane>
