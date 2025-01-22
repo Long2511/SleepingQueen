@@ -1,26 +1,37 @@
 package com.ouroboros.sleepingqueen.controller;
 
 import com.ouroboros.sleepingqueen.card.DeckController;
-import com.ouroboros.sleepingqueen.card.QueenFieldController;
-import com.ouroboros.sleepingqueen.subPlayer.SubPlayerFieldController;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class BoardViewController {
-//    @FXML
-//    private SubPlayerFieldController subPlayerFieldController;
-//    @FXML
-//    private QueenFieldController queenFieldController;
-//    @FXML
-//    private DeckController deckController;
-//    @FXML
-//    private MainPlayerQueenField mainPlayerQueenField;
-//    @FXML
-//    private MainPlayerCardField mainPlayerCardField;
-//    @FXML
-//    private BoardMenuController boardMenuController;
+
+    @FXML
+    private HBox deckField;
+
+    private DeckController deckController;
+
+    @FXML
+    public void initialize() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/boardView/deck-on-board.fxml"));
+            VBox deckPane = loader.load();
+            deckField.getChildren().add(deckPane);
+            deckController = loader.getController();
+            deckController.setPlayNowButtonClick(this::handlePlayNowButtonClick);
 
 
-//    public void initialize() {
-//
-//    }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handlePlayNowButtonClick() {
+        System.out.println("Play now button clicked");
+
+    }
+
+
 }
