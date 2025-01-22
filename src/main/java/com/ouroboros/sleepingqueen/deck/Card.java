@@ -43,4 +43,7 @@ public class Card {
     public String getBackImgPath() {
         return backImgPath;
     }
+    public CardType getType() {
+        return this.type;
+    }
 }
