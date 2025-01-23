@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="102.0" prefWidth="62.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="102.0" prefWidth="62.0" xmlns="http://javafx.com/javafx/8"
       fx:controller="com.ouroboros.sleepingqueen.card.CardController">
     <children>
-        <ImageView fx:id="card" fitHeight="102.0" fitWidth="62.0" pickOnBounds="true">
+        <ImageView fx:id="cardHolder" fitHeight="102.0" fitWidth="62.0" pickOnBounds="true">
             <image>
-                <Image url="@../../cardImg/queen-09.jpg" />
+                <Image url="@../../cardImg/queen-09.jpg"/>
             </image>
         </ImageView>
     </children>
