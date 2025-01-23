@@ -2,6 +2,8 @@ package com.ouroboros.sleepingqueen.controller;
 
 import com.ouroboros.sleepingqueen.card.DeckController;
 import com.ouroboros.sleepingqueen.card.QueenFieldController;
+import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerCardField;
+import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerQueenField;
 import com.ouroboros.sleepingqueen.player.Player;
 import com.ouroboros.sleepingqueen.subPlayer.SubPlayerFieldController;
 import javafx.fxml.FXML;
@@ -10,16 +12,14 @@ import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardViewController {
+    private static String playerCount;
+    @FXML
+    public HBox mainPlayerQueenFieldBox;
     @FXML
     private StackPane rootPane;
     @FXML
@@ -28,20 +28,27 @@ public class BoardViewController {
     private AnchorPane overlayPane;
     @FXML
     private GridPane Menu;
-
     @FXML
     private QueenFieldController queenFieldController;
-
     @FXML
     private HBox subPlayerField;
-
+    @FXML
+    private HBox mainPlayerCardFieldBox;
+    @FXML
+    private MainPlayerQueenField mainPlayerQueenFieldController;
     private List<Player> playerList;
     private int currentTurnPlayerIndex;
-    private static String playerCount;
-
     private SubPlayerFieldController subPlayerFieldController;
     private DeckController deckController;
+    private MainPlayerCardField mainPlayerCardFieldController;
 
+    public static int getPlayerCount() {
+        return Integer.parseInt(playerCount);
+    }
+
+    public static void setPlayerCount(String count) {
+        playerCount = count;
+    }
 
     @FXML
     private void handleMenuButtonClick() {
@@ -50,8 +57,8 @@ public class BoardViewController {
 
     @FXML
     public void initialize() {
-        // Try  to load Deck to the Board
         try {
+            // Try  to load Deck to the Board
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/boardView/deck-on-board.fxml"));
             VBox deckPane = loader.load();
             deckField.getChildren().add(deckPane);
@@ -83,20 +90,21 @@ public class BoardViewController {
             GridPane subPlayerPane = SubPlayerFieldloader.load();
             subPlayerField.getChildren().add(subPlayerPane);
             subPlayerFieldController = SubPlayerFieldloader.getController();
+
+            // Try to load MainPlayerCardField to the Board
+            FXMLLoader MainPlayerCardFieldloader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/mainPlayerView/main-player-card-field.fxml"));
+            mainPlayerCardFieldBox.getChildren().add((AnchorPane) MainPlayerCardFieldloader.load());
+            mainPlayerCardFieldController = MainPlayerCardFieldloader.getController();
+
+            // Try to load MainPlayerQueenField to the Board
+            FXMLLoader MainPlayerQueenFieldloader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/mainPlayerView/main-player-queen-field.fxml"));
+            mainPlayerQueenFieldBox.getChildren().add((AnchorPane) MainPlayerQueenFieldloader.load());
+            mainPlayerQueenFieldController = MainPlayerQueenFieldloader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         setUpPlayer();
-    }
-
-
-    public static int getPlayerCount() {
-        return Integer.parseInt(playerCount);
-    }
-
-    public static void setPlayerCount(String count) {
-        playerCount = count;
     }
 
     private void setUpPlayer() {
@@ -112,6 +120,10 @@ public class BoardViewController {
         }
         // Player 1 makes a move first
         currentTurnPlayerIndex = 0;
+    }
+
+    private void setUpPlayerTurn() {
+        // TODO: load cards of the CurrentTurnPlayer to the main player card field
     }
 
     private void endPlayerTurn() {

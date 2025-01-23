@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.Objects;
 
-public class QueenController {
+public class CardController {
     @FXML
     private ImageView card;
 
@@ -26,9 +26,11 @@ public class QueenController {
     public void setCard(Card card) {
         this.queenCard = card;
     }
+
     public void setIdle(boolean isIdle) {
         this.isIdle = isIdle;
     }
+
     public void setFaceup(boolean isFaceup) {
         this.isFaceup = isFaceup;
     }

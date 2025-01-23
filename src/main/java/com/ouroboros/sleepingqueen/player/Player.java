@@ -18,11 +18,31 @@ public class Player {
     private Card[] normalCards;
     private Card[] queenCards;
 
+    private boolean[] isChosenCards;
+
     public Player(String name) {
         this.name = name;
         this.score = 0;
         this.normalCards = new Card[MAX_NORMAL_CARDS];
         this.queenCards = new Card[MAX_QUEEN_CARDS];
+        this.isChosenCards = new boolean[MAX_NORMAL_CARDS];
+        resetChosenCards();
+    }
+
+    public void resetChosenCards() {
+        for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
+            isChosenCards[i] = false;
+        }
+    }
+
+    public List<Card> getChosenCards() {
+        List<Card> chosenCards = new ArrayList<>();
+        for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
+            if (isChosenCards[i]) {
+                chosenCards.add(normalCards[i]);
+            }
+        }
+        return chosenCards;
     }
 
     public void setPosition(int position) {
