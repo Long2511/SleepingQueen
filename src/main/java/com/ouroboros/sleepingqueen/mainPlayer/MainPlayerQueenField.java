@@ -37,4 +37,5 @@ public class MainPlayerQueenField {
             e.printStackTrace();
         }
     }
+
 }
