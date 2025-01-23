@@ -2,14 +2,11 @@ package com.ouroboros.sleepingqueen.card;
 
 import com.ouroboros.sleepingqueen.deck.Card;
 import com.ouroboros.sleepingqueen.deck.CardDeck;
-import javafx.animation.Interpolator;
-import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Duration;
 
 import java.util.Objects;
 
@@ -25,7 +22,6 @@ public class DeckController {
     private Runnable onDeckButtonClick;
 
     private CardDeck cardDeck;
-    private TranslateTransition drawCardAnimation;
     private Card lastDrawnCard;
 
     public void initialize() {
@@ -40,22 +36,7 @@ public class DeckController {
         // set back of the deck
         deck.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(cardDeck.peek().getBackImgPath()))));
 
-        // Set draw deck animation
-        drawCardAnimation = new TranslateTransition();
-        drawCardAnimation.setNode(deck);
-        drawCardAnimation.setDuration(Duration.millis(20));
-//        drawCardAnimation.setCycleCount(1);
-        drawCardAnimation.setInterpolator(Interpolator.LINEAR);
-        drawCardAnimation.setByY(-(179 + 171));
-        drawCardAnimation.setCycleCount(2);
-        drawCardAnimation.setAutoReverse(true);
-        drawCardAnimation.setOnFinished(e -> {
-            Image drawnCardImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream(lastDrawnCard.getCardImgPath())));
-//            deck.setImage(drawnCardImage);
-//            deck.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/ouroboros/sleepingqueen/cardImg/facedown.jpeg"))));
-            discarded.setImage(drawnCardImage);
 
-        });
     }
 
     public Card drawCard() {
