@@ -22,7 +22,7 @@ public class MainScreenController {
 
     @FXML
     private void handleRuleViewButtonAction(ActionEvent event) throws IOException {
-        SceneChanger.changeScene(event, "/com/ouroboros/sleepingqueen/view/rule-view.fxml");
+        SceneChanger.changeScene(event, "/com/ouroboros/sleepingqueen/view/rule-screen.fxml");
     }
 
 }
