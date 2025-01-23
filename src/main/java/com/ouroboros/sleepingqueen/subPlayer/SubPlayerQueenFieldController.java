@@ -1,6 +1,6 @@
 package com.ouroboros.sleepingqueen.subPlayer;
 
-import com.ouroboros.sleepingqueen.card.QueenController;
+import com.ouroboros.sleepingqueen.card.CardController;
 import com.ouroboros.sleepingqueen.deck.Card;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,7 @@ public class SubPlayerQueenFieldController {
     @FXML
     private VBox subQueen4Box;
 
-    private List<QueenController> queenControllers;
+    private List<CardController> queenControllers;
 
 
     public void initialize() {
@@ -33,7 +33,7 @@ public class SubPlayerQueenFieldController {
         loadQueen(subQueen3Box);
         loadQueen(subQueen4Box);
 
-        for (QueenController queenController : queenControllers) {
+        for (CardController queenController : queenControllers) {
             // Queens on player's hand should be fixed
             queenController.setIdle(true);
             // Queens on player's hand are always faceup

@@ -4,9 +4,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="141" prefWidth="94" xmlns="http://javafx.com/javafx/17.0.12">
+      prefHeight="141" prefWidth="94" xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="com.ouroboros.sleepingqueen.card.CardController">
     <children>
-        <ImageView id="main-player-card" fitHeight="141" fitWidth="94" pickOnBounds="true">
+        <ImageView id="card" fitHeight="141" fitWidth="94" pickOnBounds="true">
             <image>
                 <Image url="@../../cardImg/king-1.jpg"/>
             </image>

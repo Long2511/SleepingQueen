@@ -8,31 +8,31 @@ import java.util.*;
 
 public class QueenFieldController {
     @FXML
-    private QueenController queen1Controller;
+    private CardController queen1Controller;
     @FXML
-    private QueenController queen2Controller;
+    private CardController queen2Controller;
     @FXML
-    private QueenController queen3Controller;
+    private CardController queen3Controller;
     @FXML
-    private QueenController queen4Controller;
+    private CardController queen4Controller;
     @FXML
-    private QueenController queen5Controller;
+    private CardController queen5Controller;
     @FXML
-    private QueenController queen6Controller;
+    private CardController queen6Controller;
     @FXML
-    private QueenController queen7Controller;
+    private CardController queen7Controller;
     @FXML
-    private QueenController queen8Controller;
+    private CardController queen8Controller;
     @FXML
-    private QueenController queen9Controller;
+    private CardController queen9Controller;
     @FXML
-    private QueenController queen10Controller;
+    private CardController queen10Controller;
     @FXML
-    private QueenController queen11Controller;
+    private CardController queen11Controller;
     @FXML
-    private QueenController queen12Controller;
+    private CardController queen12Controller;
 
-    private List<QueenController> queenControllers;
+    private List<CardController> queenControllers;
     private List<Card> queenCards;
     private final int NUMBER_OF_QUEENS = 12;
 
@@ -41,7 +41,7 @@ public class QueenFieldController {
     @FXML
     public void initialize() {
         System.out.println("QueenFieldController initialized");
-        queenControllers = new ArrayList<QueenController>();
+        queenControllers = new ArrayList<CardController>();
 //        queenCards = new ArrayList<Card>();
         cardDAO = new JSONCardDAO();
         queenCards = cardDAO.getAllQueenCard();
@@ -61,7 +61,7 @@ public class QueenFieldController {
         queenControllers.add(queen11Controller);
         queenControllers.add(queen12Controller);
 
-        for (QueenController queenController : queenControllers) {
+        for (CardController queenController : queenControllers) {
             queenController.setCard(queenCards.get(queenControllers.indexOf(queenController)));
             queenController.render();
         }
