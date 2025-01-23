@@ -10,21 +10,22 @@ import java.util.Objects;
 
 public class CardController {
     @FXML
-    private ImageView card;
+    private ImageView cardHolder;
 
-    private Card queenCard;
+    private Card card;
     private boolean isFaceup;
     private boolean isIdle;
 
     public void initialize() {
         System.out.println("QueenOnBoardController initialized.");
-        queenCard = null;  // no data yet
+        card = null;  // no data yet
         isFaceup = false;
         isIdle = false;
     }
 
     public void setCard(Card card) {
-        this.queenCard = card;
+        this.card = card;
+        render();
     }
 
     public void setIdle(boolean isIdle) {
@@ -42,7 +43,7 @@ public class CardController {
             System.out.println("This card is idle.");
             return;
         }
-        if (queenCard == null) {
+        if (card == null) {
             System.out.println("No card data yet.");
             return;
         }
@@ -52,16 +53,16 @@ public class CardController {
     }
 
     public void render() {
-        if (queenCard == null) {
+        if (card == null) {
             System.out.println("No card data yet.");
             return;
         }
         if (isFaceup) {
-            Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream(queenCard.getCardImgPath())));
-            card.setImage(cardImg);
+            Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream(card.getCardImgPath())));
+            cardHolder.setImage(cardImg);
         } else {
-            Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream(queenCard.getBackImgPath())));
-            card.setImage(cardImg);
+            Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream(card.getBackImgPath())));
+            cardHolder.setImage(cardImg);
         }
     }
 }

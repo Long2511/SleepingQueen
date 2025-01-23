@@ -4,9 +4,13 @@ import com.ouroboros.sleepingqueen.dao.JSONCardDAO;
 import com.ouroboros.sleepingqueen.deck.Card;
 import javafx.fxml.FXML;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class QueenFieldController {
+    private final int NUMBER_OF_QUEENS = 12;
     @FXML
     private CardController queen1Controller;
     @FXML
@@ -31,11 +35,8 @@ public class QueenFieldController {
     private CardController queen11Controller;
     @FXML
     private CardController queen12Controller;
-
     private List<CardController> queenControllers;
     private List<Card> queenCards;
-    private final int NUMBER_OF_QUEENS = 12;
-
     private JSONCardDAO cardDAO;
 
     @FXML
@@ -63,7 +64,6 @@ public class QueenFieldController {
 
         for (CardController queenController : queenControllers) {
             queenController.setCard(queenCards.get(queenControllers.indexOf(queenController)));
-            queenController.render();
         }
     }
 }
