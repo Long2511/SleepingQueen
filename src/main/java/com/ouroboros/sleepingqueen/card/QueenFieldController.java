@@ -1,3 +1,4 @@
+// src/main/java/com/ouroboros/sleepingqueen/card/QueenFieldController.java
 package com.ouroboros.sleepingqueen.card;
 
 import com.ouroboros.sleepingqueen.dao.JSONCardDAO;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 
 public class QueenFieldController {
     private final int NUMBER_OF_QUEENS = 12;
@@ -38,12 +40,11 @@ public class QueenFieldController {
     private List<CardController> queenControllers;
     private List<Card> queenCards;
     private JSONCardDAO cardDAO;
+    private Consumer<Integer> onQueenCardSelected;
 
     @FXML
     public void initialize() {
-        System.out.println("QueenFieldController initialized");
-        queenControllers = new ArrayList<CardController>();
-//        queenCards = new ArrayList<Card>();
+        queenControllers = new ArrayList<>();
         cardDAO = new JSONCardDAO();
         queenCards = cardDAO.getAllQueenCard();
 
@@ -62,8 +63,31 @@ public class QueenFieldController {
         queenControllers.add(queen11Controller);
         queenControllers.add(queen12Controller);
 
-        for (CardController queenController : queenControllers) {
-            queenController.setCard(queenCards.get(queenControllers.indexOf(queenController)));
+        for (int i = 0; i < queenControllers.size(); i++) {
+            CardController cardController = queenControllers.get(i);
+            cardController.setCard(queenCards.get(i));
+            cardController.setIndex(i);
+            cardController.setOnCardSelected(this::handleQueenCardSelected);
+            cardController.render();
         }
+    }
+
+    public void setOnQueenCardSelected(Consumer<Integer> onQueenCardSelected) {
+        this.onQueenCardSelected = onQueenCardSelected;
+    }
+
+    private void handleQueenCardSelected(int index) {
+        if (onQueenCardSelected != null) {
+            onQueenCardSelected.accept(index);
+        }
+    }
+
+    public Card selectQueenCard(int index) {
+        if (index >= 0 && index < queenCards.size()) {
+            Card selectedCard = queenCards.get(index);
+            queenCards.remove(index);
+            return selectedCard;
+        }
+        return null;
     }
 }

@@ -2,6 +2,10 @@ package com.ouroboros.sleepingqueen.controller;
 
 import com.ouroboros.sleepingqueen.card.DeckController;
 import com.ouroboros.sleepingqueen.card.QueenFieldController;
+import com.ouroboros.sleepingqueen.deck.Card;
+import com.ouroboros.sleepingqueen.deck.CardDeck;
+import com.ouroboros.sleepingqueen.deck.CardType;
+import com.ouroboros.sleepingqueen.deck.cardcollection.NumberCard;
 import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerCardField;
 import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerQueenField;
 import com.ouroboros.sleepingqueen.player.Player;
@@ -14,9 +18,12 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BoardViewController {
+
     private static String playerCount;
     @FXML
     public HBox mainPlayerQueenFieldBox;
@@ -31,6 +38,7 @@ public class BoardViewController {
     @FXML
     private QueenFieldController queenFieldController;
     @FXML
+
     private HBox subPlayerField;
     @FXML
     private HBox mainPlayerCardFieldBox;
@@ -78,7 +86,7 @@ public class BoardViewController {
             menuOverlayController.setOverlayPane(overlayPane);
             AnchorPane.setTopAnchor(Menu, 564.0);
 
-            // Add key event listener for Esc key
+            //Add key event listener for Esc key
             rootPane.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
                 if (event.getCode() == KeyCode.ESCAPE) {
                     handleMenuButtonClick();
@@ -105,6 +113,8 @@ public class BoardViewController {
         }
 
         setUpPlayer();
+        queenFieldController.setOnQueenCardSelected(this::handleQueenCardSelection);
+
     }
 
     private void setUpPlayer() {
@@ -136,7 +146,98 @@ public class BoardViewController {
         currentTurnPlayerIndex = nextTurnPlayerIndex;
     }
 
+    private void KingLogic() {
+        // Todo Add KING case logic
+    }
+
+    public void handleQueenCardSelection(int index) {
+        Card selectedCard = queenFieldController.selectQueenCard(index);
+        if (selectedCard != null) {
+            System.out.println("Selected Queen Card: " + selectedCard.getCardImgPath());
+        } else {
+            System.out.println("Invalid queen card selection.");
+        }
+    }
+
+    private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
+        //todo: implement logic to remove cards from players deck
+    }
+
+    private void PlayCard(List<Card> cards) {
+    }
+
     private void handlePlayNowButtonClick() {
-        System.out.println("Play now button clicked");
+        int numberCardsCount = 0;
+        CardDeck cardDeck = new CardDeck();
+        List<Card> cards = new ArrayList<>();
+        cards.add(cardDeck.draw());
+        cards.add(cardDeck.draw());
+        cards.add(cardDeck.draw());
+
+        PlayCard(cards);
+
+        for (Card card : cards) {
+            if (card.getType() == CardType.NUMBER) {
+                numberCardsCount++;
+            }
+        }
+        if (numberCardsCount == cards.size()) {
+            System.out.println("All cards are number cards");
+            int sumOfCards = 0;
+
+            // Filter and collect only NumberCard objects
+            List<NumberCard> numberCards = cards.stream()
+                    .filter(card -> card instanceof NumberCard)
+                    .map(card -> (NumberCard) card)
+                    .collect(Collectors.toList());
+
+            // Sort the NumberCard objects by their value
+            numberCards.sort(Comparator.comparingInt(NumberCard::GetNumberCardValue));
+
+            // Print the sorted values
+            for (NumberCard numberCard : numberCards) {
+                System.out.println(numberCard.GetNumberCardValue());
+            }
+
+            for (int i = 0; i < numberCards.size() - 1; i++) {
+                sumOfCards += numberCards.get(i).GetNumberCardValue();
+            }
+
+            //Check the sum of number cards is equal to the last card
+            if (sumOfCards == numberCards.getLast().GetNumberCardValue()) {
+                System.out.println("can Play those card");
+                removeCardsFromPlayerDeck(cards);
+            } else {
+                System.out.println("Cant play those card");
+            }
+        } else {
+            if (cards.size() == 1) {
+                //Handle logic for each card type
+                switch (cards.getFirst().getType()) {
+                    case KING:
+                        KingLogic();
+                        removeCardsFromPlayerDeck(cards);
+                        break;
+                    case JESTER:
+                        // Todo Add JESTER case logic
+                        removeCardsFromPlayerDeck(cards);
+                        break;
+                    case KNIGHT:
+                        // Todo Add KNIGHT case logic
+                        removeCardsFromPlayerDeck(cards);
+                        break;
+                    case POTION:
+                        // Todo Add POTION case logic
+                        removeCardsFromPlayerDeck(cards);
+                        break;
+                    case WAND:
+                        // Todo Add Wand case Logic
+                        removeCardsFromPlayerDeck(cards);
+                        break;
+                    default:
+
+                }
+            }
+        }
     }
 }

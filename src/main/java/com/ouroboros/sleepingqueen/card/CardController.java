@@ -7,6 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class CardController {
     @FXML
@@ -15,6 +16,9 @@ public class CardController {
     private Card card;
     private boolean isFaceup;
     private boolean isIdle;
+    private int index;
+    private Consumer<Integer> onCardSelected;
+
 
     public void initialize() {
         System.out.println("QueenOnBoardController initialized.");
@@ -50,6 +54,18 @@ public class CardController {
         System.out.println("Queen flipped");
         isFaceup = !isFaceup;
         render();
+        if (onCardSelected != null) {
+            onCardSelected.accept(index);
+        }
+    }
+
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public void setOnCardSelected(Consumer<Integer> onCardSelected) {
+        this.onCardSelected = onCardSelected;
     }
 
     public void render() {
