@@ -120,10 +120,12 @@ public class BoardViewController {
         }
         // Player 1 makes a move first
         currentTurnPlayerIndex = 0;
+        setUpPlayerTurn();
     }
 
     private void setUpPlayerTurn() {
         // TODO: load cards of the CurrentTurnPlayer to the main player card field
+        mainPlayerCardFieldController.setCard(playerList.get(currentTurnPlayerIndex).getNormalCards());
     }
 
     private void endPlayerTurn() {
