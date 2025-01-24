@@ -3,7 +3,6 @@ package com.ouroboros.sleepingqueen.controller;
 import com.ouroboros.sleepingqueen.card.DeckController;
 import com.ouroboros.sleepingqueen.card.QueenFieldController;
 import com.ouroboros.sleepingqueen.deck.Card;
-import com.ouroboros.sleepingqueen.deck.CardDeck;
 import com.ouroboros.sleepingqueen.deck.CardType;
 import com.ouroboros.sleepingqueen.deck.cardcollection.NumberCard;
 import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerCardField;
@@ -134,8 +133,9 @@ public class BoardViewController {
     }
 
     private void setUpPlayerTurn() {
-        // TODO: load cards of the CurrentTurnPlayer to the main player card field
+        // load cards of the CurrentTurnPlayer to the main player card field
         mainPlayerCardFieldController.setCard(playerList.get(currentTurnPlayerIndex).getNormalCards());
+        mainPlayerQueenFieldController.setCard(playerList.get(currentTurnPlayerIndex).getQueenCards());
     }
 
     private void endPlayerTurn() {
@@ -168,13 +168,18 @@ public class BoardViewController {
 
     private void handlePlayNowButtonClick() {
         int numberCardsCount = 0;
-        CardDeck cardDeck = new CardDeck();
-        List<Card> cards = new ArrayList<>();
-        cards.add(cardDeck.draw());
-        cards.add(cardDeck.draw());
-        cards.add(cardDeck.draw());
-
-        PlayCard(cards);
+//        CardDeck cardDeck = new CardDeck();
+//        List<Card> cards = new ArrayList<>();
+//        cards.add(cardDeck.draw());
+//        cards.add(cardDeck.draw());
+//        cards.add(cardDeck.draw());
+//
+//        PlayCard(cards);
+        List<Card> cards = mainPlayerCardFieldController.getChosenCards();
+        if (cards.isEmpty()) {
+            System.out.println("No card selected");
+            return;
+        }
 
         for (Card card : cards) {
             if (card.getType() == CardType.NUMBER) {

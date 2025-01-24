@@ -1,6 +1,7 @@
 package com.ouroboros.sleepingqueen.mainPlayer;
 
 import com.ouroboros.sleepingqueen.card.CardController;
+import com.ouroboros.sleepingqueen.deck.Card;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
@@ -38,4 +39,9 @@ public class MainPlayerQueenField {
         }
     }
 
+    public void setCard(Card[] cards) {
+        for (int i = 0; i < cards.length; i++) {
+            queenControllers.get(i).setCard(cards[i]);
+        }
+    }
 }
