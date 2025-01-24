@@ -2,6 +2,7 @@ package com.ouroboros.sleepingqueen.card;
 
 import com.ouroboros.sleepingqueen.deck.Card;
 import javafx.fxml.FXML;
+import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -27,6 +28,10 @@ public class CardController {
         isIdle = false;
     }
 
+    public Card getCard() {
+        return card;
+    }
+
     public void setCard(Card card) {
         this.card = card;
         render();
@@ -38,6 +43,7 @@ public class CardController {
 
     public void setFaceup(boolean isFaceup) {
         this.isFaceup = isFaceup;
+        render();
     }
 
     @FXML
@@ -53,10 +59,10 @@ public class CardController {
         }
         System.out.println("Queen flipped");
         isFaceup = !isFaceup;
-        render();
         if (onCardSelected != null) {
             onCardSelected.accept(index);
         }
+        render();
     }
 
 
@@ -66,6 +72,10 @@ public class CardController {
 
     public void setOnCardSelected(Consumer<Integer> onCardSelected) {
         this.onCardSelected = onCardSelected;
+    }
+
+    public void setCardEffect(Effect effect) {
+        cardHolder.setEffect(effect);
     }
 
     public void render() {
