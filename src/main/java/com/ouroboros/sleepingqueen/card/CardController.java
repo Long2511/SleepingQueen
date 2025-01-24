@@ -70,7 +70,7 @@ public class CardController {
 
     public void render() {
         if (card == null) { // card is empty
-            Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("com/ouroboros/sleepingqueen/cardImg/empty.jpg")));
+            Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/ouroboros/sleepingqueen/cardImg/empty.jpg")));
             cardHolder.setImage(cardImg);
             return;
         }

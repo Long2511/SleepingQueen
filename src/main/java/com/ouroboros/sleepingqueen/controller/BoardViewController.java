@@ -134,8 +134,9 @@ public class BoardViewController {
     }
 
     private void setUpPlayerTurn() {
-        // TODO: load cards of the CurrentTurnPlayer to the main player card field
+        // load cards of the CurrentTurnPlayer to the main player card field
         mainPlayerCardFieldController.setCard(playerList.get(currentTurnPlayerIndex).getNormalCards());
+        mainPlayerQueenFieldController.setCard(playerList.get(currentTurnPlayerIndex).getQueenCards());
     }
 
     private void endPlayerTurn() {
