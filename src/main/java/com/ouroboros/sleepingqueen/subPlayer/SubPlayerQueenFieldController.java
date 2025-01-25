@@ -58,7 +58,6 @@ public class SubPlayerQueenFieldController {
         }
 
         queenControllers.get(position).setCard(queen);
-        queenControllers.get(position).render();
     }
 
 }

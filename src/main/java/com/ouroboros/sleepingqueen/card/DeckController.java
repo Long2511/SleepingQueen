@@ -35,8 +35,6 @@ public class DeckController {
 
         // set back of the deck
         deck.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(cardDeck.peek().getBackImgPath()))));
-
-
     }
 
     public Card drawCard() {
@@ -44,8 +42,15 @@ public class DeckController {
         if (lastDrawnCard == null) {
             System.out.println("Deck is empty. Reshuffle");
             cardDeck.reshuffle();
+            // try to draw again
+            lastDrawnCard = cardDeck.draw();
         }
         return lastDrawnCard;
+    }
+
+    public void discardCard(Card card) {
+        discarded.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(card.getCardImgPath()))));
+        cardDeck.addDiscarded(card);
     }
 
     public void setPlayNowButtonClick(Runnable onDeckButtonClick) {

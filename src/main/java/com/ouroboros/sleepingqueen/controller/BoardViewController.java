@@ -152,6 +152,10 @@ public class BoardViewController {
         mainPlayerQueenFieldController.setCard(playerList.get(playerIndex).getQueenCards());
     }
 
+    private void renderSubPlayer(int playerIndex, int subPlayerIndex) {
+        subPlayerFieldController.setPlayer(subPlayerIndex, playerList.get(playerIndex));
+    }
+
     private void setUpPlayerTurn() {
         // load cards of the CurrentTurnPlayer to the main player card field
         renderMainPlayerNormalCard(currentTurnPlayerIndex);
@@ -305,6 +309,10 @@ public class BoardViewController {
 
     private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
         playerList.get(currentTurnPlayerIndex).removeNormalCards(cardsTobeRemove);
+        // add discarded cards to the deck
+        for (Card card : cardsTobeRemove) {
+            deckController.discardCard(card);
+        }
     }
 
     private void PlayCard(List<Card> cards) {
@@ -323,6 +331,10 @@ public class BoardViewController {
 
 
         List<Card> cards = mainPlayerCardFieldController.getChosenCards();
+
+        // unselect all cards after retrieving the chosen cards
+        mainPlayerCardFieldController.resetChosenCards();
+
         if (cards.isEmpty()) {
             System.out.println("No card selected");
             return;
