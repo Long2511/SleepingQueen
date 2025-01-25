@@ -19,7 +19,6 @@ import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BoardViewController {
 
@@ -244,21 +243,19 @@ public class BoardViewController {
             System.out.println("All cards are number cards");
             int sumOfCards = 0;
 
-            // Filter and collect only NumberCard objects
+            // Filter and collect only NumberCard objects and sort numbers
             List<NumberCard> numberCards = cards.stream()
                     .filter(card -> card instanceof NumberCard)
-                    .map(card -> (NumberCard) card)
-                    .collect(Collectors.toList());
-
-            // Sort the NumberCard objects by their value
-            numberCards.sort(Comparator.comparingInt(NumberCard::GetNumberCardValue));
+                    .map(card -> (NumberCard) card).sorted(Comparator
+                            .comparingInt(NumberCard::GetNumberCardValue))
+                    .toList();
 
             // Print the sorted values
             for (NumberCard numberCard : numberCards) {
                 System.out.println(numberCard.GetNumberCardValue());
             }
 
-            for (int i = 0; i < numberCards.size() - 1; i++) {
+            for (int i = 0; i < numberCards.size(); i++) {
                 sumOfCards += numberCards.get(i).GetNumberCardValue();
             }
 
