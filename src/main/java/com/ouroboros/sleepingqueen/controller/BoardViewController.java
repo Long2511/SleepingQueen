@@ -10,6 +10,7 @@ import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerQueenField;
 import com.ouroboros.sleepingqueen.player.Player;
 import com.ouroboros.sleepingqueen.subPlayer.SubPlayerFieldController;
 import com.ouroboros.sleepingqueen.ults.Toast;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -18,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -27,7 +29,7 @@ public class BoardViewController {
 
     private static String playerCount;
     private final String[] SPECIAL_QUEENS = {"Rose Queen", "Dog Queen", "Cat Queen"};
-    private final int toastTimeOut = 3000;
+    private final int toastTimeOut = 4000;
     @FXML
     public HBox mainPlayerQueenFieldBox;
     @FXML
@@ -173,44 +175,55 @@ public class BoardViewController {
         // load cards of the CurrentTurnPlayer to the main player card field
         renderMainPlayerNormalCard(currentTurnPlayerIndex);
         renderMainPlayerQueenCard(currentTurnPlayerIndex);
-        
+
         MainPlayer.setText(playerList.get(currentTurnPlayerIndex).getName());
     }
 
     private void endPlayerTurn() {
-        int nextTurnPlayerIndex = nextTurnPlayerIndexForReal;
-        if (nextTurnPlayerIndex == -1) {
-            nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
-        }
-        // reset next player
-        nextTurnPlayerIndexForReal = -1;
+        Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
+        PauseTransition pause = new PauseTransition(Duration.seconds(rootPane.getScene() != null ? 2 : 0));
+        pause.setOnFinished(event -> {
+            int nextTurnPlayerIndex = nextTurnPlayerIndexForReal;
+            if (nextTurnPlayerIndex == -1) {
+                nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
+            }
+            // reset next player
+            nextTurnPlayerIndexForReal = -1;
 
-        // Swap currentSubPlayerIndex between current player and next player
-        int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
-        currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
-        currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
+            // Swap currentSubPlayerIndex between current player and next player
+            int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
+            currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
+            currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
 
-        renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
+            renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
 
-        currentTurnPlayerIndex = nextTurnPlayerIndex;
-        setUpPlayerTurn();
+            currentTurnPlayerIndex = nextTurnPlayerIndex;
+            setUpPlayerTurn();
+            Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(nextTurnPlayerIndex).getName() + " turn.", toastTimeOut);
 
+        });
+        pause.play();
     }
 
     private void endPlayerTurn(int nextTurnPlayerIndex) {
-        if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
-            // Player gets another turn
-            return;
-        }
-        // Swap currentSubPlayerIndex between current player and next player
-        int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
-        currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
-        currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
+        Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> {
+            if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
+                // Player gets another turn
+                return;
+            }
+            // Swap currentSubPlayerIndex between current player and next player
+            int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
+            currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
+            currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
 
-        renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
-        currentTurnPlayerIndex = nextTurnPlayerIndex;
+            renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
+            currentTurnPlayerIndex = nextTurnPlayerIndex;
 
-        setUpPlayerTurn();
+            setUpPlayerTurn();
+        });
+        pause.play();
     }
 
     private void pickQueenCardFromField() {
@@ -271,6 +284,7 @@ public class BoardViewController {
     private void KingLogic() {
         isQueenCardSelected = true;
         System.out.println("King card can be played");
+        Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a Queen card and confirm", toastTimeOut);
     }
 
     private void WandLogic() {
@@ -294,11 +308,12 @@ public class BoardViewController {
         if (drawnCard.getType() == CardType.NUMBER) {
 
             replacePlayedCards(chosenCardIndices, deckController.drawCard());
-            Toast.show((Stage) rootPane.getScene().getWindow(), "Drawn card is a Number card " + ((NumberCard) drawnCard).GetNumberCardValue() + ", moved to player " + playerList.get(currentTurnPlayerIndex), toastTimeOut);
             int indexOffset = ((NumberCard) drawnCard).GetNumberCardValue() % getPlayerCount() - 1;
             indexOffset = (indexOffset + getPlayerCount()) % getPlayerCount();  // make sure it's positive
             int nextTurnPlayerIndex = (currentTurnPlayerIndex + indexOffset) % getPlayerCount();
-            nextTurnPlayerIndexForReal = (nextTurnPlayerIndex + 1) % getPlayerCount();
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Drawn card is a Number card " + ((NumberCard) drawnCard).GetNumberCardValue() + ", moved to player " + playerList.get(nextTurnPlayerIndex).getName(), toastTimeOut);
+            nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
+
             endPlayerTurn(nextTurnPlayerIndex);
             deckController.discardCard(drawnCard);
             KingLogic();
