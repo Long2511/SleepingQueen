@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class BoardViewController {
 
     private static String playerCount;
+    private final String[] SPECIAL_QUEENS = {"Rose Queen", "Dog Queen", "Cat Queen"};
     @FXML
     public HBox mainPlayerQueenFieldBox;
     @FXML
@@ -49,6 +50,10 @@ public class BoardViewController {
     private DeckController deckController;
     private MainPlayerCardField mainPlayerCardFieldController;
 
+    private Card selectedQueenCard;
+
+    private boolean isQueenCardSelected;
+
     public static int getPlayerCount() {
         return Integer.parseInt(playerCount);
     }
@@ -64,6 +69,7 @@ public class BoardViewController {
 
     @FXML
     public void initialize() {
+        isQueenCardSelected = false;
         try {
             // Try  to load Deck to the Board
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/boardView/deck-on-board.fxml"));
@@ -126,7 +132,11 @@ public class BoardViewController {
             Player player = new Player("Player " + (i + 1));
             // Draw 5 cards for each player
             for (int j = 0; j < player.getMAX_NORMAL_CARDS(); j++) {
-                player.addCard(j, deckController.drawCard());
+                player.setNormalCard(j, deckController.drawCard());
+            }
+            // Player has no queen card at the beginning
+            for (int j = 0; j < player.getMAX_QUEEN_CARDS(); j++) {
+                player.setQueenCard(j, null);
             }
             playerList.add(player);
         }
@@ -135,10 +145,18 @@ public class BoardViewController {
         setUpPlayerTurn();
     }
 
+    private void renderMainPlayerNormalCard(int playerIndex) {
+        mainPlayerCardFieldController.setCard(playerList.get(playerIndex).getNormalCards());
+    }
+
+    private void renderMainPlayerQueenCard(int playerIndex) {
+        mainPlayerQueenFieldController.setCard(playerList.get(playerIndex).getQueenCards());
+    }
+
     private void setUpPlayerTurn() {
         // load cards of the CurrentTurnPlayer to the main player card field
-        mainPlayerCardFieldController.setCard(playerList.get(currentTurnPlayerIndex).getNormalCards());
-        mainPlayerQueenFieldController.setCard(playerList.get(currentTurnPlayerIndex).getQueenCards());
+        renderMainPlayerNormalCard(currentTurnPlayerIndex);
+        renderMainPlayerQueenCard(currentTurnPlayerIndex);
     }
 
     private void endPlayerTurn() {
@@ -149,7 +167,59 @@ public class BoardViewController {
         currentTurnPlayerIndex = nextTurnPlayerIndex;
     }
 
+    private void pickQueenCardFromField() {
+        if (selectedQueenCard == null) {
+            // TODO: prompt user to select a queen card
+            System.out.println("No queen card selected.");
+            return;
+        }
+        boolean addQueen = true;
+        boolean isRoseQueen = selectedQueenCard.getCardName().equals(SPECIAL_QUEENS[0]);
+        System.out.println("Selected Queen: " + selectedQueenCard.getCardName());
+        if (selectedQueenCard.getCardName().equals(SPECIAL_QUEENS[1])) {
+            // Dog Queen - check if player has Cat Queen
+            Card[] playerQueenCards = playerList.get(currentTurnPlayerIndex).getQueenCards();
+            for (Card card : playerQueenCards) {
+                if (card != null && card.getCardName().equals(SPECIAL_QUEENS[2])) {
+                    // Player has Cat Queen - cannot have the same Dog & Cat at the same time => Put back Dog Queen to the field
+                    // TODO: prompt DOG & CAT cannot be together
+                    System.out.println("Dog Queen processing");
+                    addQueen = false;
+                    break;
+                }
+            }
+        } else if (selectedQueenCard.getCardName().equals(SPECIAL_QUEENS[2])) {
+            // Cat Queen - check if player has Dog Queen
+            Card[] playerQueenCards = playerList.get(currentTurnPlayerIndex).getQueenCards();
+            for (Card card : playerQueenCards) {
+                if (card != null && card.getCardName().equals(SPECIAL_QUEENS[1])) {
+                    // Player has Dog Queen - cannot have the same Dog & Cat at the same time => Put back Cat Queen to the field
+                    // TODO: prompt DOG & CAT cannot be together
+                    System.out.println("Cat Queen processing");
+                    addQueen = false;
+                    break;
+                }
+            }
+        }
+        // Add queen: add to player's queen card and remove from the field
+        if (addQueen) {
+            playerList.get(currentTurnPlayerIndex).addQueenCard(selectedQueenCard);
+            queenFieldController.removeQueenFromField(selectedQueenCard);
+            renderMainPlayerQueenCard(currentTurnPlayerIndex);
+        }
+
+        if (isRoseQueen) {
+            // Rose Queen - player can pick another queen
+            isQueenCardSelected = true;
+            // TODO: prompt user to select another queen card
+        } else {
+            isQueenCardSelected = false;
+        }
+        selectedQueenCard = null;
+    }
+
     private void KingLogic() {
+        isQueenCardSelected = true;
         System.out.println("King card can be played");
     }
 
@@ -180,22 +250,29 @@ public class BoardViewController {
 
 
     public void handleQueenCardSelection(int index) {
-        Card selectedCard = queenFieldController.selectQueenCard(index);
-        if (selectedCard != null) {
-            System.out.println("Selected Queen Card: " + selectedCard.getCardImgPath());
+        selectedQueenCard = queenFieldController.getQueenCard(index);
+        if (selectedQueenCard != null) {
+            System.out.println("Selected Queen Card: " + selectedQueenCard.getCardImgPath());
         } else {
             System.out.println("Invalid queen card selection.");
         }
     }
 
     private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
-        //todo: implement logic to remove cards from players deck
+        playerList.get(currentTurnPlayerIndex).removeNormalCards(cardsTobeRemove);
     }
 
     private void PlayCard(List<Card> cards) {
     }
 
     private void handlePlayNowButtonClick() {
+        if (isQueenCardSelected) {
+            System.out.println("Picked Queen Card from field");
+            pickQueenCardFromField();
+            return;
+        }
+        System.out.println("Play Now Button Clicked");
+
         int numberCardsCount = 0;
 
         List<Card> cards = mainPlayerCardFieldController.getChosenCards();

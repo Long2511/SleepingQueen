@@ -1,7 +1,6 @@
 package com.ouroboros.sleepingqueen.player;
 
 import com.ouroboros.sleepingqueen.deck.Card;
-import com.ouroboros.sleepingqueen.deck.CardType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,24 +44,32 @@ public class Player {
         return chosenCards;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
     public int getPosition() {
         return position;
     }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public String getName() {
         return name;
     }
+
     public Card[] getNormalCards() {
         return normalCards;
     }
+
     public Card[] getQueenCards() {
         return queenCards;
     }
 
     public int getMAX_NORMAL_CARDS() {
         return MAX_NORMAL_CARDS;
+    }
+
+    public int getMAX_QUEEN_CARDS() {
+        return MAX_QUEEN_CARDS;
     }
 
     public int getScore() {
@@ -73,11 +80,31 @@ public class Player {
         this.score += points;
     }
 
-    public void addCard(int position, Card newCard) {
-        if (newCard.getType() == CardType.QUEEN) {
-            queenCards[position] = newCard;
-        } else {
-            normalCards[position] = newCard;
+    public void setQueenCard(int position, Card newCard) {
+        queenCards[position] = newCard;
+    }
+
+    public void setNormalCard(int position, Card newCard) {
+        normalCards[position] = newCard;
+    }
+
+    public void addQueenCard(Card newCard) {
+        for (int i = 0; i < MAX_QUEEN_CARDS; i++) {
+            if (queenCards[i] == null) {
+                queenCards[i] = newCard;
+                break;
+            }
+        }
+    }
+
+    public void removeNormalCards(List<Card> cards) {
+        for (Card card : cards) {
+            for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
+                if (normalCards[i] == card) {
+                    normalCards[i] = null;
+                    break;
+                }
+            }
         }
     }
 }
