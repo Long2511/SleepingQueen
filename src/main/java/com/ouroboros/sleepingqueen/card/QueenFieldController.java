@@ -38,15 +38,14 @@ public class QueenFieldController {
     @FXML
     private CardController queen12Controller;
     private List<CardController> queenControllers;
-    private List<Card> queenCards;
-    private JSONCardDAO cardDAO;
     private Consumer<Integer> onQueenCardSelected;
 
     @FXML
     public void initialize() {
         queenControllers = new ArrayList<>();
-        cardDAO = new JSONCardDAO();
-        queenCards = cardDAO.getAllQueenCard();
+
+        JSONCardDAO cardDAO = new JSONCardDAO();
+        List<Card> queenCards = cardDAO.getAllQueenCard();
 
         Collections.shuffle(queenCards, new Random());
 
@@ -82,12 +81,25 @@ public class QueenFieldController {
         }
     }
 
-    public Card selectQueenCard(int index) {
-        if (index >= 0 && index < queenCards.size()) {
-            Card selectedCard = queenCards.get(index);
-            queenCards.remove(index);
-            return selectedCard;
+    public void setIdleQueenField(boolean isIdle) {
+        for (CardController cardController : queenControllers) {
+            cardController.setIdle(isIdle);
+        }
+    }
+
+    public Card getQueenCard(int index) {
+        if (index >= 0 && index < NUMBER_OF_QUEENS) {
+            return queenControllers.get(index).getCard();
         }
         return null;
+    }
+
+    public void removeQueenFromField(Card queenCard) {
+        for (CardController cardController : queenControllers) {
+            if (cardController.getCard() == queenCard) {
+                cardController.setCard(null);
+                break;
+            }
+        }
     }
 }
