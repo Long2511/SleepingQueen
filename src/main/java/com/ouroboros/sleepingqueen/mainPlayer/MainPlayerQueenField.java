@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainPlayerQueenField {
+    private final int NUMBER_OF_CARD = 4;
     @FXML
     public VBox MainQueen1Box;
     @FXML
@@ -27,6 +28,13 @@ public class MainPlayerQueenField {
         loadCard(MainQueen2Box);
         loadCard(MainQueen3Box);
         loadCard(MainQueen4Box);
+
+        for (int i = 0; i < NUMBER_OF_CARD; i++) {
+            CardController cardController = queenControllers.get(i);
+
+            cardController.setFaceup(true);
+            cardController.setIdle(true);
+        }
     }
 
     private void loadCard(VBox CardBox) {

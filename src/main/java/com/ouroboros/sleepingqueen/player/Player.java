@@ -61,20 +61,16 @@ public class Player {
         return normalCards;
     }
 
-    public void setNormalCards(List<Card> normalCards) {
-        this.normalCards = normalCards.toArray(new Card[0]);
-    }
-
     public Card[] getQueenCards() {
         return queenCards;
     }
 
-    public void setQueenCards(List<Card> queenCards) {
-        this.queenCards = queenCards.toArray(new Card[0]);
-    }
-
     public int getMAX_NORMAL_CARDS() {
         return MAX_NORMAL_CARDS;
+    }
+
+    public int getMAX_QUEEN_CARDS() {
+        return MAX_QUEEN_CARDS;
     }
 
     public int getScore() {
@@ -85,12 +81,31 @@ public class Player {
         this.score += points;
     }
 
-    public void addCard(int position, Card newCard) {
-        if (newCard.getType() == CardType.QUEEN) {
-            queenCards[position] = newCard;
-        } else {
-            normalCards[position] = newCard;
+    public void setQueenCard(int position, Card newCard) {
+        queenCards[position] = newCard;
+    }
+
+    public void setNormalCard(int position, Card newCard) {
+        normalCards[position] = newCard;
+    }
+
+    public void addQueenCard(Card newCard) {
+        for (int i = 0; i < MAX_QUEEN_CARDS; i++) {
+            if (queenCards[i] == null) {
+                queenCards[i] = newCard;
+                break;
+            }
         }
     }
 
+    public void removeNormalCards(List<Card> cards) {
+        for (Card card : cards) {
+            for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
+                if (normalCards[i] == card) {
+                    normalCards[i] = null;
+                    break;
+                }
+            }
+        }
+    }
 }
