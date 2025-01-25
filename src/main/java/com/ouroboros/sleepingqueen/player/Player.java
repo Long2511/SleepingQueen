@@ -13,6 +13,7 @@ public class Player {
     private int position;
     private String name;
     private int score;
+    private int subPlayerId;
 
     private Card[] normalCards;
     private Card[] queenCards;
@@ -60,9 +61,9 @@ public class Player {
         return normalCards;
     }
 
-    public void setNormalCards(List<Card> cards) {
+    public void setNormalCards(Card[] cards) {
         for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
-            normalCards[i] = cards.get(i);
+            normalCards[i] = cards[i];
         }
     }
 
@@ -70,9 +71,9 @@ public class Player {
         return queenCards;
     }
 
-    public void setQueenCards(List<Card> cards) {
+    public void setQueenCards(Card[] cards) {
         for (int i = 0; i < MAX_QUEEN_CARDS; i++) {
-            queenCards[i] = cards.get(i);
+            queenCards[i] = cards[i];
         }
     }
 
