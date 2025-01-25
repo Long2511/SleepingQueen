@@ -45,20 +45,32 @@ public class Player {
         return chosenCards;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
     public int getPosition() {
         return position;
     }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
     public String getName() {
         return name;
     }
+
     public Card[] getNormalCards() {
         return normalCards;
     }
+
+    public void setNormalCards(List<Card> normalCards) {
+        this.normalCards = normalCards.toArray(new Card[0]);
+    }
+
     public Card[] getQueenCards() {
         return queenCards;
+    }
+
+    public void setQueenCards(List<Card> queenCards) {
+        this.queenCards = queenCards.toArray(new Card[0]);
     }
 
     public int getMAX_NORMAL_CARDS() {
@@ -80,4 +92,5 @@ public class Player {
             normalCards[position] = newCard;
         }
     }
+
 }

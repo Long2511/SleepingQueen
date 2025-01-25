@@ -144,7 +144,27 @@ public class BoardViewController {
     private void endPlayerTurn() {
         int nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
 
-        // TODO: swap cards between sub&main players
+        // Retrieve the current player's cards
+        List<Card> currentPlayerNormalCards = List.of(playerList.get(currentTurnPlayerIndex).getNormalCards());
+        List<Card> currentPlayerQueenCards = List.of(playerList.get(currentTurnPlayerIndex).getQueenCards());
+
+        // Retrieve the next player's cards
+        List<Card> nextPlayerNormalCards = List.of(playerList.get(nextTurnPlayerIndex).getNormalCards());
+        List<Card> nextPlayerQueenCards = List.of(playerList.get(nextTurnPlayerIndex).getQueenCards());
+
+        // Swap the normal cards between the current player and the next player
+        playerList.get(currentTurnPlayerIndex).setNormalCards(nextPlayerNormalCards);
+        playerList.get(nextTurnPlayerIndex).setNormalCards(currentPlayerNormalCards);
+
+        // Swap the queen cards between the current player and the next player
+        playerList.get(currentTurnPlayerIndex).setQueenCards(nextPlayerQueenCards);
+        playerList.get(nextTurnPlayerIndex).setQueenCards(currentPlayerQueenCards);
+
+        // Update the main player card field with the next player's cards
+        mainPlayerCardFieldController.setCard(playerList.get(nextTurnPlayerIndex).getNormalCards());
+
+        // Update the sub-player field with the current player's cards
+        subPlayerFieldController.setPlayer(currentTurnPlayerIndex, playerList.get(currentTurnPlayerIndex));
 
         currentTurnPlayerIndex = nextTurnPlayerIndex;
     }
@@ -178,7 +198,7 @@ public class BoardViewController {
             replacePlayedCards(chosenCardIndices, drawnCard);
             setUpPlayerTurn();
         }
-
+        endPlayerTurn();
     }
 
     private void replacePlayedCards(List<Integer> chosenCardIndices, Card card) {
