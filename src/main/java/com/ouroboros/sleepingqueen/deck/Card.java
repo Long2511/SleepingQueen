@@ -46,4 +46,8 @@ public class Card {
     public CardType getType() {
         return this.type;
     }
+
+    public String getCardName() {
+        return cardName;
+    }
 }
