@@ -19,7 +19,6 @@ import javafx.scene.layout.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BoardViewController {
 
@@ -161,8 +160,34 @@ public class BoardViewController {
 
     private void endPlayerTurn() {
         int nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
+        List<Card> currentPlayerQueenCards = null;
 
-        // TODO: swap cards between sub&main players
+        // Retrieve the current player's cards
+        List<Card> currentPlayerNormalCards = List.of(playerList.get(currentTurnPlayerIndex).getNormalCards());
+        if (playerList.get(currentTurnPlayerIndex).getQueenCards() != null) {
+            currentPlayerQueenCards = List.of(playerList.get(currentTurnPlayerIndex).getQueenCards());
+        }
+
+
+        // Retrieve the next player's cards
+        List<Card> nextPlayerNormalCards = List.of(playerList.get(nextTurnPlayerIndex).getNormalCards());
+        List<Card> nextPlayerQueenCards = List.of(playerList.get(nextTurnPlayerIndex).getQueenCards());
+
+        // Swap the normal cards between the current player and the next player
+
+        playerList.get(currentTurnPlayerIndex).setNormalCards(nextPlayerNormalCards);
+        playerList.get(nextTurnPlayerIndex).setNormalCards(currentPlayerNormalCards);
+
+        // Swap the queen cards between the current player and the next player
+        playerList.get(currentTurnPlayerIndex).setQueenCards(nextPlayerQueenCards);
+        assert currentPlayerQueenCards != null;
+        playerList.get(nextTurnPlayerIndex).setQueenCards(currentPlayerQueenCards);
+
+        // Update the main player card field with the next player's cards
+        mainPlayerCardFieldController.setCard(playerList.get(nextTurnPlayerIndex).getNormalCards());
+
+        // Update the sub-player field with the current player's cards
+        subPlayerFieldController.setPlayer(currentTurnPlayerIndex, playerList.get(currentTurnPlayerIndex));
 
         currentTurnPlayerIndex = nextTurnPlayerIndex;
     }
@@ -235,16 +260,36 @@ public class BoardViewController {
         System.out.println("Knight card can be played");
     }
 
-    private void JesterLogic() {
+    private void JesterLogic(List<Integer> chosenCardIndices) {
         System.out.println("Jester card can be played");
         Card drawnCard = deckController.drawCard();
         System.out.println("Drawn card: " + drawnCard.getType());
 
         if (drawnCard.getType() == CardType.NUMBER) {
-            System.out.println("Drawn card is a Number card, player gets another turn");
+            System.out.println("Drawn card is a Number card, end turn");
+            //endPlayerTurn();
         } else {
-            System.out.println("Drawn card is not a Number card, keep the card and have a new turn");
+            System.out.println("Drawn card is a Function card, player gets another turn");
+            replacePlayedCards(chosenCardIndices, drawnCard);
+            setUpPlayerTurn();
+        }
+        //endPlayerTurn();
+    }
 
+    private void replacePlayedCards(List<Integer> chosenCardIndices) {
+        for (int index : chosenCardIndices) {
+            Card card = deckController.drawCard();
+            playerList.get(currentTurnPlayerIndex).setNormalCard(index, card);
+
+            mainPlayerCardFieldController.setCard(index, card);
+        }
+    }
+
+    private void replacePlayedCards(List<Integer> chosenCardIndices, Card card) {
+        for (int index : chosenCardIndices) {
+            playerList.get(currentTurnPlayerIndex).setNormalCard(index, card);
+
+            mainPlayerCardFieldController.setCard(index, card);
         }
     }
 
@@ -274,6 +319,8 @@ public class BoardViewController {
         System.out.println("Play Now Button Clicked");
 
         int numberCardsCount = 0;
+        List<Integer> chosenCardIndices = mainPlayerCardFieldController.getChosenCardIndexes();
+
 
         List<Card> cards = mainPlayerCardFieldController.getChosenCards();
         if (cards.isEmpty()) {
@@ -290,14 +337,12 @@ public class BoardViewController {
             System.out.println("All cards are number cards");
             int sumOfCards = 0;
 
-            // Filter and collect only NumberCard objects
+            // Filter and collect only NumberCard objects and sort numbers
             List<NumberCard> numberCards = cards.stream()
                     .filter(card -> card instanceof NumberCard)
-                    .map(card -> (NumberCard) card)
-                    .collect(Collectors.toList());
-
-            // Sort the NumberCard objects by their value
-            numberCards.sort(Comparator.comparingInt(NumberCard::GetNumberCardValue));
+                    .map(card -> (NumberCard) card).sorted(Comparator
+                            .comparingInt(NumberCard::GetNumberCardValue))
+                    .toList();
 
             // Print the sorted values
             for (NumberCard numberCard : numberCards) {
@@ -309,10 +354,22 @@ public class BoardViewController {
             }
 
             //Check the sum of number cards is equal to the last card
-            if (sumOfCards == numberCards.getLast().GetNumberCardValue()) {
+            if (cards.size() == 1) {
                 System.out.println("can Play those card");
                 removeCardsFromPlayerDeck(cards);
-            } else if (cards.size() == 1) {
+                replacePlayedCards(chosenCardIndices);
+            } else if (cards.size() == 2) {
+                NumberCard firstCard = (NumberCard) cards.get(0);
+                NumberCard secondCard = (NumberCard) cards.get(1);
+                if (firstCard.GetNumberCardValue() == secondCard.GetNumberCardValue()) {
+                    System.out.println("can Play those card");
+                    removeCardsFromPlayerDeck(cards);
+                    replacePlayedCards(chosenCardIndices);
+
+                }
+            } else if (sumOfCards == numberCards.getLast().GetNumberCardValue()) {
+                removeCardsFromPlayerDeck(cards);
+                replacePlayedCards(chosenCardIndices);
                 System.out.println(cards.getFirst().getType() + " card can be played");
             } else {
                 System.out.println("Cant play those card");
@@ -325,15 +382,15 @@ public class BoardViewController {
                     case KING:
                         KingLogic();
                         removeCardsFromPlayerDeck(cards);
+                        replacePlayedCards(chosenCardIndices);
                         break;
                     case JESTER:
-                        JesterLogic();
+                        JesterLogic(chosenCardIndices);
                         // Todo Add JESTER case logic
                         removeCardsFromPlayerDeck(cards);
                         break;
                     case KNIGHT:
                         KnightLogic();
-
                         // Todo Add KNIGHT case logic
                         removeCardsFromPlayerDeck(cards);
                         break;

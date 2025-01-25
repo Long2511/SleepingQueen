@@ -60,8 +60,20 @@ public class Player {
         return normalCards;
     }
 
+    public void setNormalCards(List<Card> cards) {
+        for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
+            normalCards[i] = cards.get(i);
+        }
+    }
+
     public Card[] getQueenCards() {
         return queenCards;
+    }
+
+    public void setQueenCards(List<Card> cards) {
+        for (int i = 0; i < MAX_QUEEN_CARDS; i++) {
+            queenCards[i] = cards.get(i);
+        }
     }
 
     public int getMAX_NORMAL_CARDS() {
@@ -106,5 +118,9 @@ public class Player {
                 }
             }
         }
+    }
+
+    public void setChosenCard(int index, boolean isChosen) {
+        isChosenCards[index] = isChosen;
     }
 }
