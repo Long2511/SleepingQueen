@@ -165,16 +165,25 @@ public class BoardViewController {
         System.out.println("Knight card can be played");
     }
 
-    private void JesterLogic() {
+    private void JesterLogic(List<Integer> chosenCardIndices) {
         System.out.println("Jester card can be played");
         Card drawnCard = deckController.drawCard();
         System.out.println("Drawn card: " + drawnCard.getType());
 
         if (drawnCard.getType() == CardType.NUMBER) {
-            System.out.println("Drawn card is a Number card, player gets another turn");
+            System.out.println("Drawn card is a Number card, end turn");
+            endPlayerTurn();
         } else {
-            System.out.println("Drawn card is not a Number card, keep the card and have a new turn");
+            System.out.println("Drawn card is a Function card, player gets another turn");
+            replacePlayedCards(chosenCardIndices, drawnCard);
+            setUpPlayerTurn();
+        }
 
+    }
+
+    private void replacePlayedCards(List<Integer> chosenCardIndices, Card card) {
+        for (int index : chosenCardIndices) {
+            playerList.get(currentTurnPlayerIndex).addCard(index, card);
         }
     }
 
@@ -197,6 +206,8 @@ public class BoardViewController {
 
     private void handlePlayNowButtonClick() {
         int numberCardsCount = 0;
+        List<Integer> chosenCardIndices = mainPlayerCardFieldController.getChosenCardIndex();
+
 
         List<Card> cards = mainPlayerCardFieldController.getChosenCards();
         if (cards.isEmpty()) {
@@ -250,7 +261,7 @@ public class BoardViewController {
                         removeCardsFromPlayerDeck(cards);
                         break;
                     case JESTER:
-                        JesterLogic();
+                        JesterLogic(chosenCardIndices);
                         // Todo Add JESTER case logic
                         removeCardsFromPlayerDeck(cards);
                         break;

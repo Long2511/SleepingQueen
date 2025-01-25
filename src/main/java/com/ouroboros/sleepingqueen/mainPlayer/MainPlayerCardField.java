@@ -92,6 +92,16 @@ public class MainPlayerCardField {
         return chosenCards;
     }
 
+    public List<Integer> getChosenCardIndex() {
+        List<Integer> chosenCardIndices = new ArrayList<>();
+        for (int i = 0; i < NUMBER_OF_CARD; i++) {
+            if (isChosen[i]) {
+                chosenCardIndices.add(i);
+            }
+        }
+        return chosenCardIndices;
+    }
+
     public void setCard(Card[] cards) {
         for (int i = 0; i < cards.length; i++) {
             cardControllers.get(i).setCard(cards[i]);
