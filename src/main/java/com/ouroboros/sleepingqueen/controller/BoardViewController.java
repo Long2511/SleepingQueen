@@ -160,10 +160,14 @@ public class BoardViewController {
 
     private void endPlayerTurn() {
         int nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
+        List<Card> currentPlayerQueenCards = null;
 
         // Retrieve the current player's cards
         List<Card> currentPlayerNormalCards = List.of(playerList.get(currentTurnPlayerIndex).getNormalCards());
-        List<Card> currentPlayerQueenCards = List.of(playerList.get(currentTurnPlayerIndex).getQueenCards());
+        if (playerList.get(currentTurnPlayerIndex).getQueenCards() != null) {
+            currentPlayerQueenCards = List.of(playerList.get(currentTurnPlayerIndex).getQueenCards());
+        }
+
 
         // Retrieve the next player's cards
         List<Card> nextPlayerNormalCards = List.of(playerList.get(nextTurnPlayerIndex).getNormalCards());
@@ -175,6 +179,7 @@ public class BoardViewController {
 
         // Swap the queen cards between the current player and the next player
         playerList.get(currentTurnPlayerIndex).setQueenCards(nextPlayerQueenCards);
+        assert currentPlayerQueenCards != null;
         playerList.get(nextTurnPlayerIndex).setQueenCards(currentPlayerQueenCards);
 
         // Update the main player card field with the next player's cards
@@ -273,6 +278,8 @@ public class BoardViewController {
     private void replacePlayedCards(List<Integer> chosenCardIndices, Card card) {
         for (int index : chosenCardIndices) {
             playerList.get(currentTurnPlayerIndex).addCard(index, card);
+
+            mainPlayerCardFieldController.setCard(index, card);
         }
     }
 
@@ -337,10 +344,11 @@ public class BoardViewController {
             }
 
             //Check the sum of number cards is equal to the last card
-            if (sumOfCards == numberCards.getLast().GetNumberCardValue()) {
+            if (cards.size() == 1) {
                 System.out.println("can Play those card");
                 removeCardsFromPlayerDeck(cards);
-            } else if (cards.size() == 1) {
+                replacePlayedCards(chosenCardIndices, deckController.drawCard());
+            } else if (sumOfCards == numberCards.getLast().GetNumberCardValue()) {
                 System.out.println(cards.getFirst().getType() + " card can be played");
             } else {
                 System.out.println("Cant play those card");

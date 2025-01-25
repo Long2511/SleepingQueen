@@ -114,4 +114,8 @@ public class MainPlayerCardField {
             cardControllers.get(i).setCard(cards[i]);
         }
     }
+
+    public void setCard(int index, Card card) {
+        cardControllers.get(index).setCard(card);
+    }
 }
