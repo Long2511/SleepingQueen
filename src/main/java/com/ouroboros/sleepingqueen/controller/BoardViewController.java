@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class BoardViewController {
+
     private static String playerCount;
     private final String[] SPECIAL_QUEENS = {"Rose Queen", "Dog Queen", "Cat Queen"};
     @FXML
@@ -37,11 +38,11 @@ public class BoardViewController {
     @FXML
     private QueenFieldController queenFieldController;
     @FXML
-
     private HBox subPlayerField;
     @FXML
     private HBox mainPlayerCardFieldBox;
     @FXML
+
     private MainPlayerQueenField mainPlayerQueenFieldController;
     private List<Player> playerList;
     private int currentTurnPlayerIndex;
@@ -98,10 +99,12 @@ public class BoardViewController {
             });
 
             // Try to load SubPlayerField to the Board
-            FXMLLoader SubPlayerFieldloader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/subPlayerView/sub-player-field.fxml"));
-            GridPane subPlayerPane = SubPlayerFieldloader.load();
+            FXMLLoader subPlayerFieldLoader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/subPlayerView/sub-player-field.fxml"));
+            GridPane subPlayerPane = subPlayerFieldLoader.load();
             subPlayerField.getChildren().add(subPlayerPane);
-            subPlayerFieldController = SubPlayerFieldloader.getController();
+            subPlayerFieldController = subPlayerFieldLoader.getController();
+            subPlayerFieldController.initializeBoard(getPlayerCount());
+
 
             // Try to load MainPlayerCardField to the Board
             FXMLLoader MainPlayerCardFieldloader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/mainPlayerView/main-player-card-field.fxml"));
@@ -112,13 +115,14 @@ public class BoardViewController {
             FXMLLoader MainPlayerQueenFieldloader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/mainPlayerView/main-player-queen-field.fxml"));
             mainPlayerQueenFieldBox.getChildren().add((AnchorPane) MainPlayerQueenFieldloader.load());
             mainPlayerQueenFieldController = MainPlayerQueenFieldloader.getController();
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         setUpPlayer();
         queenFieldController.setOnQueenCardSelected(this::handleQueenCardSelection);
-
     }
 
     private void setUpPlayer() {
@@ -216,7 +220,34 @@ public class BoardViewController {
 
     private void KingLogic() {
         isQueenCardSelected = true;
+        System.out.println("King card can be played");
     }
+
+    private void WandLogic() {
+        System.out.println("Wand card can be played");
+    }
+
+    private void PotionLogic() {
+        System.out.println("Potion card can be played");
+    }
+
+    private void KnightLogic() {
+        System.out.println("Knight card can be played");
+    }
+
+    private void JesterLogic() {
+        System.out.println("Jester card can be played");
+        Card drawnCard = deckController.drawCard();
+        System.out.println("Drawn card: " + drawnCard.getType());
+
+        if (drawnCard.getType() == CardType.NUMBER) {
+            System.out.println("Drawn card is a Number card, player gets another turn");
+        } else {
+            System.out.println("Drawn card is not a Number card, keep the card and have a new turn");
+
+        }
+    }
+
 
     public void handleQueenCardSelection(int index) {
         selectedQueenCard = queenFieldController.getQueenCard(index);
@@ -243,13 +274,7 @@ public class BoardViewController {
         System.out.println("Play Now Button Clicked");
 
         int numberCardsCount = 0;
-//        CardDeck cardDeck = new CardDeck();
-//        List<Card> cards = new ArrayList<>();
-//        cards.add(cardDeck.draw());
-//        cards.add(cardDeck.draw());
-//        cards.add(cardDeck.draw());
-//
-//        PlayCard(cards);
+
         List<Card> cards = mainPlayerCardFieldController.getChosenCards();
         if (cards.isEmpty()) {
             System.out.println("No card selected");
@@ -287,8 +312,11 @@ public class BoardViewController {
             if (sumOfCards == numberCards.getLast().GetNumberCardValue()) {
                 System.out.println("can Play those card");
                 removeCardsFromPlayerDeck(cards);
+            } else if (cards.size() == 1) {
+                System.out.println(cards.getFirst().getType() + " card can be played");
             } else {
                 System.out.println("Cant play those card");
+
             }
         } else {
             if (cards.size() == 1) {
@@ -299,25 +327,30 @@ public class BoardViewController {
                         removeCardsFromPlayerDeck(cards);
                         break;
                     case JESTER:
+                        JesterLogic();
                         // Todo Add JESTER case logic
                         removeCardsFromPlayerDeck(cards);
                         break;
                     case KNIGHT:
+                        KnightLogic();
+
                         // Todo Add KNIGHT case logic
                         removeCardsFromPlayerDeck(cards);
                         break;
                     case POTION:
+                        PotionLogic();
                         // Todo Add POTION case logic
                         removeCardsFromPlayerDeck(cards);
                         break;
                     case WAND:
+                        WandLogic();
                         // Todo Add Wand case Logic
                         removeCardsFromPlayerDeck(cards);
                         break;
-                    default:
-
                 }
             }
         }
     }
+
+
 }

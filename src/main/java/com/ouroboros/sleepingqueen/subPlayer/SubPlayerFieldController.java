@@ -18,26 +18,30 @@ public class SubPlayerFieldController {
     public VBox SubPlayer3FieldBox;
     @FXML
     public VBox SubPlayer4FieldBox;
-
     private List<SubPlayerLayoutController> subPlayerLayoutControllers;
 
+
     @FXML
-    public void initialize() {
+    public void initializeBoard(int playerCount) {
         System.out.println("SubPlayerFieldController initialized");
         // Initialize subPlayerLayoutControllers
         subPlayerLayoutControllers = new ArrayList<>();
 
-        loadSubPlayer(SubPlayer1FieldBox);
-        loadSubPlayer(SubPlayer2FieldBox);
-        loadSubPlayer(SubPlayer3FieldBox);
-        loadSubPlayer(SubPlayer4FieldBox);
+        System.out.println("Total Player: " + playerCount);
+
+        if (playerCount > 1) loadSubPlayer(SubPlayer1FieldBox, 2);
+        if (playerCount > 2) loadSubPlayer(SubPlayer2FieldBox, 3);
+        if (playerCount > 3) loadSubPlayer(SubPlayer3FieldBox, 4);
+        if (playerCount > 4) loadSubPlayer(SubPlayer4FieldBox, 5);
     }
 
-    private void loadSubPlayer(VBox subPlayer) {
+    private void loadSubPlayer(VBox subPlayer, int playerNumber) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/subPlayerView/sub-player-layout.fxml"));
             subPlayer.getChildren().add((GridPane) loader.load());
-            subPlayerLayoutControllers.add(loader.getController());
+            SubPlayerLayoutController controller = loader.getController();
+            controller.setPlayerName("Player " + playerNumber);
+            subPlayerLayoutControllers.add(controller);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,5 +51,6 @@ public class SubPlayerFieldController {
         subPlayerLayoutControllers.get(position).setPlayerName(player.getName());
         subPlayerLayoutControllers.get(position).setPlayerQueen(player.getQueenCards());
     }
+
 
 }

@@ -13,6 +13,11 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 1, 0, 0);
 }
 
+.player-label {
+    -fx-font-family: "Great Vibes", cursive;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 4, 1, 0, 0);
+}
+
 .game-information-box {
     -fx-effect: dropshadow(gaussian, rgba(181, 114, 229, 0.75), 5, 1, 0, 0);
     -fx-background-color: "pink";
@@ -48,7 +53,7 @@
 }
 
 .text-field {
-    -fx-background-color: -fx-text-box-border, -fx-background ;
-    -fx-background-insets: 0, 0 0 1 0 ;
-    -fx-background-radius: 0 ;
+    -fx-background-color: -fx-text-box-border, -fx-background;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-background-radius: 0;
 }
