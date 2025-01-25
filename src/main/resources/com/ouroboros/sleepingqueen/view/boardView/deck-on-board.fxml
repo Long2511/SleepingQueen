@@ -14,7 +14,7 @@
                 <Image url="@../../cardImg/king-1.jpg"/>
             </image>
         </ImageView>
-        <Button fx:id="playButton" mnemonicParsing="false" text="Play card"/>
+        <Button fx:id="playButton" mnemonicParsing="false" text="Confirm"/>
         <ImageView fx:id="deck" fitHeight="171.0" fitWidth="123.0" pickOnBounds="true">
             <image>
                 <Image url="@../../cardImg/king-1.jpg"/>
