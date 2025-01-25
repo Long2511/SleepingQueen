@@ -323,6 +323,10 @@ public class BoardViewController {
 
 
         List<Card> cards = mainPlayerCardFieldController.getChosenCards();
+
+        // unselect all cards after retrieving the chosen cards
+        mainPlayerCardFieldController.resetChosenCards();
+
         if (cards.isEmpty()) {
             System.out.println("No card selected");
             return;
