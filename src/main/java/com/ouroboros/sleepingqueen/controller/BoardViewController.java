@@ -267,13 +267,13 @@ public class BoardViewController {
 
         if (drawnCard.getType() == CardType.NUMBER) {
             System.out.println("Drawn card is a Number card, end turn");
-            endPlayerTurn();
+            //endPlayerTurn();
         } else {
             System.out.println("Drawn card is a Function card, player gets another turn");
             replacePlayedCards(chosenCardIndices, drawnCard);
             setUpPlayerTurn();
         }
-        endPlayerTurn();
+        //endPlayerTurn();
     }
 
     private void replacePlayedCards(List<Integer> chosenCardIndices) {
