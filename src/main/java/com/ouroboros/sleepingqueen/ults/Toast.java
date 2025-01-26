@@ -1,3 +1,10 @@
+/**
+ * Toast.java
+ * This class is used to create a toast message.
+ *
+ * @author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.ults;
 
 import javafx.animation.FadeTransition;

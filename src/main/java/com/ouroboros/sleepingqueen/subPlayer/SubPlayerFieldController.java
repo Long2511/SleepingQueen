@@ -1,3 +1,12 @@
+/**
+ * SubPlayerFieldController.java
+ * <p>
+ * This class is used to control the sub player field.
+ *
+ * @author Phuoc Thanh Nguyen
+ * @Author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.subPlayer;
 
 import com.ouroboros.sleepingqueen.player.Player;

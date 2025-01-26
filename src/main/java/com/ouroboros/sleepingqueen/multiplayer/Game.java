@@ -1,3 +1,10 @@
+/**
+ * Game.java
+ * Purpose: This class is used to store the game information.
+ *
+ * @Author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.multiplayer;
 
 import com.ouroboros.sleepingqueen.deck.Card;

@@ -1,3 +1,11 @@
+/**
+ * ButtonSound.java
+ * <p>
+ * This class is used to play the button click sound.
+ *
+ * @Author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.ults;
 
 import javafx.scene.media.Media;

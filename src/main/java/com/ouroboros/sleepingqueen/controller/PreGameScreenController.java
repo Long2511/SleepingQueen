@@ -1,3 +1,11 @@
+/**
+ * PreGameScreenController.java
+ * <p>
+ * This class is used to control the pre-game screen. It has methods to handle the back button and create game button.
+ *
+ * @Author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.controller;
 
 import com.ouroboros.sleepingqueen.ults.ButtonSound;
@@ -39,6 +47,11 @@ public class PreGameScreenController {
 
     }
 
+    /**
+     * Get the player count from the combo box
+     *
+     * @return player count
+     */
     public String getPlayerCountComboBox() {
         return playerCountComboBox.getValue().toString();
     }

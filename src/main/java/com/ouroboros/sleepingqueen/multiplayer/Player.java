@@ -1,3 +1,11 @@
+/**
+ * Player.java
+ * This class represents a player object.
+ * It contains the player's ID, name, score, cards, and turn status.
+ *
+ * @Author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.multiplayer;
 
 import com.ouroboros.sleepingqueen.deck.Card;

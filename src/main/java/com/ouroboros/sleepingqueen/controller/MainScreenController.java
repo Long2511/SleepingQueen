@@ -1,3 +1,10 @@
+/**
+ * MainScreenController.java
+ * This class is used to control the main screen. It has methods to handle the play now button, exit button, and rule view button.
+ *
+ * @Author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.controller;
 
 import com.ouroboros.sleepingqueen.ults.ButtonSound;

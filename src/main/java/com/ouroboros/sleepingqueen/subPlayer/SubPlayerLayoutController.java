@@ -1,3 +1,11 @@
+/**
+ * SubPlayerLayoutController.java
+ * <p>
+ * This class is the controller for the sub player layout.
+ *
+ * @Author Phuoc Thanh Nguyen
+ */
+
 package com.ouroboros.sleepingqueen.subPlayer;
 
 import com.ouroboros.sleepingqueen.deck.Card;

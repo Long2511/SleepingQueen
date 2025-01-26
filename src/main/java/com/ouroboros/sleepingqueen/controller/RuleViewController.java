@@ -1,3 +1,11 @@
+/**
+ * RuleViewController.java
+ * <p>
+ * This class is used to control the rule view screen. It has a method to initialize the rule view screen and handle the back button.
+ *
+ * @Author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.controller;
 
 import com.ouroboros.sleepingqueen.ults.ButtonSound;
@@ -28,6 +36,12 @@ public class RuleViewController {
 
     }
 
+    /**
+     * Handle the back button action
+     *
+     * @param event
+     * @throws IOException
+     */
     @FXML
     private void handleBackButtonAction(ActionEvent event) throws IOException {
         ButtonSound.playButtonClickSound();

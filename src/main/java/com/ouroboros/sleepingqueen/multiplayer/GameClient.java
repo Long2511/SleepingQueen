@@ -1,3 +1,12 @@
+/**
+ * GameClient.java
+ * This class represents a client that connects to the server and sends a game object and a player object.
+ * The server will respond with a message.
+ *
+ * @Author Hai Long Mac
+ */
+
+
 package com.ouroboros.sleepingqueen.multiplayer;
 
 import java.io.IOException;

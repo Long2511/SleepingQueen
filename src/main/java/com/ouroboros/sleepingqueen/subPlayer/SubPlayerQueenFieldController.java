@@ -1,3 +1,11 @@
+/**
+ * SubPlayerQueenFieldController.java
+ * <p>
+ * It contains the queen field of the sub player.
+ *
+ * @Author Phuoc Thanh Nguyen
+ */
+
 package com.ouroboros.sleepingqueen.subPlayer;
 
 import com.ouroboros.sleepingqueen.card.CardController;
