@@ -115,4 +115,10 @@ public class MainPlayerCardField {
     public void setCard(int index, Card card) {
         cardControllers.get(index).setCard(card);
     }
+
+    public void setIdle(boolean idle) {
+        for (CardController cardController : cardControllers) {
+            cardController.setIdle(idle);
+        }
+    }
 }

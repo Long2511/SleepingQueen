@@ -17,20 +17,14 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
-import javafx.scene.media.MediaPlayer;
-
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -179,6 +173,7 @@ public class BoardViewController {
 
         queenFieldController.setIdleQueenField(true);
         subPlayerFieldController.setIdle(true);
+        mainPlayerCardFieldController.setIdle(false);
     }
 
     private void setUpPlayer() {
@@ -269,13 +264,16 @@ public class BoardViewController {
             currentTurnPlayerIndex = nextTurnPlayerIndex;
             setUpPlayerTurn();
             Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(nextTurnPlayerIndex).getName() + " turn.", toastTimeOut);
-
+            mainPlayerCardFieldController.setIdle(false); // can play card again
         });
+        // Delay for 2 seconds before next player turn
+        mainPlayerCardFieldController.setIdle(true); // cannot play card during transition
         pause.play();
     }
 
     private void endPlayerTurn(int nextTurnPlayerIndex) {
         Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
+
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
             //Check win condition
@@ -292,7 +290,10 @@ public class BoardViewController {
             currentTurnPlayerIndex = nextTurnPlayerIndex;
 
             setUpPlayerTurn();
+            mainPlayerCardFieldController.setIdle(false); // can play card again
         });
+        // Delay for 2 seconds before next player turn
+        mainPlayerCardFieldController.setIdle(true); // cannot play card during transition
         pause.play();
     }
 
@@ -360,7 +361,9 @@ public class BoardViewController {
     private void KingLogic() {
         isQueenCardSelected = true;
         System.out.println("King card can be played");
+        mainPlayerCardFieldController.setIdle(true); // cannot play card in picking queen phase
         queenFieldController.setIdleQueenField(false);
+
         Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a Queen card and confirm", toastTimeOut);
     }
 
@@ -372,6 +375,7 @@ public class BoardViewController {
         isPotionPhase = true;
         Toast.show((Stage) rootPane.getScene().getWindow(), "Pick opponent queen card from other players", toastTimeOut);
         Toast.show((Stage) rootPane.getScene().getWindow(), "Pick position for the sleeping queen", toastTimeOut);
+        mainPlayerCardFieldController.setIdle(true); // cannot play card in Potion phase
         subPlayerFieldController.setIdle(false);
         queenFieldController.setIdleQueenField(false);
         System.out.println("Potion card can be played");
@@ -380,6 +384,7 @@ public class BoardViewController {
     private void KnightLogic() {
         isKnightPhase = true;
         Toast.show((Stage) rootPane.getScene().getWindow(), "Select Queen Card from other players", toastTimeOut);
+        mainPlayerCardFieldController.setIdle(true); // cannot play card in Knight phase
         // Enter knight phase: player can select opponent queen
         subPlayerFieldController.setIdle(false);
     }
@@ -535,6 +540,7 @@ public class BoardViewController {
             if (!isQueenCardSelected) {
                 endPlayerTurn();
                 queenFieldController.setIdleQueenField(true);
+                mainPlayerCardFieldController.setIdle(false); // can play card again
             }
             return;
         } else if (isKnightPhase) {
@@ -556,6 +562,7 @@ public class BoardViewController {
             nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
             endPlayerTurn(targetPlayerIndex);
             Toast.show((Stage) rootPane.getScene().getWindow(), "Play a dragon card to protect the queen", toastTimeOut);
+            mainPlayerCardFieldController.setIdle(false); // can play card again
             return;
         } else if (isPotionPhase) {
             System.out.println("Pick opponent queen card from sub-player");
@@ -582,6 +589,7 @@ public class BoardViewController {
             nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
             endPlayerTurn(targetPlayerIndex);
             Toast.show((Stage) rootPane.getScene().getWindow(), "Play a wand card to protect the queen", toastTimeOut);
+            mainPlayerCardFieldController.setIdle(false); // can play card again
             return;
         }
 
