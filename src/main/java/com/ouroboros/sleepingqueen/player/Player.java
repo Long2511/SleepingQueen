@@ -2,7 +2,6 @@ package com.ouroboros.sleepingqueen.player;
 
 import com.ouroboros.sleepingqueen.deck.Card;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -10,46 +9,23 @@ public class Player {
     private final int MAX_NORMAL_CARDS = 5;
     private final int MAX_QUEEN_CARDS = 4;
 
-    private int position;
     private String name;
     private int score;
 
     private Card[] normalCards;
     private Card[] queenCards;
-
-    private boolean[] isChosenCards;
+    private int[] queenIndexes;
 
     public Player(String name) {
         this.name = name;
         this.score = 0;
         this.normalCards = new Card[MAX_NORMAL_CARDS];
         this.queenCards = new Card[MAX_QUEEN_CARDS];
-        this.isChosenCards = new boolean[MAX_NORMAL_CARDS];
-        resetChosenCards();
+        this.queenIndexes = new int[MAX_QUEEN_CARDS];
     }
 
-    public void resetChosenCards() {
-        for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
-            isChosenCards[i] = false;
-        }
-    }
-
-    public List<Card> getChosenCards() {
-        List<Card> chosenCards = new ArrayList<>();
-        for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
-            if (isChosenCards[i]) {
-                chosenCards.add(normalCards[i]);
-            }
-        }
-        return chosenCards;
-    }
-
-    public int getPosition() {
-        return position;
-    }
-
-    public void setPosition(int position) {
-        this.position = position;
+    public void setQueenIndex(int position, int index) {
+        queenIndexes[position] = index;
     }
 
     public String getName() {
@@ -60,9 +36,9 @@ public class Player {
         return normalCards;
     }
 
-    public void setNormalCards(List<Card> cards) {
+    public void setNormalCards(Card[] cards) {
         for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
-            normalCards[i] = cards.get(i);
+            normalCards[i] = cards[i];
         }
     }
 
@@ -70,9 +46,40 @@ public class Player {
         return queenCards;
     }
 
-    public void setQueenCards(List<Card> cards) {
+    public void setQueenCards(Card[] cards) {
         for (int i = 0; i < MAX_QUEEN_CARDS; i++) {
-            queenCards[i] = cards.get(i);
+            queenCards[i] = cards[i];
+        }
+    }
+
+    public int[] getQueenIndexes() {
+        return queenIndexes;
+    }
+
+    public boolean ownQueenCardByIndex(int index) {
+        for (int i = 0; i < MAX_QUEEN_CARDS; i++) {
+            if (queenIndexes[i] == index) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Card getQueenCardByIndex(int index) {
+        for (int i = 0; i < MAX_QUEEN_CARDS; i++) {
+            if (queenIndexes[i] == index) {
+                return queenCards[i];
+            }
+        }
+        return null;
+    }
+
+    public void removeQueenCardByIndex(int index) {
+        for (int i = 0; i < MAX_QUEEN_CARDS; i++) {
+            if (queenIndexes[i] == index) {
+                queenCards[i] = null;
+                break;
+            }
         }
     }
 
@@ -109,6 +116,7 @@ public class Player {
         }
     }
 
+
     public void removeNormalCards(List<Card> cards) {
         for (Card card : cards) {
             for (int i = 0; i < MAX_NORMAL_CARDS; i++) {
@@ -118,9 +126,5 @@ public class Player {
                 }
             }
         }
-    }
-
-    public void setChosenCard(int index, boolean isChosen) {
-        isChosenCards[index] = isChosen;
     }
 }

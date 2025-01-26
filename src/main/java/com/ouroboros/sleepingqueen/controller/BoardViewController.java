@@ -45,13 +45,18 @@ public class BoardViewController {
     private MainPlayerQueenField mainPlayerQueenFieldController;
     private List<Player> playerList;
     private int currentTurnPlayerIndex;
+    private int nextTurnPlayerIndexForReal;  // next player index value (if can be determined), -1 If needed to calculate.
     private SubPlayerFieldController subPlayerFieldController;
     private DeckController deckController;
     private MainPlayerCardField mainPlayerCardFieldController;
-
     private Card selectedQueenCard;
-
     private boolean isQueenCardSelected;
+    private List<Integer> currentSubPlayerIndex;
+
+    private int awakenQueenHolderIndex;
+    private int selectedAwakenQueenIndex;
+    private boolean isKnightPhase;
+    private boolean isDragonPhase;
 
     public static int getPlayerCount() {
         return Integer.parseInt(playerCount);
@@ -68,7 +73,6 @@ public class BoardViewController {
 
     @FXML
     public void initialize() {
-        isQueenCardSelected = false;
         try {
             // Try  to load Deck to the Board
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/boardView/deck-on-board.fxml"));
@@ -120,14 +124,29 @@ public class BoardViewController {
             e.printStackTrace();
         }
 
+        initialzePhase();
         setUpPlayer();
         queenFieldController.setOnQueenCardSelected(this::handleQueenCardSelection);
+        subPlayerFieldController.setOnAwakenQueenCardSelected(this::handleAwakenQueenCardSelection);
+    }
+
+    private void initialzePhase() {
+        isQueenCardSelected = false;
+        isKnightPhase = false;
+        isDragonPhase = false;
+        selectedAwakenQueenIndex = -1;  // no awaken queen card selected
+        selectedQueenCard = null;  // no queen card selected
     }
 
     private void setUpPlayer() {
         // Set up players
         playerList = new ArrayList<>();
+
+        currentSubPlayerIndex = new ArrayList<>(getPlayerCount());
+
+        awakenQueenHolderIndex = 0;
         for (int i = 0; i < getPlayerCount(); i++) {
+            currentSubPlayerIndex.add(i - 1);
             Player player = new Player("Player " + (i + 1));
             // Draw 5 cards for each player
             for (int j = 0; j < player.getMAX_NORMAL_CARDS(); j++) {
@@ -136,11 +155,14 @@ public class BoardViewController {
             // Player has no queen card at the beginning
             for (int j = 0; j < player.getMAX_QUEEN_CARDS(); j++) {
                 player.setQueenCard(j, null);
+                player.setQueenIndex(j, awakenQueenHolderIndex);
+                awakenQueenHolderIndex += 1;
             }
             playerList.add(player);
         }
         // Player 1 makes a move first
         currentTurnPlayerIndex = 0;
+        nextTurnPlayerIndexForReal = -1;
         setUpPlayerTurn();
     }
 
@@ -163,37 +185,42 @@ public class BoardViewController {
     }
 
     private void endPlayerTurn() {
-        int nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
-        List<Card> currentPlayerQueenCards = null;
-
-        // Retrieve the current player's cards
-        List<Card> currentPlayerNormalCards = List.of(playerList.get(currentTurnPlayerIndex).getNormalCards());
-        if (playerList.get(currentTurnPlayerIndex).getQueenCards() != null) {
-            currentPlayerQueenCards = List.of(playerList.get(currentTurnPlayerIndex).getQueenCards());
+        int nextTurnPlayerIndex = nextTurnPlayerIndexForReal;
+        if (nextTurnPlayerIndex == -1) {
+            nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
+        }
+        // reset next player
+        nextTurnPlayerIndexForReal = -1;
+        if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
+            // Player gets another turn
+            return;
         }
 
+        // Swap currentSubPlayerIndex between current player and next player
+        int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
+        currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
+        currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
 
-        // Retrieve the next player's cards
-        List<Card> nextPlayerNormalCards = List.of(playerList.get(nextTurnPlayerIndex).getNormalCards());
-        List<Card> nextPlayerQueenCards = List.of(playerList.get(nextTurnPlayerIndex).getQueenCards());
-
-        // Swap the normal cards between the current player and the next player
-
-        playerList.get(currentTurnPlayerIndex).setNormalCards(nextPlayerNormalCards);
-        playerList.get(nextTurnPlayerIndex).setNormalCards(currentPlayerNormalCards);
-
-        // Swap the queen cards between the current player and the next player
-        playerList.get(currentTurnPlayerIndex).setQueenCards(nextPlayerQueenCards);
-        assert currentPlayerQueenCards != null;
-        playerList.get(nextTurnPlayerIndex).setQueenCards(currentPlayerQueenCards);
-
-        // Update the main player card field with the next player's cards
-        mainPlayerCardFieldController.setCard(playerList.get(nextTurnPlayerIndex).getNormalCards());
-
-        // Update the sub-player field with the current player's cards
-        subPlayerFieldController.setPlayer(currentTurnPlayerIndex, playerList.get(currentTurnPlayerIndex));
+        renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
 
         currentTurnPlayerIndex = nextTurnPlayerIndex;
+        setUpPlayerTurn();
+    }
+
+    private void endPlayerTurn(int nextTurnPlayerIndex) {
+        if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
+            // Player gets another turn
+            return;
+        }
+        // Swap currentSubPlayerIndex between current player and next player
+        int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
+        currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
+        currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
+
+        renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
+        currentTurnPlayerIndex = nextTurnPlayerIndex;
+
+        setUpPlayerTurn();
     }
 
     private void pickQueenCardFromField() {
@@ -247,6 +274,10 @@ public class BoardViewController {
         selectedQueenCard = null;
     }
 
+    private void DragonLogic() {
+        System.out.println("Dragon card can be played");
+    }
+
     private void KingLogic() {
         isQueenCardSelected = true;
         System.out.println("King card can be played");
@@ -261,6 +292,9 @@ public class BoardViewController {
     }
 
     private void KnightLogic() {
+        isKnightPhase = true;
+        // Enter knight phase: player can select opponent queen
+        subPlayerFieldController.setIdle(false);
         System.out.println("Knight card can be played");
     }
 
@@ -270,14 +304,21 @@ public class BoardViewController {
         System.out.println("Drawn card: " + drawnCard.getType());
 
         if (drawnCard.getType() == CardType.NUMBER) {
+            replacePlayedCards(chosenCardIndices, deckController.drawCard());
+
             System.out.println("Drawn card is a Number card, end turn");
-            //endPlayerTurn();
-        } else {
-            System.out.println("Drawn card is a Function card, player gets another turn");
-            replacePlayedCards(chosenCardIndices, drawnCard);
-            setUpPlayerTurn();
+            int indexOffset = ((NumberCard) drawnCard).GetNumberCardValue() % getPlayerCount() - 1;
+            indexOffset = (indexOffset + getPlayerCount()) % getPlayerCount();  // make sure it's positive
+            int nextTurnPlayerIndex = (currentTurnPlayerIndex + indexOffset) % getPlayerCount();
+            nextTurnPlayerIndexForReal = (nextTurnPlayerIndex + 1) % getPlayerCount();
+            endPlayerTurn(nextTurnPlayerIndex);
+            KingLogic();
+            return;
         }
-        //endPlayerTurn();
+
+        System.out.println("Drawn card is a Function card, player gets another turn");
+        replacePlayedCards(chosenCardIndices, drawnCard);
+        setUpPlayerTurn();
     }
 
     private void replacePlayedCards(List<Integer> chosenCardIndices) {
@@ -292,7 +333,6 @@ public class BoardViewController {
     private void replacePlayedCards(List<Integer> chosenCardIndices, Card card) {
         for (int index : chosenCardIndices) {
             playerList.get(currentTurnPlayerIndex).setNormalCard(index, card);
-
             mainPlayerCardFieldController.setCard(index, card);
         }
     }
@@ -307,6 +347,25 @@ public class BoardViewController {
         }
     }
 
+    public void handleAwakenQueenCardSelection(int index) {
+        selectedAwakenQueenIndex = index;
+        Card selectedAwakenQueenCard = getAwakenQueenCard(index);
+        if (selectedAwakenQueenCard != null) {
+            System.out.println("Selected Awaken Queen Card: " + selectedAwakenQueenCard.getCardImgPath());
+        } else {
+            System.out.println("Invalid awaken queen card selection.");
+        }
+    }
+
+    private Card getAwakenQueenCard(int index) {
+        for (Player player : playerList) {
+            if (player.ownQueenCardByIndex(index)) {
+                return player.getQueenCardByIndex(index);
+            }
+        }
+        return null;
+    }
+
     private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
         playerList.get(currentTurnPlayerIndex).removeNormalCards(cardsTobeRemove);
         // add discarded cards to the deck
@@ -318,10 +377,37 @@ public class BoardViewController {
     private void PlayCard(List<Card> cards) {
     }
 
+    private int getPlayerIndexByAwakenQueenIndex(int index) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i).ownQueenCardByIndex(index)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     private void handlePlayNowButtonClick() {
         if (isQueenCardSelected) {
             System.out.println("Picked Queen Card from field");
             pickQueenCardFromField();
+            if (isQueenCardSelected == false) {
+                endPlayerTurn();
+            }
+            return;
+        } else if (isKnightPhase) {
+            System.out.println("Pick opponent queen card from sub-player");
+            if (selectedAwakenQueenIndex == -1) {
+                // TODO: prompt player to choose a queen card to steal
+                System.out.println("Please pick a queen card to steal");
+                return;
+            }
+            subPlayerFieldController.setIdle(true);
+            isKnightPhase = false;
+            // Enter dragon phase: the targeted player can play Dragon card to defend
+            isDragonPhase = true;
+            int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
+            nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
+            endPlayerTurn(targetPlayerIndex);
             return;
         }
         System.out.println("Play Now Button Clicked");
@@ -334,6 +420,36 @@ public class BoardViewController {
 
         // unselect all cards after retrieving the chosen cards
         mainPlayerCardFieldController.resetChosenCards();
+
+        if (isDragonPhase) {
+            if (cards.size() > 1) {
+                // TODO: prompt player to select only one card
+                System.out.println("Invalid number of cards selected for Dragon phase");
+                return;
+            }
+            if (cards.isEmpty()) {  // no card is played
+                // The queen will be stolen
+                // the stolen player is the previous player of the TRUE next player
+                int stolenPlayerIndex = (nextTurnPlayerIndexForReal - 1 + getPlayerCount()) % getPlayerCount();
+                playerList.get(stolenPlayerIndex).addQueenCard(getAwakenQueenCard(selectedAwakenQueenIndex));
+                playerList.get(currentTurnPlayerIndex).removeQueenCardByIndex(selectedAwakenQueenIndex);
+                // rerender
+                renderSubPlayer(stolenPlayerIndex, currentSubPlayerIndex.get(stolenPlayerIndex));
+                renderMainPlayerQueenCard(currentTurnPlayerIndex);
+            } else if (cards.get(0).getType() != CardType.DRAGON) {
+                // TODO: prompt fail to defend
+                System.out.println("Invalid card selected for Dragon phase");
+                return;
+            } else if (cards.get(0).getType() == CardType.DRAGON) {
+                // TODO: prompt defend succesfully
+                // played card is dragon => the queen is defended
+                removeCardsFromPlayerDeck(cards);
+                replacePlayedCards(chosenCardIndices);
+            }
+            isDragonPhase = false;
+            selectedAwakenQueenIndex = -1;
+            endPlayerTurn();
+        }
 
         if (cards.isEmpty()) {
             System.out.println("No card selected");
@@ -370,6 +486,7 @@ public class BoardViewController {
                 System.out.println("can Play those card");
                 removeCardsFromPlayerDeck(cards);
                 replacePlayedCards(chosenCardIndices);
+                endPlayerTurn();
             } else if (cards.size() == 2) {
                 NumberCard firstCard = (NumberCard) cards.get(0);
                 NumberCard secondCard = (NumberCard) cards.get(1);
@@ -377,11 +494,12 @@ public class BoardViewController {
                     System.out.println("can Play those card");
                     removeCardsFromPlayerDeck(cards);
                     replacePlayedCards(chosenCardIndices);
-
+                    endPlayerTurn();
                 }
             } else if (sumOfCards == numberCards.getLast().GetNumberCardValue()) {
                 removeCardsFromPlayerDeck(cards);
                 replacePlayedCards(chosenCardIndices);
+                endPlayerTurn();
                 System.out.println(cards.getFirst().getType() + " card can be played");
             } else {
                 System.out.println("Cant play those card");
@@ -405,6 +523,7 @@ public class BoardViewController {
                         KnightLogic();
                         // Todo Add KNIGHT case logic
                         removeCardsFromPlayerDeck(cards);
+                        replacePlayedCards(chosenCardIndices);
                         break;
                     case POTION:
                         PotionLogic();
@@ -416,10 +535,15 @@ public class BoardViewController {
                         // Todo Add Wand case Logic
                         removeCardsFromPlayerDeck(cards);
                         break;
+                    case DRAGON:
+                        DragonLogic();
+                        // Todo Add Dragon case Logic
+                        removeCardsFromPlayerDeck(cards);
+                        replacePlayedCards(chosenCardIndices);
+                        break;
                 }
             }
         }
     }
-
 
 }
