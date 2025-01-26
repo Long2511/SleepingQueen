@@ -102,4 +102,10 @@ public class QueenFieldController {
             }
         }
     }
+
+    public void setQueenCard(int index, Card card) {
+        if (index >= 0 && index < NUMBER_OF_QUEENS) {
+            queenControllers.get(index).setCard(card);
+        }
+    }
 }

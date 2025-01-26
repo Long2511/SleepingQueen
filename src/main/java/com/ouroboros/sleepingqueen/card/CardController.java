@@ -55,14 +55,14 @@ public class CardController {
         }
         if (card == null) {
             System.out.println("No card data yet.");
-            return;
+        } else {
+            System.out.println("Card data: " + card.toString());
         }
-        System.out.println("Card clicked.");
         if (onCardSelected != null) {
             onCardSelected.accept(index);
         }
     }
-    
+
     public void setIndex(int index) {
         this.index = index;
     }

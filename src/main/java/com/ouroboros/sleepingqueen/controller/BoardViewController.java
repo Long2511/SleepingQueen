@@ -309,6 +309,7 @@ public class BoardViewController {
     private void KingLogic() {
         isQueenCardSelected = true;
         System.out.println("King card can be played");
+        queenFieldController.setIdleQueenField(false);
         Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a Queen card and confirm", toastTimeOut);
     }
 
@@ -319,6 +320,7 @@ public class BoardViewController {
     private void PotionLogic() {
         isPotionPhase = true;
         subPlayerFieldController.setIdle(false);
+        queenFieldController.setIdleQueenField(false);
         System.out.println("Potion card can be played");
     }
 
@@ -374,10 +376,20 @@ public class BoardViewController {
     public void handleQueenCardSelection(int index) {
         selectedSleepingQueenIndex = index;
         selectedQueenCard = queenFieldController.getQueenCard(index);
-        if (selectedQueenCard != null) {
-            System.out.println("Selected Queen Card: " + selectedQueenCard.getCardImgPath());
+        if (isQueenCardSelected) {
+            if (selectedQueenCard != null) {
+                System.out.println("Selected Queen Card: " + selectedQueenCard.getCardImgPath());
+            } else {
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Invalid queen card selection.", toastTimeOut);
+            }
+        } else if (isPotionPhase) {
+            if (selectedQueenCard != null) {
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Invalid position selection.", toastTimeOut);
+            } else {
+                System.out.println("Selected Position: " + selectedSleepingQueenIndex);
+            }
         } else {
-            Toast.show((Stage) rootPane.getScene().getWindow(), "Invalid queen card selection.", toastTimeOut);
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Queen card cannot be selected at this phase.", toastTimeOut);
         }
     }
 
@@ -422,6 +434,7 @@ public class BoardViewController {
             pickQueenCardFromField();
             if (!isQueenCardSelected) {
                 endPlayerTurn();
+                queenFieldController.setIdleQueenField(true);
             }
             return;
         } else if (isKnightPhase) {
@@ -451,6 +464,7 @@ public class BoardViewController {
                 return;
             }
             subPlayerFieldController.setIdle(true);
+            queenFieldController.setIdleQueenField(true);
             isPotionPhase = false;
             // Enter wand phase: the targeted player can play Wand card to defend
             isWandPhase = true;
@@ -495,6 +509,37 @@ public class BoardViewController {
             isDragonPhase = false;
             selectedAwakenQueenIndex = -1;
             endPlayerTurn();
+            return;
+        } else if (isWandPhase) {
+            if (cards.size() > 1) {
+                // TODO: prompt player to select only one card
+                System.out.println("Invalid number of cards selected for Wand phase");
+                return;
+            }
+            if (cards.isEmpty()) {  // no card is played
+                // The queen will be put to sleep
+                // the stolen player is the previous player of the TRUE next player
+                int spellUsedPlayerIndex = (nextTurnPlayerIndexForReal - 1 + getPlayerCount()) % getPlayerCount();
+                queenFieldController.setQueenCard(selectedSleepingQueenIndex, getAwakenQueenCard(selectedAwakenQueenIndex));
+                playerList.get(currentTurnPlayerIndex).removeQueenCardByIndex(selectedAwakenQueenIndex);
+                // rerender
+                renderMainPlayerQueenCard(currentTurnPlayerIndex);
+            } else if (cards.get(0).getType() != CardType.WAND) {
+                // TODO: prompt fail to defend
+                System.out.println("Invalid card selected for Wand phase");
+                return;
+            } else if (cards.get(0).getType() == CardType.WAND) {
+                // TODO: prompt defend succesfully
+                // played card is wand => the queen is defended
+                removeCardsFromPlayerDeck(cards);
+                replacePlayedCards(chosenCardIndices);
+            }
+            isWandPhase = false;
+            selectedAwakenQueenIndex = -1;
+            selectedSleepingQueenIndex = -1;
+            selectedQueenCard = null;
+            endPlayerTurn();
+            return;
         }
 
         if (cards.isEmpty()) {
