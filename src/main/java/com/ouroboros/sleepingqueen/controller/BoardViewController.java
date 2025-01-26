@@ -250,6 +250,7 @@ public class BoardViewController {
         Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
+            //Check win condition
             if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
                 // Player gets another turn
                 return;
@@ -346,9 +347,8 @@ public class BoardViewController {
 
     private void KnightLogic() {
         isKnightPhase = true;
-        // Enter knight phase: player can select opponent queen
+        Toast.show((Stage) rootPane.getScene().getWindow(), "Knight card can be played, pick opponent queen card from other players", toastTimeOut);
         subPlayerFieldController.setIdle(false);
-        System.out.println("Knight card can be played");
     }
 
     private void JesterLogic(List<Integer> chosenCardIndices) {
@@ -444,6 +444,25 @@ public class BoardViewController {
         return null;
     }
 
+    public void handleAwakenQueenCardSelection(int index) {
+        selectedAwakenQueenIndex = index;
+        Card selectedAwakenQueenCard = getAwakenQueenCard(index);
+        if (selectedAwakenQueenCard != null) {
+            System.out.println("Selected Awaken Queen Card: " + selectedAwakenQueenCard.getCardImgPath());
+        } else {
+            System.out.println("Invalid awaken queen card selection.");
+        }
+    }
+
+    private Card getAwakenQueenCard(int index) {
+        for (Player player : playerList) {
+            if (player.ownQueenCardByIndex(index)) {
+                return player.getQueenCardByIndex(index);
+            }
+        }
+        return null;
+    }
+
     private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
         playerList.get(currentTurnPlayerIndex).removeNormalCards(cardsTobeRemove);
         // add discarded cards to the discarded card deck
@@ -470,9 +489,10 @@ public class BoardViewController {
             }
             return;
         } else if (isKnightPhase) {
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Pick opponent queen card from other players", toastTimeOut);
             System.out.println("Pick opponent queen card from sub-player");
             if (selectedAwakenQueenCard == null) {
-                // TODO: prompt player to choose a queen card to steal
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Please pick a queen card to steal", toastTimeOut);
                 System.out.println("Please pick a queen card to steal");
                 return;
             }
@@ -522,7 +542,7 @@ public class BoardViewController {
 
         if (isDragonPhase) {
             if (cards.size() > 1) {
-                // TODO: prompt player to select only one card
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Please select one Queen card only", toastTimeOut);
                 System.out.println("Invalid number of cards selected for Dragon phase");
                 return;
             }
@@ -536,11 +556,11 @@ public class BoardViewController {
                 renderSubPlayer(stolenPlayerIndex, currentSubPlayerIndex.get(stolenPlayerIndex));
                 renderMainPlayerQueenCard(currentTurnPlayerIndex);
             } else if (cards.get(0).getType() != CardType.DRAGON) {
-                // TODO: prompt fail to defend
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Only Dragon card can be play", toastTimeOut);
                 System.out.println("Invalid card selected for Dragon phase");
                 return;
             } else if (cards.get(0).getType() == CardType.DRAGON) {
-                // TODO: prompt defend succesfully
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Steal blocked", toastTimeOut);
                 // played card is dragon => the queen is defended
                 removeCardsFromPlayerDeck(cards);
                 replacePlayedCards(chosenCardIndices);
@@ -648,7 +668,6 @@ public class BoardViewController {
                         break;
                     case KNIGHT:
                         KnightLogic();
-                        // Todo Add KNIGHT case logic
                         removeCardsFromPlayerDeck(cards);
                         replacePlayedCards(chosenCardIndices);
                         break;
@@ -665,7 +684,6 @@ public class BoardViewController {
                         break;
                     case DRAGON:
                         DragonLogic();
-                        // Todo Add Dragon case Logic
                         removeCardsFromPlayerDeck(cards);
                         replacePlayedCards(chosenCardIndices);
                         break;
