@@ -9,12 +9,17 @@ import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerCardField;
 import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerQueenField;
 import com.ouroboros.sleepingqueen.player.Player;
 import com.ouroboros.sleepingqueen.subPlayer.SubPlayerFieldController;
+import com.ouroboros.sleepingqueen.ults.Toast;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -24,8 +29,11 @@ public class BoardViewController {
 
     private static String playerCount;
     private final String[] SPECIAL_QUEENS = {"Rose Queen", "Dog Queen", "Cat Queen"};
+    private final int toastTimeOut = 4000;
     @FXML
     public HBox mainPlayerQueenFieldBox;
+    @FXML
+    Text MainPlayer;
     @FXML
     private StackPane rootPane;
     @FXML
@@ -41,7 +49,6 @@ public class BoardViewController {
     @FXML
     private HBox mainPlayerCardFieldBox;
     @FXML
-
     private MainPlayerQueenField mainPlayerQueenFieldController;
     private List<Player> playerList;
     private int currentTurnPlayerIndex;
@@ -68,6 +75,7 @@ public class BoardViewController {
 
     @FXML
     public void initialize() {
+
         isQueenCardSelected = false;
         try {
             // Try  to load Deck to the Board
@@ -122,6 +130,8 @@ public class BoardViewController {
 
         setUpPlayer();
         queenFieldController.setOnQueenCardSelected(this::handleQueenCardSelection);
+
+
     }
 
     private void setUpPlayer() {
@@ -165,60 +175,74 @@ public class BoardViewController {
         // load cards of the CurrentTurnPlayer to the main player card field
         renderMainPlayerNormalCard(currentTurnPlayerIndex);
         renderMainPlayerQueenCard(currentTurnPlayerIndex);
+
+        MainPlayer.setText(playerList.get(currentTurnPlayerIndex).getName());
     }
 
     private void endPlayerTurn() {
-        int nextTurnPlayerIndex = nextTurnPlayerIndexForReal;
-        if (nextTurnPlayerIndex == -1) {
-            nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
-        }
-        // reset next player
-        nextTurnPlayerIndexForReal = -1;
+        Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
+        PauseTransition pause = new PauseTransition(Duration.seconds(rootPane.getScene() != null ? 2 : 0));
+        pause.setOnFinished(event -> {
+            int nextTurnPlayerIndex = nextTurnPlayerIndexForReal;
+            if (nextTurnPlayerIndex == -1) {
+                nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
+            }
+            // reset next player
+            nextTurnPlayerIndexForReal = -1;
 
-        // Swap currentSubPlayerIndex between current player and next player
-        int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
-        currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
-        currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
+            // Swap currentSubPlayerIndex between current player and next player
+            int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
+            currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
+            currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
 
-        renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
+            renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
 
-        currentTurnPlayerIndex = nextTurnPlayerIndex;
-        setUpPlayerTurn();
+            currentTurnPlayerIndex = nextTurnPlayerIndex;
+            setUpPlayerTurn();
+            Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(nextTurnPlayerIndex).getName() + " turn.", toastTimeOut);
+
+        });
+        pause.play();
     }
 
     private void endPlayerTurn(int nextTurnPlayerIndex) {
-        if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
-            // Player gets another turn
-            return;
-        }
-        // Swap currentSubPlayerIndex between current player and next player
-        int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
-        currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
-        currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
+        Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> {
+            if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
+                // Player gets another turn
+                return;
+            }
+            // Swap currentSubPlayerIndex between current player and next player
+            int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
+            currentSubPlayerIndex.set(currentTurnPlayerIndex, currentSubPlayerIndex.get(nextTurnPlayerIndex));
+            currentSubPlayerIndex.set(nextTurnPlayerIndex, temp);
 
-        renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
-        currentTurnPlayerIndex = nextTurnPlayerIndex;
+            renderSubPlayer(currentTurnPlayerIndex, currentSubPlayerIndex.get(currentTurnPlayerIndex));
+            currentTurnPlayerIndex = nextTurnPlayerIndex;
 
-        setUpPlayerTurn();
+            setUpPlayerTurn();
+        });
+        pause.play();
     }
 
     private void pickQueenCardFromField() {
+
         if (selectedQueenCard == null) {
-            // TODO: prompt user to select a queen card
-            System.out.println("No queen card selected.");
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a queen card first!", toastTimeOut);
             return;
         }
         boolean addQueen = true;
         boolean isRoseQueen = selectedQueenCard.getCardName().equals(SPECIAL_QUEENS[0]);
-        System.out.println("Selected Queen: " + selectedQueenCard.getCardName());
+        Toast.show((Stage) rootPane.getScene().getWindow(), "Selected Queen: " + selectedQueenCard.getCardName(), toastTimeOut);
+
         if (selectedQueenCard.getCardName().equals(SPECIAL_QUEENS[1])) {
             // Dog Queen - check if player has Cat Queen
             Card[] playerQueenCards = playerList.get(currentTurnPlayerIndex).getQueenCards();
             for (Card card : playerQueenCards) {
                 if (card != null && card.getCardName().equals(SPECIAL_QUEENS[2])) {
                     // Player has Cat Queen - cannot have the same Dog & Cat at the same time => Put back Dog Queen to the field
-                    // TODO: prompt DOG & CAT cannot be together
-                    System.out.println("Dog Queen processing");
+                    Toast.show((Stage) rootPane.getScene().getWindow(), "Dog Queen and Cat Queen cannot be pick together", toastTimeOut);
                     addQueen = false;
                     break;
                 }
@@ -229,7 +253,7 @@ public class BoardViewController {
             for (Card card : playerQueenCards) {
                 if (card != null && card.getCardName().equals(SPECIAL_QUEENS[1])) {
                     // Player has Dog Queen - cannot have the same Dog & Cat at the same time => Put back Cat Queen to the field
-                    // TODO: prompt DOG & CAT cannot be together
+                    Toast.show((Stage) rootPane.getScene().getWindow(), "Dog Queen and Cat Queen cannot be pick together", toastTimeOut);
                     System.out.println("Cat Queen processing");
                     addQueen = false;
                     break;
@@ -246,7 +270,7 @@ public class BoardViewController {
         if (isRoseQueen) {
             // Rose Queen - player can pick another queen
             isQueenCardSelected = true;
-            // TODO: prompt user to select another queen card
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Picked Rose Queen, please select another Queen", toastTimeOut);
         } else {
             isQueenCardSelected = false;
         }
@@ -260,6 +284,7 @@ public class BoardViewController {
     private void KingLogic() {
         isQueenCardSelected = true;
         System.out.println("King card can be played");
+        Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a Queen card and confirm", toastTimeOut);
     }
 
     private void WandLogic() {
@@ -277,22 +302,24 @@ public class BoardViewController {
     private void JesterLogic(List<Integer> chosenCardIndices) {
         System.out.println("Jester card can be played");
         Card drawnCard = deckController.drawCard();
-        System.out.println("Drawn card: " + drawnCard.getType());
+
+        System.out.println();
 
         if (drawnCard.getType() == CardType.NUMBER) {
-            replacePlayedCards(chosenCardIndices, deckController.drawCard());
 
-            System.out.println("Drawn card is a Number card, end turn");
+            replacePlayedCards(chosenCardIndices, deckController.drawCard());
             int indexOffset = ((NumberCard) drawnCard).GetNumberCardValue() % getPlayerCount() - 1;
             indexOffset = (indexOffset + getPlayerCount()) % getPlayerCount();  // make sure it's positive
             int nextTurnPlayerIndex = (currentTurnPlayerIndex + indexOffset) % getPlayerCount();
-            nextTurnPlayerIndexForReal = (nextTurnPlayerIndex + 1) % getPlayerCount();
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Drawn card is a Number card " + ((NumberCard) drawnCard).GetNumberCardValue() + ", moved to player " + playerList.get(nextTurnPlayerIndex).getName(), toastTimeOut);
+            nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
+
             endPlayerTurn(nextTurnPlayerIndex);
+            deckController.discardCard(drawnCard);
             KingLogic();
             return;
         }
-
-        System.out.println("Drawn card is a Function card, player gets another turn");
+        Toast.show((Stage) rootPane.getScene().getWindow(), "Drawn card is a Function card, player gets another turn", toastTimeOut);
         replacePlayedCards(chosenCardIndices, drawnCard);
         setUpPlayerTurn();
     }
@@ -319,43 +346,36 @@ public class BoardViewController {
         if (selectedQueenCard != null) {
             System.out.println("Selected Queen Card: " + selectedQueenCard.getCardImgPath());
         } else {
-            System.out.println("Invalid queen card selection.");
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Invalid queen card selection.", toastTimeOut);
         }
     }
 
     private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
         playerList.get(currentTurnPlayerIndex).removeNormalCards(cardsTobeRemove);
-        // add discarded cards to the deck
+        // add discarded cards to the discarded card deck
         for (Card card : cardsTobeRemove) {
             deckController.discardCard(card);
         }
     }
 
-    private void PlayCard(List<Card> cards) {
-    }
-
     private void handlePlayNowButtonClick() {
         if (isQueenCardSelected) {
-            System.out.println("Picked Queen Card from field");
             pickQueenCardFromField();
-            if (isQueenCardSelected == false) {
+            if (!isQueenCardSelected) {
                 endPlayerTurn();
             }
             return;
         }
-        System.out.println("Play Now Button Clicked");
 
         int numberCardsCount = 0;
         List<Integer> chosenCardIndices = mainPlayerCardFieldController.getChosenCardIndexes();
-
-
         List<Card> cards = mainPlayerCardFieldController.getChosenCards();
 
         // unselect all cards after retrieving the chosen cards
         mainPlayerCardFieldController.resetChosenCards();
 
         if (cards.isEmpty()) {
-            System.out.println("No card selected");
+            Toast.show((Stage) rootPane.getScene().getWindow(), "No card selected", toastTimeOut);
             return;
         }
 
@@ -365,7 +385,6 @@ public class BoardViewController {
             }
         }
         if (numberCardsCount == cards.size()) {
-            System.out.println("All cards are number cards");
             int sumOfCards = 0;
 
             // Filter and collect only NumberCard objects and sort numbers
@@ -386,7 +405,6 @@ public class BoardViewController {
 
             //Check the sum of number cards is equal to the last card
             if (cards.size() == 1) {
-                System.out.println("can Play those card");
                 removeCardsFromPlayerDeck(cards);
                 replacePlayedCards(chosenCardIndices);
                 endPlayerTurn();
@@ -394,19 +412,18 @@ public class BoardViewController {
                 NumberCard firstCard = (NumberCard) cards.get(0);
                 NumberCard secondCard = (NumberCard) cards.get(1);
                 if (firstCard.GetNumberCardValue() == secondCard.GetNumberCardValue()) {
-                    System.out.println("can Play those card");
                     removeCardsFromPlayerDeck(cards);
                     replacePlayedCards(chosenCardIndices);
                     endPlayerTurn();
+                } else {
+                    Toast.show((Stage) rootPane.getScene().getWindow(), "Invalid Card, Please chose different card.", toastTimeOut);
                 }
             } else if (sumOfCards == numberCards.getLast().GetNumberCardValue()) {
                 removeCardsFromPlayerDeck(cards);
                 replacePlayedCards(chosenCardIndices);
                 endPlayerTurn();
-                System.out.println(cards.getFirst().getType() + " card can be played");
             } else {
-                System.out.println("Cant play those card");
-
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Invalid Card, Please chose different card.", toastTimeOut);
             }
         } else {
             if (cards.size() == 1) {
@@ -418,9 +435,8 @@ public class BoardViewController {
                         replacePlayedCards(chosenCardIndices);
                         break;
                     case JESTER:
-                        JesterLogic(chosenCardIndices);
-                        // Todo Add JESTER case logic
                         removeCardsFromPlayerDeck(cards);
+                        JesterLogic(chosenCardIndices);
                         break;
                     case KNIGHT:
                         KnightLogic();
@@ -443,6 +459,8 @@ public class BoardViewController {
                         removeCardsFromPlayerDeck(cards);
                         break;
                 }
+            } else {
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Invalid Card, Please chose different card.", toastTimeOut);
             }
         }
     }

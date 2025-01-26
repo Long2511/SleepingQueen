@@ -48,6 +48,7 @@ public class CardController {
 
     @FXML
     public void flipCard(MouseEvent e) {
+
         // If idle, cannot be flipped
         if (isIdle) {
             System.out.println("This card is idle.");
