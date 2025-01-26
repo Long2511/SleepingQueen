@@ -241,6 +241,7 @@ public class BoardViewController {
         Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
         pause.setOnFinished(event -> {
+            //Check win condition
             if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
                 // Player gets another turn
                 return;
@@ -334,7 +335,6 @@ public class BoardViewController {
         Toast.show((Stage) rootPane.getScene().getWindow(), "Select Queen Card from other players", toastTimeOut);
         // Enter knight phase: player can select opponent queen
         subPlayerFieldController.setIdle(false);
-        System.out.println("Knight card can be played");
     }
 
     private void JesterLogic(List<Integer> chosenCardIndices) {
@@ -466,9 +466,10 @@ public class BoardViewController {
             }
             return;
         } else if (isKnightPhase) {
-            Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a queen card to steal", toastTimeOut);
-
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Pick opponent queen card from other players", toastTimeOut);
+            System.out.println("Pick opponent queen card from sub-player");
             if (selectedAwakenQueenIndex == -1) {
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Please pick a queen card to steal", toastTimeOut);
                 System.out.println("Please pick a queen card to steal");
                 return;
             }
@@ -492,7 +493,9 @@ public class BoardViewController {
 
         if (isDragonPhase) {
             if (cards.size() > 1) {
+
                 Toast.show((Stage) rootPane.getScene().getWindow(), "Only one card can be played for Dragon phase", toastTimeOut);
+
                 System.out.println("Invalid number of cards selected for Dragon phase");
                 return;
             }
@@ -505,12 +508,13 @@ public class BoardViewController {
                 // rerender
                 renderSubPlayer(stolenPlayerIndex, currentSubPlayerIndex.get(stolenPlayerIndex));
                 renderMainPlayerQueenCard(currentTurnPlayerIndex);
-            } else if (cards.getFirst().getType() != CardType.DRAGON) {
+
+            } else if (cards.get(0).getType() != CardType.DRAGON) {
                 Toast.show((Stage) rootPane.getScene().getWindow(), "Only Dragon card can be play", toastTimeOut);
                 System.out.println("Invalid card selected for Dragon phase");
                 return;
-            } else if (cards.getFirst().getType() == CardType.DRAGON) {
-                Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " defended successfully", toastTimeOut);
+            } else if (cards.get(0).getType() == CardType.DRAGON) {
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Steal blocked", toastTimeOut);
                 // played card is dragon => the queen is defended
                 removeCardsFromPlayerDeck(cards);
                 replacePlayedCards(chosenCardIndices);
@@ -586,7 +590,6 @@ public class BoardViewController {
                         break;
                     case KNIGHT:
                         KnightLogic();
-                        // Todo Add KNIGHT case logic
                         removeCardsFromPlayerDeck(cards);
                         replacePlayedCards(chosenCardIndices);
                         break;
@@ -602,7 +605,6 @@ public class BoardViewController {
                         break;
                     case DRAGON:
                         DragonLogic();
-                        // Todo Add Dragon case Logic
                         removeCardsFromPlayerDeck(cards);
                         replacePlayedCards(chosenCardIndices);
                         break;
