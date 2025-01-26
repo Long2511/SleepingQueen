@@ -1,3 +1,10 @@
+/**
+ * MainScreen.java
+ * This class is used to control the main screen. It has a method to set the background music and handle the dragging of the window.
+ *
+ * @author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen;
 
 import javafx.application.Application;

@@ -1,3 +1,11 @@
+/**
+ * Player class represents a player in the game. Each player has a name, a score, and a set of cards.
+ * The player can have up to 5 normal cards and 4 queen cards at a time. The player can also own queen cards by index.
+ *
+ * @author Hai Long Mac
+ * @author Phuoc Thanh Nguyen
+ */
+
 package com.ouroboros.sleepingqueen.player;
 
 import com.ouroboros.sleepingqueen.deck.Card;

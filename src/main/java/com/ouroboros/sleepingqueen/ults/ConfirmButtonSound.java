@@ -1,3 +1,11 @@
+/**
+ * ConfirmButtonSound.java
+ * <p>
+ * This class is used to play the confirm button click sound.
+ *
+ * @author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.ults;
 
 import javafx.scene.media.Media;

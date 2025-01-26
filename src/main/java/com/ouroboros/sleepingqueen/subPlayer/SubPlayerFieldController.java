@@ -1,10 +1,10 @@
 /**
  * SubPlayerFieldController.java
- * Controller class for SubPlayerField.fxml
- * This class is responsible for handling the sub player field
- * It contains the sub player layout controllers and the methods to set the player and card effects
+ * <p>
+ * This class is used to control the sub player field.
  *
- * @author: Thanh Phuoc Nguyen - 1584468
+ * @author Phuoc Thanh Nguyen
+ * @Author Hai Long Mac
  */
 
 package com.ouroboros.sleepingqueen.subPlayer;
