@@ -37,9 +37,7 @@ public class SubPlayerFieldController {
     public void initializeBoard(int playerCount) {
         // Initialize subPlayerLayoutControllers
         subPlayerLayoutControllers = new ArrayList<>();
-
-        System.out.println("Total Player: " + playerCount);
-
+        
         // Load player according to the number of player
         if (playerCount > 1) loadSubPlayer(SubPlayer1FieldBox, 2);
         if (playerCount > 2) loadSubPlayer(SubPlayer2FieldBox, 3);

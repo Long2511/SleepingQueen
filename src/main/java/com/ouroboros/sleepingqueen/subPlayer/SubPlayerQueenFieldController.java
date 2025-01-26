@@ -103,7 +103,6 @@ public class SubPlayerQueenFieldController {
      */
     public void setQueen(int position, Card queen, int index) {
         if (position < 0 || position >= 4) {
-            System.out.println("Invalid position of SubPlayer: " + position);
             return;
         }
 
