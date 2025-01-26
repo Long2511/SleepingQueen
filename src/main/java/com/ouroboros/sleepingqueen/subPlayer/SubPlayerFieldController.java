@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class SubPlayerFieldController {
     @FXML
@@ -19,6 +20,7 @@ public class SubPlayerFieldController {
     @FXML
     public VBox SubPlayer4FieldBox;
     private List<SubPlayerLayoutController> subPlayerLayoutControllers;
+    private Consumer<Integer> onAwakenQueenCardSelected;
 
 
     @FXML
@@ -33,6 +35,26 @@ public class SubPlayerFieldController {
         if (playerCount > 2) loadSubPlayer(SubPlayer2FieldBox, 3);
         if (playerCount > 3) loadSubPlayer(SubPlayer3FieldBox, 4);
         if (playerCount > 4) loadSubPlayer(SubPlayer4FieldBox, 5);
+
+        for (SubPlayerLayoutController subPlayerLayoutController : subPlayerLayoutControllers) {
+            subPlayerLayoutController.setOnAwakenQueenCardSelected(this::handleAwakenQueenCardSelected);
+        }
+    }
+
+    public void setIdle(boolean idle) {
+        for (SubPlayerLayoutController subPlayerLayoutController : subPlayerLayoutControllers) {
+            subPlayerLayoutController.setIdle(idle);
+        }
+    }
+
+    public void setOnAwakenQueenCardSelected(Consumer<Integer> onQueenCardSelected) {
+        this.onAwakenQueenCardSelected = onQueenCardSelected;
+    }
+
+    private void handleAwakenQueenCardSelected(int index) {
+        if (onAwakenQueenCardSelected != null) {
+            onAwakenQueenCardSelected.accept(index);
+        }
     }
 
     private void loadSubPlayer(VBox subPlayer, int playerNumber) {
@@ -49,7 +71,7 @@ public class SubPlayerFieldController {
 
     public void setPlayer(int position, Player player) {
         subPlayerLayoutControllers.get(position).setPlayerName(player.getName());
-        subPlayerLayoutControllers.get(position).setPlayerQueen(player.getQueenCards());
+        subPlayerLayoutControllers.get(position).setPlayerQueen(player.getQueenCards(), player.getQueenIndexes());
     }
 
 

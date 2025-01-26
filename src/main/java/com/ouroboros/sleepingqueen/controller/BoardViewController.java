@@ -60,6 +60,11 @@ public class BoardViewController {
     private boolean isQueenCardSelected;
     private List<Integer> currentSubPlayerIndex;
 
+    private int awakenQueenHolderIndex;
+    private int selectedAwakenQueenIndex;
+    private boolean isKnightPhase;
+    private boolean isDragonPhase;
+
     public static int getPlayerCount() {
         return Integer.parseInt(playerCount);
     }
@@ -75,8 +80,6 @@ public class BoardViewController {
 
     @FXML
     public void initialize() {
-
-        isQueenCardSelected = false;
         try {
             // Try  to load Deck to the Board
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/boardView/deck-on-board.fxml"));
@@ -128,10 +131,18 @@ public class BoardViewController {
             e.printStackTrace();
         }
 
+        initialzePhase();
         setUpPlayer();
         queenFieldController.setOnQueenCardSelected(this::handleQueenCardSelection);
+        subPlayerFieldController.setOnAwakenQueenCardSelected(this::handleAwakenQueenCardSelection);
+    }
 
-
+    private void initialzePhase() {
+        isQueenCardSelected = false;
+        isKnightPhase = false;
+        isDragonPhase = false;
+        selectedAwakenQueenIndex = -1;  // no awaken queen card selected
+        selectedQueenCard = null;  // no queen card selected
     }
 
     private void setUpPlayer() {
@@ -140,6 +151,7 @@ public class BoardViewController {
 
         currentSubPlayerIndex = new ArrayList<>(getPlayerCount());
 
+        awakenQueenHolderIndex = 0;
         for (int i = 0; i < getPlayerCount(); i++) {
             currentSubPlayerIndex.add(i - 1);
             Player player = new Player("Player " + (i + 1));
@@ -150,6 +162,8 @@ public class BoardViewController {
             // Player has no queen card at the beginning
             for (int j = 0; j < player.getMAX_QUEEN_CARDS(); j++) {
                 player.setQueenCard(j, null);
+                player.setQueenIndex(j, awakenQueenHolderIndex);
+                awakenQueenHolderIndex += 1;
             }
             playerList.add(player);
         }
@@ -189,6 +203,10 @@ public class BoardViewController {
             }
             // reset next player
             nextTurnPlayerIndexForReal = -1;
+        if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
+            // Player gets another turn
+            return;
+        }
 
             // Swap currentSubPlayerIndex between current player and next player
             int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
@@ -296,6 +314,9 @@ public class BoardViewController {
     }
 
     private void KnightLogic() {
+        isKnightPhase = true;
+        // Enter knight phase: player can select opponent queen
+        subPlayerFieldController.setIdle(false);
         System.out.println("Knight card can be played");
     }
 
@@ -350,12 +371,40 @@ public class BoardViewController {
         }
     }
 
+    public void handleAwakenQueenCardSelection(int index) {
+        selectedAwakenQueenIndex = index;
+        Card selectedAwakenQueenCard = getAwakenQueenCard(index);
+        if (selectedAwakenQueenCard != null) {
+            System.out.println("Selected Awaken Queen Card: " + selectedAwakenQueenCard.getCardImgPath());
+        } else {
+            System.out.println("Invalid awaken queen card selection.");
+        }
+    }
+
+    private Card getAwakenQueenCard(int index) {
+        for (Player player : playerList) {
+            if (player.ownQueenCardByIndex(index)) {
+                return player.getQueenCardByIndex(index);
+            }
+        }
+        return null;
+    }
+
     private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
         playerList.get(currentTurnPlayerIndex).removeNormalCards(cardsTobeRemove);
         // add discarded cards to the discarded card deck
         for (Card card : cardsTobeRemove) {
             deckController.discardCard(card);
         }
+    }
+
+    private int getPlayerIndexByAwakenQueenIndex(int index) {
+        for (int i = 0; i < playerList.size(); i++) {
+            if (playerList.get(i).ownQueenCardByIndex(index)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private void handlePlayNowButtonClick() {
@@ -365,6 +414,21 @@ public class BoardViewController {
                 endPlayerTurn();
             }
             return;
+        } else if (isKnightPhase) {
+            System.out.println("Pick opponent queen card from sub-player");
+            if (selectedAwakenQueenIndex == -1) {
+                // TODO: prompt player to choose a queen card to steal
+                System.out.println("Please pick a queen card to steal");
+                return;
+            }
+            subPlayerFieldController.setIdle(true);
+            isKnightPhase = false;
+            // Enter dragon phase: the targeted player can play Dragon card to defend
+            isDragonPhase = true;
+            int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
+            nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
+            endPlayerTurn(targetPlayerIndex);
+            return;
         }
 
         int numberCardsCount = 0;
@@ -373,6 +437,36 @@ public class BoardViewController {
 
         // unselect all cards after retrieving the chosen cards
         mainPlayerCardFieldController.resetChosenCards();
+
+        if (isDragonPhase) {
+            if (cards.size() > 1) {
+                // TODO: prompt player to select only one card
+                System.out.println("Invalid number of cards selected for Dragon phase");
+                return;
+            }
+            if (cards.isEmpty()) {  // no card is played
+                // The queen will be stolen
+                // the stolen player is the previous player of the TRUE next player
+                int stolenPlayerIndex = (nextTurnPlayerIndexForReal - 1 + getPlayerCount()) % getPlayerCount();
+                playerList.get(stolenPlayerIndex).addQueenCard(getAwakenQueenCard(selectedAwakenQueenIndex));
+                playerList.get(currentTurnPlayerIndex).removeQueenCardByIndex(selectedAwakenQueenIndex);
+                // rerender
+                renderSubPlayer(stolenPlayerIndex, currentSubPlayerIndex.get(stolenPlayerIndex));
+                renderMainPlayerQueenCard(currentTurnPlayerIndex);
+            } else if (cards.get(0).getType() != CardType.DRAGON) {
+                // TODO: prompt fail to defend
+                System.out.println("Invalid card selected for Dragon phase");
+                return;
+            } else if (cards.get(0).getType() == CardType.DRAGON) {
+                // TODO: prompt defend succesfully
+                // played card is dragon => the queen is defended
+                removeCardsFromPlayerDeck(cards);
+                replacePlayedCards(chosenCardIndices);
+            }
+            isDragonPhase = false;
+            selectedAwakenQueenIndex = -1;
+            endPlayerTurn();
+        }
 
         if (cards.isEmpty()) {
             Toast.show((Stage) rootPane.getScene().getWindow(), "No card selected", toastTimeOut);
@@ -442,6 +536,7 @@ public class BoardViewController {
                         KnightLogic();
                         // Todo Add KNIGHT case logic
                         removeCardsFromPlayerDeck(cards);
+                        replacePlayedCards(chosenCardIndices);
                         break;
                     case POTION:
                         PotionLogic();
@@ -457,6 +552,7 @@ public class BoardViewController {
                         DragonLogic();
                         // Todo Add Dragon case Logic
                         removeCardsFromPlayerDeck(cards);
+                        replacePlayedCards(chosenCardIndices);
                         break;
                 }
             } else {
