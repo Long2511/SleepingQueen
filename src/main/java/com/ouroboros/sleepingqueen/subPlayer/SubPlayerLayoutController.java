@@ -1,3 +1,15 @@
+/**
+ * SubPlayerLayoutController.java
+ * <p>
+ * Controller class for SubPlayerLayout.fxml
+ * This class is responsible for handling the layout of the sub player
+ * It contains the sub player's name and the sub player's queen field
+ * It also contains the logic for handling the selection of the queen card
+ * and the effect of the card
+ *
+ * @author: Thanh Phuoc Nguyen - 1584468
+ */
+
 package com.ouroboros.sleepingqueen.subPlayer;
 
 import com.ouroboros.sleepingqueen.deck.Card;
@@ -21,7 +33,7 @@ public class SubPlayerLayoutController {
 
     @FXML
     public void initialize() {
-        System.out.println("SubPlayerLayoutController initialized");
+        // Load the sub player queen field
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/subPlayerView/sub-player-queen-field.fxml"));
             SubPlayerQueenFieldBox.getChildren().add((GridPane) loader.load());
@@ -36,10 +48,16 @@ public class SubPlayerLayoutController {
         subPlayerQueenFieldController.setIdle(idle);
     }
 
+
     public void setOnAwakenQueenCardSelected(Consumer<Integer> onQueenCardSelected) {
         this.onAwakenQueenCardSelected = onQueenCardSelected;
     }
 
+    /**
+     * Handle the selection of the queen card
+     *
+     * @param index the index of the selected card
+     */
     private void handleAwakenQueenCardSelected(int index) {
         if (onAwakenQueenCardSelected != null) {
             onAwakenQueenCardSelected.accept(index);

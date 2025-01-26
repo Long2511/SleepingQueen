@@ -1,3 +1,14 @@
+/**
+ * JSONCardDAO.java
+ * This class reads card data from JSON files and creates card objects.
+ * It implements CardDAO interface.
+ * It reads card data from two JSON files: normalCardData.json and queenCardData.json
+ * It creates card objects based on the data read from JSON files.
+ * It returns a list of all normal cards and a list of all queen cards.
+ *
+ * @author: Thanh Phuoc Nguyen - 1584468
+ */
+
 package com.ouroboros.sleepingqueen.dao;
 
 
@@ -63,6 +74,15 @@ public class JSONCardDAO implements CardDAO {
         return new QueenCard(name, image, backImage, point);
     }
 
+    /**
+     * Create a normal card based on the card type
+     *
+     * @param name      - name of the card
+     * @param image     - image path of the card
+     * @param backImage - back image path of the card
+     * @param cardType  - type of the card
+     * @return Card
+     */
     public Card createNormalCard(String name, String image, String backImage, String cardType) {
         return switch (cardType) {
             case "KING" -> new KingCard(name, image, backImage);

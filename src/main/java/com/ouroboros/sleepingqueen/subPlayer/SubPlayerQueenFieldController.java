@@ -1,3 +1,18 @@
+/**
+ * SubPlayerQueenFieldController.java
+ * <p>
+ * Controller class for the queen field of the sub player
+ * This class is responsible for displaying the queens on the sub player's field
+ * The queens are displayed faceup and fixed
+ * The queens are displayed in a row of 4 queens
+ * The queens are displayed with an event handler for awaken queen card
+ * The queens are displayed with an effect
+ * The queens are displayed with a method to set the queen card
+ * The queens are displayed with a method to set the card effect by index
+ *
+ * @author: Thanh Phuoc Nguyen - 1584468
+ */
+
 package com.ouroboros.sleepingqueen.subPlayer;
 
 import com.ouroboros.sleepingqueen.card.CardController;
@@ -28,9 +43,10 @@ public class SubPlayerQueenFieldController {
 
 
     public void initialize() {
-        System.out.println("SubPlayerQueenFieldController initialized");
+        // Initialize queenControllers
         queenControllers = new ArrayList<>();
 
+        // Load the queen card for the sub player
         loadQueen(subQueen1Box);
         loadQueen(subQueen2Box);
         loadQueen(subQueen3Box);
@@ -62,6 +78,11 @@ public class SubPlayerQueenFieldController {
         }
     }
 
+    /**
+     * Load the queen card for the sub player
+     *
+     * @param subQueen the queen card
+     */
     private void loadQueen(VBox subQueen) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/subPlayerView/sub-player-queen-on-board.fxml"));
@@ -73,6 +94,13 @@ public class SubPlayerQueenFieldController {
         }
     }
 
+    /**
+     * Set the queen card for the sub player
+     *
+     * @param position position of the queen card
+     * @param queen    the queen card
+     * @param index    the index of the queen card
+     */
     public void setQueen(int position, Card queen, int index) {
         if (position < 0 || position >= 4) {
             System.out.println("Invalid position of SubPlayer: " + position);
