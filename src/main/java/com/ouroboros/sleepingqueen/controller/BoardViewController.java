@@ -14,9 +14,12 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -61,12 +64,14 @@ public class BoardViewController {
     private List<Integer> currentSubPlayerIndex;
 
     private int selectedSleepingQueenIndex;
+    private Card selectedAwakenQueenCard;
     private int awakenQueenHolderIndex;
     private int selectedAwakenQueenIndex;
     private boolean isKnightPhase;
     private boolean isDragonPhase;
     private boolean isPotionPhase;
     private boolean isWandPhase;
+    private DropShadow choosingEffect;
 
     public static int getPlayerCount() {
         return Integer.parseInt(playerCount);
@@ -136,8 +141,17 @@ public class BoardViewController {
 
         initialzePhase();
         setUpPlayer();
+        setupEffect();
         queenFieldController.setOnQueenCardSelected(this::handleQueenCardSelection);
         subPlayerFieldController.setOnAwakenQueenCardSelected(this::handleAwakenQueenCardSelection);
+    }
+
+    private void setupEffect() {
+        choosingEffect = new DropShadow();
+        choosingEffect.setBlurType(BlurType.TWO_PASS_BOX);
+        choosingEffect.setRadius(10.0);
+        choosingEffect.setSpread(0.4);
+        choosingEffect.setColor(Color.web("#37ff00"));
     }
 
     private void initialzePhase() {
@@ -149,6 +163,9 @@ public class BoardViewController {
         selectedAwakenQueenIndex = -1;  // no awaken queen card selected
         selectedSleepingQueenIndex = -1;
         selectedQueenCard = null;  // no queen card selected
+
+        queenFieldController.setIdleQueenField(true);
+        subPlayerFieldController.setIdle(true);
     }
 
     private void setUpPlayer() {
@@ -298,6 +315,9 @@ public class BoardViewController {
         } else {
             isQueenCardSelected = false;
         }
+
+        // remove selected card effect
+        queenFieldController.setCardEffectByIndex(selectedSleepingQueenIndex, null);
         selectedQueenCard = null;
         selectedSleepingQueenIndex = -1;
     }
@@ -374,6 +394,12 @@ public class BoardViewController {
 
 
     public void handleQueenCardSelection(int index) {
+        if (selectedSleepingQueenIndex != -1) {
+            // reselect -> remove effect of the old card
+            queenFieldController.setCardEffectByIndex(selectedSleepingQueenIndex, null);
+        }
+        // add effect to the selected card
+        queenFieldController.setCardEffectByIndex(index, choosingEffect);
         selectedSleepingQueenIndex = index;
         selectedQueenCard = queenFieldController.getQueenCard(index);
         if (isQueenCardSelected) {
@@ -394,8 +420,14 @@ public class BoardViewController {
     }
 
     public void handleAwakenQueenCardSelection(int index) {
+        if (selectedAwakenQueenIndex != -1) {
+            // reselect -> remove effect of the old card
+            subPlayerFieldController.setCardEffectByIndex(selectedAwakenQueenIndex, null);
+        }
+        // add effect to the selected card
+        subPlayerFieldController.setCardEffectByIndex(index, choosingEffect);
         selectedAwakenQueenIndex = index;
-        Card selectedAwakenQueenCard = getAwakenQueenCard(index);
+        selectedAwakenQueenCard = getAwakenQueenCard(index);
         if (selectedAwakenQueenCard != null) {
             System.out.println("Selected Awaken Queen Card: " + selectedAwakenQueenCard.getCardImgPath());
         } else {
@@ -439,13 +471,15 @@ public class BoardViewController {
             return;
         } else if (isKnightPhase) {
             System.out.println("Pick opponent queen card from sub-player");
-            if (selectedAwakenQueenIndex == -1) {
+            if (selectedAwakenQueenCard == null) {
                 // TODO: prompt player to choose a queen card to steal
                 System.out.println("Please pick a queen card to steal");
                 return;
             }
             subPlayerFieldController.setIdle(true);
             isKnightPhase = false;
+            // remove selected player queen card effect
+            subPlayerFieldController.setCardEffectByIndex(selectedAwakenQueenIndex, null);
             // Enter dragon phase: the targeted player can play Dragon card to defend
             isDragonPhase = true;
             int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
@@ -454,18 +488,23 @@ public class BoardViewController {
             return;
         } else if (isPotionPhase) {
             System.out.println("Pick opponent queen card from sub-player");
-            if (selectedAwakenQueenIndex == -1) {
+            if (selectedAwakenQueenCard == null) {
                 // TODO: prompt player to choose a queen card to put to sleep
                 System.out.println("Please pick a queen card to put to sleep");
                 return;
             }
-            if (selectedSleepingQueenIndex == -1) {
+            if (selectedQueenCard != null) {
                 // TODO: prompt player to choose a place in queen field to put the queen card to sleep
                 return;
             }
             subPlayerFieldController.setIdle(true);
             queenFieldController.setIdleQueenField(true);
             isPotionPhase = false;
+            // remove selected player queen card effect
+            subPlayerFieldController.setCardEffectByIndex(selectedAwakenQueenIndex, null);
+            // remove selected queen card on field effect
+            queenFieldController.setCardEffectByIndex(selectedSleepingQueenIndex, null);
+
             // Enter wand phase: the targeted player can play Wand card to defend
             isWandPhase = true;
             int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
@@ -491,7 +530,7 @@ public class BoardViewController {
                 // The queen will be stolen
                 // the stolen player is the previous player of the TRUE next player
                 int stolenPlayerIndex = (nextTurnPlayerIndexForReal - 1 + getPlayerCount()) % getPlayerCount();
-                playerList.get(stolenPlayerIndex).addQueenCard(getAwakenQueenCard(selectedAwakenQueenIndex));
+                playerList.get(stolenPlayerIndex).addQueenCard(selectedAwakenQueenCard);
                 playerList.get(currentTurnPlayerIndex).removeQueenCardByIndex(selectedAwakenQueenIndex);
                 // rerender
                 renderSubPlayer(stolenPlayerIndex, currentSubPlayerIndex.get(stolenPlayerIndex));
@@ -508,6 +547,7 @@ public class BoardViewController {
             }
             isDragonPhase = false;
             selectedAwakenQueenIndex = -1;
+            selectedAwakenQueenCard = null;
             endPlayerTurn();
             return;
         } else if (isWandPhase) {
@@ -519,8 +559,7 @@ public class BoardViewController {
             if (cards.isEmpty()) {  // no card is played
                 // The queen will be put to sleep
                 // the stolen player is the previous player of the TRUE next player
-                int spellUsedPlayerIndex = (nextTurnPlayerIndexForReal - 1 + getPlayerCount()) % getPlayerCount();
-                queenFieldController.setQueenCard(selectedSleepingQueenIndex, getAwakenQueenCard(selectedAwakenQueenIndex));
+                queenFieldController.setQueenCard(selectedSleepingQueenIndex, selectedAwakenQueenCard);
                 playerList.get(currentTurnPlayerIndex).removeQueenCardByIndex(selectedAwakenQueenIndex);
                 // rerender
                 renderMainPlayerQueenCard(currentTurnPlayerIndex);
@@ -538,6 +577,7 @@ public class BoardViewController {
             selectedAwakenQueenIndex = -1;
             selectedSleepingQueenIndex = -1;
             selectedQueenCard = null;
+            selectedAwakenQueenCard = null;
             endPlayerTurn();
             return;
         }
