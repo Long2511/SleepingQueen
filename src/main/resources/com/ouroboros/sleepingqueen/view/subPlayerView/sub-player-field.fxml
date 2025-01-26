@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+This is the sub-player-field.fxml file. It is the layout for the sub-player field.
+It is a GridPane with 3 columns and 3 rows.
+The sub-player field is divided into 4 sections, each section is a VBox.
+The VBox for the first sub-player is in the top left corner,
+the VBox for the second sub-player is in the top right corner,
+the VBox for the third sub-player is in the bottom left corner,
+and the VBox for the fourth sub-player is in the bottom right corner.
+@author: Thanh Phuc Le
+-->
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="562.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.subPlayer.SubPlayerFieldController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="223.0" prefWidth="223.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="834.0" prefWidth="834.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="223.0" prefWidth="223.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="280.0" prefHeight="280.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="2.0" prefHeight="2.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="280.0" prefHeight="280.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <VBox fx:id="SubPlayer1FieldBox" prefHeight="200.0" prefWidth="100.0">
-         <GridPane.margin>
-            <Insets top="4.0" />
-         </GridPane.margin>
-      </VBox>
-      <VBox fx:id="SubPlayer2FieldBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
-         <GridPane.margin>
-            <Insets top="4.0" />
-         </GridPane.margin>
-      </VBox>
-      <VBox fx:id="SubPlayer3FieldBox" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
-      </VBox>
-      <VBox fx:id="SubPlayer4FieldBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-      </VBox>
-   </children>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="562.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1"
+          fx:controller="com.ouroboros.sleepingqueen.subPlayer.SubPlayerFieldController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="223.0" prefWidth="223.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="834.0" prefWidth="834.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="223.0" prefWidth="223.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="280.0" prefHeight="280.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="2.0" prefHeight="2.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="280.0" prefHeight="280.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <VBox fx:id="SubPlayer1FieldBox" prefHeight="200.0" prefWidth="100.0">
+            <GridPane.margin>
+                <Insets top="4.0"/>
+            </GridPane.margin>
+        </VBox>
+        <VBox fx:id="SubPlayer2FieldBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+            <GridPane.margin>
+                <Insets top="4.0"/>
+            </GridPane.margin>
+        </VBox>
+        <VBox fx:id="SubPlayer3FieldBox" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+        </VBox>
+        <VBox fx:id="SubPlayer4FieldBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2"
+              GridPane.rowIndex="2">
+        </VBox>
+    </children>
 </GridPane>

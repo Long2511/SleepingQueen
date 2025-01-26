@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+@description: This is the pre-game screen view of the game. It contains the create game button and the back button.
+@author: Hai Long Mac
+-->
+
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
