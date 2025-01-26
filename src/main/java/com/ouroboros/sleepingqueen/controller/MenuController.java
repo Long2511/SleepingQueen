@@ -1,3 +1,12 @@
+/**
+ * MenuController.java
+ * This class is used to control the menu screen.
+ * It has methods to handle the close button, main menu button, and quit game button.
+ * It also has a method to set the overlay pane.
+ *
+ * @author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.controller;
 
 import com.ouroboros.sleepingqueen.ults.ButtonSound;
@@ -46,7 +55,7 @@ public class MenuController {
     @FXML
     private void handleQuiteGameAction(ActionEvent event) throws IOException {
         ButtonSound.playButtonClickSound();
-        
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }

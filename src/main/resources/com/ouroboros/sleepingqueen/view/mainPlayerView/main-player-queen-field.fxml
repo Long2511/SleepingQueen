@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--author: Phuoc Thanh Nguyen, Thanh Phuc Le-->
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="158.0" prefWidth="291.0" style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="158.0" prefWidth="291.0"
+            style=" -fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;" xmlns="http://javafx.com/javafx/23.0.1"
             fx:controller="com.ouroboros.sleepingqueen.mainPlayer.MainPlayerQueenField">
-   <children>
-       <GridPane layoutX="10.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="102.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
-           <columnConstraints>
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-           </columnConstraints>
-           <rowConstraints>
-               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-           </rowConstraints>
-           <children>
-               <VBox fx:id="MainQueen1Box" prefHeight="200.0" prefWidth="100.0">
-                   <GridPane.margin>
-                      <Insets />
-                   </GridPane.margin>
-               </VBox>
-               <VBox fx:id="MainQueen2Box" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
-                   <GridPane.margin>
-                       <Insets left="2.0" right="4.0" />
-                   </GridPane.margin>
-               </VBox>
-               <VBox fx:id="MainQueen3Box" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
-                   <GridPane.margin>
-                       <Insets left="4.0" right="2.0" />
-                   </GridPane.margin>
-               </VBox>
-               <VBox fx:id="MainQueen4Box" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
-                   <GridPane.margin>
-                       <Insets left="6.0" />
-                   </GridPane.margin>
-               </VBox>
-           </children>
-       </GridPane>
-   </children>
+    <children>
+        <GridPane xmlns:fx="http://javafx.com/fxml/1" layoutX="10.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity"
+                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="102.0" prefWidth="272.0"
+                  xmlns="http://javafx.com/javafx/23.0.1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <VBox fx:id="MainQueen1Box" prefHeight="200.0" prefWidth="100.0">
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                </VBox>
+                <VBox fx:id="MainQueen2Box" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets left="2.0" right="4.0"/>
+                    </GridPane.margin>
+                </VBox>
+                <VBox fx:id="MainQueen3Box" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                    <GridPane.margin>
+                        <Insets left="4.0" right="2.0"/>
+                    </GridPane.margin>
+                </VBox>
+                <VBox fx:id="MainQueen4Box" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3">
+                    <GridPane.margin>
+                        <Insets left="6.0"/>
+                    </GridPane.margin>
+                </VBox>
+            </children>
+        </GridPane>
+    </children>
 </AnchorPane>

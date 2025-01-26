@@ -1,3 +1,14 @@
+/**
+ * BoardViewController.java
+ * Java class that controls the game board view
+ * It handles the game logic and the interaction between the player and the game board
+ * It also handles the card selection logic and the card playing logi cand the player win condition
+ * It also handles the card selection logic and the card playing logic for each card type (King, Jester, Knight, Potion, Wand, Dragon) and Number card type
+ *
+ * @author Hai Long Mac
+ * @author Phuoc Thanh Nguyen
+ */
+
 package com.ouroboros.sleepingqueen.controller;
 
 import com.ouroboros.sleepingqueen.card.DeckController;
@@ -17,24 +28,20 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
-import javafx.scene.media.MediaPlayer;
-
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.*;
 
 public class BoardViewController {
@@ -84,11 +91,20 @@ public class BoardViewController {
     private boolean isWandPhase;
     private DropShadow choosingEffect;
 
-
+    /**
+     * Set the player count
+     *
+     * @return player count
+     */
     public static int getPlayerCount() {
         return Integer.parseInt(playerCount);
     }
 
+    /**
+     * Set the player count
+     *
+     * @param count player count
+     */
     public static void setPlayerCount(String count) {
         playerCount = count;
     }
@@ -159,6 +175,9 @@ public class BoardViewController {
         subPlayerFieldController.setOnAwakenQueenCardSelected(this::handleAwakenQueenCardSelection);
     }
 
+    /**
+     * Set up the effect for selecting card
+     */
     private void setupEffect() {
         choosingEffect = new DropShadow();
         choosingEffect.setBlurType(BlurType.TWO_PASS_BOX);
@@ -167,6 +186,9 @@ public class BoardViewController {
         choosingEffect.setColor(Color.web("#37ff00"));
     }
 
+    /**
+     * Initialize the phase
+     */
     private void initialzePhase() {
         isQueenCardSelected = false;
         isKnightPhase = false;
@@ -181,6 +203,9 @@ public class BoardViewController {
         subPlayerFieldController.setIdle(true);
     }
 
+    /**
+     * Set up the player
+     */
     private void setUpPlayer() {
         // Set up players
         playerList = new ArrayList<>();
@@ -209,18 +234,37 @@ public class BoardViewController {
         setUpPlayerTurn();
     }
 
+    /**
+     * Render the main player normal card
+     *
+     * @param playerIndex index of the player that will be rendered
+     */
     private void renderMainPlayerNormalCard(int playerIndex) {
         mainPlayerCardFieldController.setCard(playerList.get(playerIndex).getNormalCards());
     }
 
+    /**
+     * Render the main player queen card
+     *
+     * @param playerIndex index of the player that will be rendered
+     */
     private void renderMainPlayerQueenCard(int playerIndex) {
         mainPlayerQueenFieldController.setCard(playerList.get(playerIndex).getQueenCards());
     }
 
+    /**
+     * Render the sub player
+     *
+     * @param playerIndex    index of the player
+     * @param subPlayerIndex index of the sub player
+     */
     private void renderSubPlayer(int playerIndex, int subPlayerIndex) {
         subPlayerFieldController.setPlayer(subPlayerIndex, playerList.get(playerIndex));
     }
 
+    /**
+     * Set up the player turn
+     */
     private void setUpPlayerTurn() {
         // load cards of the CurrentTurnPlayer to the main player card field
         renderMainPlayerNormalCard(currentTurnPlayerIndex);
@@ -229,6 +273,11 @@ public class BoardViewController {
         MainPlayer.setText(playerList.get(currentTurnPlayerIndex).getName());
     }
 
+    /**
+     * Check if all queen cards are selected
+     *
+     * @return true if all queen cards are selected
+     */
     private boolean isAllQueenCardSelected() {
         int totalQueenCard = 0;
         for (Player player : playerList) {
@@ -241,6 +290,9 @@ public class BoardViewController {
         return totalQueenCard == 12;
     }
 
+    /**
+     * End the player turn
+     */
     private void endPlayerTurn() {
         Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
         PauseTransition pause = new PauseTransition(Duration.seconds(rootPane.getScene() != null ? 2 : 0));
@@ -274,6 +326,11 @@ public class BoardViewController {
         pause.play();
     }
 
+    /**
+     * Pick queen card from the field
+     *
+     * @param nextTurnPlayerIndex index of the next turn player
+     */
     private void endPlayerTurn(int nextTurnPlayerIndex) {
         Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
         PauseTransition pause = new PauseTransition(Duration.seconds(2));
@@ -296,6 +353,9 @@ public class BoardViewController {
         pause.play();
     }
 
+    /**
+     * Pick queen card from the field
+     */
     private void pickQueenCardFromField() {
 
         if (selectedQueenCard == null) {
@@ -353,10 +413,16 @@ public class BoardViewController {
         selectedSleepingQueenIndex = -1;
     }
 
+    /**
+     * Handle the card selection logic
+     */
     private void DragonLogic() {
         System.out.println("Dragon card can be played");
     }
 
+    /**
+     * King card logic
+     */
     private void KingLogic() {
         isQueenCardSelected = true;
         System.out.println("King card can be played");
@@ -364,10 +430,16 @@ public class BoardViewController {
         Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a Queen card and confirm", toastTimeOut);
     }
 
+    /**
+     * Wand card logic
+     */
     private void WandLogic() {
         System.out.println("Wand card can be played");
     }
 
+    /**
+     * Potion card logic
+     */
     private void PotionLogic() {
         isPotionPhase = true;
         Toast.show((Stage) rootPane.getScene().getWindow(), "Pick opponent queen card from other players", toastTimeOut);
@@ -377,6 +449,10 @@ public class BoardViewController {
         System.out.println("Potion card can be played");
     }
 
+    /**
+     * Knight card logic
+     * Player can select opponent queen
+     */
     private void KnightLogic() {
         isKnightPhase = true;
         Toast.show((Stage) rootPane.getScene().getWindow(), "Select Queen Card from other players", toastTimeOut);
@@ -384,6 +460,11 @@ public class BoardViewController {
         subPlayerFieldController.setIdle(false);
     }
 
+    /**
+     * Jester card logic
+     *
+     * @param chosenCardIndices indices of the chosen cards
+     */
     private void JesterLogic(List<Integer> chosenCardIndices) {
         System.out.println("Jester card can be played");
         Card drawnCard = deckController.drawCard();
@@ -409,6 +490,11 @@ public class BoardViewController {
         setUpPlayerTurn();
     }
 
+    /**
+     * Replace the played cards with the new card
+     *
+     * @param chosenCardIndices indices of the chosen cards
+     */
     private void replacePlayedCards(List<Integer> chosenCardIndices) {
         for (int index : chosenCardIndices) {
             Card card = deckController.drawCard();
@@ -418,6 +504,12 @@ public class BoardViewController {
         }
     }
 
+    /**
+     * Replace the played cards with the new card
+     *
+     * @param chosenCardIndices indices of the chosen cards
+     * @param card              new card to be replaced
+     */
     private void replacePlayedCards(List<Integer> chosenCardIndices, Card card) {
         for (int index : chosenCardIndices) {
             playerList.get(currentTurnPlayerIndex).setNormalCard(index, card);
@@ -425,7 +517,11 @@ public class BoardViewController {
         }
     }
 
-
+    /**
+     * Handle the card selection logic
+     *
+     * @param index index of the selected card
+     */
     public void handleQueenCardSelection(int index) {
         if (selectedSleepingQueenIndex != -1) {
             // reselect -> remove effect of the old card
@@ -452,6 +548,9 @@ public class BoardViewController {
         }
     }
 
+    /**
+     * Handle the awaken queen card selection logic
+     */
     public void handleAwakenQueenCardSelection(int index) {
         if (selectedAwakenQueenIndex != -1) {
             // reselect -> remove effect of the old card
@@ -468,6 +567,9 @@ public class BoardViewController {
         }
     }
 
+    /**
+     * Get queen card by index
+     */
     private Card getAwakenQueenCard(int index) {
         for (Player player : playerList) {
             if (player.ownQueenCardByIndex(index)) {
@@ -477,6 +579,9 @@ public class BoardViewController {
         return null;
     }
 
+    /**
+     * remove cards from players
+     */
     private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
         playerList.get(currentTurnPlayerIndex).removeNormalCards(cardsTobeRemove);
         // add discarded cards to the discarded card deck
@@ -485,6 +590,10 @@ public class BoardViewController {
         }
     }
 
+    /**
+     * @param index index of the awaken queen card
+     * @return position of the queen card in the player's queen card list
+     */
     private int getPlayerIndexByAwakenQueenIndex(int index) {
         for (int i = 0; i < playerList.size(); i++) {
             if (playerList.get(i).ownQueenCardByIndex(index)) {
@@ -494,6 +603,9 @@ public class BoardViewController {
         return -1;
     }
 
+    /**
+     * Check the win condition and show the winning screen
+     */
     private void checkWinCondition() {
         int playerCount = getPlayerCount();
         int queenCardLimit = (playerCount <= 3) ? 5 : 4;
@@ -511,8 +623,7 @@ public class BoardViewController {
             }
 
             if (queenCardCount >= queenCardLimit || queenPointCount >= queenPointLimit) {
-                Toast.show((Stage) rootPane.getScene().getWindow(), player.getName() + " wins the game!", toastTimeOut);
-                // Handle win logic here, e.g., end the game, show a win screen, etc.
+                showWinningScreen(player.getName());
                 return;
             }
         }
@@ -522,12 +633,34 @@ public class BoardViewController {
                     .max(Comparator.comparingInt(player -> Arrays.stream(player.getQueenCards())
                             .filter(Objects::nonNull)
                             .mapToInt(card -> ((QueenCard) card).getPoint())
-                            .sum())).ifPresent(highestPointPlayer -> Toast.show((Stage) rootPane.getScene().getWindow(),
-                            highestPointPlayer.getName() + " wins the game with the most points!", toastTimeOut));
+                            .sum())).ifPresent(highestPointPlayer -> showWinningScreen(highestPointPlayer.getName()));
 
         }
     }
 
+    /**
+     * Show the winning screen
+     *
+     * @param playerName name of the winning player
+     */
+    private void showWinningScreen(String playerName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/winning-screen.fxml"));
+            Scene scene = new Scene(loader.load());
+            WinningScreenController controller = loader.getController();
+            controller.setWinningPlayerName(playerName);
+
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Handle the play now button click and check the playing logic
+     */
     private void handlePlayNowButtonClick() {
         ConfirmButtonSound.playButtonClickSound();
         if (isQueenCardSelected) {

@@ -1,3 +1,11 @@
+/**
+ * ClientHandler.java
+ * <p>
+ * This class is used to handle client requests.
+ *
+ * @Author Hai Long Mac
+ */
+
 package com.ouroboros.sleepingqueen.multiplayer;
 
 import java.io.IOException;
@@ -10,6 +18,12 @@ public class ClientHandler extends Thread {
     private Socket clientSocket;
     private List<Game> games;
 
+    /**
+     * Constructor
+     *
+     * @param socket Socket
+     * @param games  List of games
+     */
     public ClientHandler(Socket socket, List<Game> games) {
         this.clientSocket = socket;
         this.games = games;

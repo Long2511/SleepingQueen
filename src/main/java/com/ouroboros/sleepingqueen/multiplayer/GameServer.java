@@ -1,3 +1,10 @@
+/**
+ * GameServer.java
+ * <p>
+ * This class is used to start the server and handle the clients.
+ *
+ * @Author Hai Long Mac
+ */
 package com.ouroboros.sleepingqueen.multiplayer;
 
 import com.ouroboros.sleepingqueen.deck.Card;

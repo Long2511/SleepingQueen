@@ -17,7 +17,7 @@
                 <Image url="@../image/main-screen.png" />
             </image>
         </ImageView>
-        <Text fx:id="CongratuationPlayer" layoutX="423.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Congratulation player 1 " wrappingWidth="462.4700927734375">
+        <Text fx:id="winText" layoutX="267.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Congratulation player 1 " textAlignment="CENTER" wrappingWidth="782.4700927734375">
             <font>
                 <Font name="Great Vibes Regular" size="64.0" />
             </font>
@@ -43,7 +43,7 @@
                 </LinearGradient>
             </fill>
         </Text>
-        <Button layoutX="580.0" layoutY="425.0" mnemonicParsing="false" text="Back to main screen" />
-        <Button layoutX="612.0" layoutY="464.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="92.0" text="Exit game" />
+        <Button fx:id="mainScreenBtn" layoutX="582.0" layoutY="483.0" mnemonicParsing="false" onAction="#handleMainMenuAction" text="Back to main screen" />
+        <Button fx:id="exitBtn" layoutX="580.0" layoutY="527.0" mnemonicParsing="false" onAction="#handleQuitGameAction" prefHeight="32.0" prefWidth="153.0" text="Exit game" />
     </children>
 </AnchorPane>
