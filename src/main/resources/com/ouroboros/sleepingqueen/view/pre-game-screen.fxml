@@ -9,33 +9,39 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ouroboros.sleepingqueen.controller.PreGameScreenController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="720" prefWidth="1280"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            fx:controller="com.ouroboros.sleepingqueen.controller.PreGameScreenController">
     <children>
         <ImageView fitHeight="734.0" fitWidth="1306.0">
             <image>
-                <Image url="@../image/pregame-image.png" />
+                <Image url="@../image/pregame-image.png"/>
             </image>
         </ImageView>
-        <Button cancelButton="true" layoutX="47.0" layoutY="55.0" mnemonicParsing="false" onAction="#handleBackButtonAction" prefHeight="32.0" prefWidth="67.0" stylesheets="@../css/styles.css" text="Return" />
-        <AnchorPane layoutX="323.0" layoutY="91.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
-        <Pane id="game-information-box" layoutX="47.0" layoutY="256.0" prefHeight="221.0" prefWidth="366.0" styleClass="game-information-box" stylesheets="@../css/styles.css ">
+        <Button fx:id="backBtn" cancelButton="true" layoutX="47.0" layoutY="55.0" mnemonicParsing="false"
+                onAction="#handleBackButtonAction" prefHeight="32.0" prefWidth="67.0" stylesheets="@../css/styles.css"
+                text="Return"/>
+        <AnchorPane layoutX="323.0" layoutY="91.0" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0"/>
+        <Pane id="game-information-box" layoutX="47.0" layoutY="256.0" prefHeight="221.0" prefWidth="366.0"
+              styleClass="game-information-box" stylesheets="@../css/styles.css ">
             <children>
                 <Text layoutX="109.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create game">
                     <font>
-                        <Font name="Great Vibes" size="40" />
+                        <Font name="Great Vibes" size="40"/>
                     </font>
                 </Text>
                 <Text layoutX="69.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How many player? ">
                     <font>
-                        <Font name="Great Vibes" size="35" />
+                        <Font name="Great Vibes" size="35"/>
                     </font>
                 </Text>
-                <Button layoutX="69.0" layoutY="158.0" mnemonicParsing="false" onAction="#handleCreateGameButtonAction" prefHeight="40.0" prefWidth="229.0" stylesheets="@../css/styles.css" text="Create game" />
-                <ComboBox fx:id="playerCountComboBox" layoutX="108.0" layoutY="121.0" prefWidth="150.0" />
+                <Button fx:id="createGame" layoutX="69.0" layoutY="158.0" mnemonicParsing="false"
+                        onAction="#handleCreateGameButtonAction" prefHeight="40.0" prefWidth="229.0"
+                        stylesheets="@../css/styles.css" text="Create game"/>
+                <ComboBox fx:id="playerCountComboBox" layoutX="108.0" layoutY="121.0" prefWidth="150.0"/>
 
             </children>
         </Pane>
-        <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+        <ButtonBar prefHeight="40.0" prefWidth="200.0"/>
     </children>
 </AnchorPane>
