@@ -66,6 +66,7 @@ public class BoardViewController {
     private boolean isKnightPhase;
     private boolean isDragonPhase;
     private boolean isPotionPhase;
+    private boolean isWandPhase;
 
     public static int getPlayerCount() {
         return Integer.parseInt(playerCount);
@@ -144,6 +145,7 @@ public class BoardViewController {
         isKnightPhase = false;
         isDragonPhase = false;
         isPotionPhase = false;
+        isWandPhase = false;
         selectedAwakenQueenIndex = -1;  // no awaken queen card selected
         selectedSleepingQueenIndex = -1;
         selectedQueenCard = null;  // no queen card selected
