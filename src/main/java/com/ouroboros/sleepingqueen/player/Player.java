@@ -124,6 +124,9 @@ public class Player {
         }
     }
 
+    public void removeNormalCard(int position) {
+        normalCards[position] = null;
+    }
 
     public void removeNormalCards(List<Card> cards) {
         for (Card card : cards) {

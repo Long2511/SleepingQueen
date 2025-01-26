@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--
+ * This is the FXML file for the card that is placed on the board.
+ * It is a simple ImageView with an image of a queen card.
+ * The image is set to be clickable, and when clicked, it will call the clickCard method in the CardController class.
+ * The image is set to be clickable by setting the pickOnBounds attribute to true.
+ * The image is set to be a queen card by setting the url attribute of the Image
+ * element to the path of the queen card image.
+ * @author: Thanh Phuc Le
+-->
+
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.VBox?>

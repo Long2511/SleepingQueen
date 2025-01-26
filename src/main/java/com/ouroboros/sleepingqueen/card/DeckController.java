@@ -25,7 +25,6 @@ public class DeckController {
     private Card lastDrawnCard;
 
     public void initialize() {
-        System.out.println("DeckOnBoardController initialized.");
         playButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             if (onDeckButtonClick != null) {
                 onDeckButtonClick.run();
@@ -40,7 +39,6 @@ public class DeckController {
     public Card drawCard() {
         lastDrawnCard = cardDeck.draw();
         if (lastDrawnCard == null) {
-            System.out.println("Deck is empty. Reshuffle");
             cardDeck.reshuffle();
             // try to draw again
             lastDrawnCard = cardDeck.draw();

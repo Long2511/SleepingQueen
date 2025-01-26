@@ -31,7 +31,6 @@ public class MainPlayerCardField {
 
     public void initialize() {
         cardControllers = new ArrayList<>();
-        System.out.println("MainPlayerCardField initialized.");
         loadCard(MainCard1Box);
         loadCard(MainCard2Box);
         loadCard(MainCard3Box);
@@ -68,7 +67,6 @@ public class MainPlayerCardField {
     }
 
     public void handleCardSelected(int index) {
-        System.out.println("Card " + index + " selected.");
 
         if (isChosen[index]) {
             isChosen[index] = false;
@@ -114,5 +112,11 @@ public class MainPlayerCardField {
 
     public void setCard(int index, Card card) {
         cardControllers.get(index).setCard(card);
+    }
+
+    public void setIdle(boolean idle) {
+        for (CardController cardController : cardControllers) {
+            cardController.setIdle(idle);
+        }
     }
 }

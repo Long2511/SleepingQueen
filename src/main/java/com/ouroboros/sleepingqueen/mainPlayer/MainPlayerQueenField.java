@@ -23,7 +23,6 @@ public class MainPlayerQueenField {
 
     public void initialize() {
         queenControllers = new ArrayList<>();
-        System.out.println("MainPlayerQueenField initialized");
         loadCard(MainQueen1Box);
         loadCard(MainQueen2Box);
         loadCard(MainQueen3Box);

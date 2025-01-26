@@ -22,7 +22,6 @@ public class CardController {
 
 
     public void initialize() {
-        System.out.println("QueenOnBoardController initialized.");
         card = null;  // no data yet
         isFaceup = false;
         isIdle = false;
@@ -50,13 +49,10 @@ public class CardController {
     public void clickCard(MouseEvent e) {
         // If idle, do nothing
         if (isIdle) {
-            System.out.println("This card is idle.");
             return;
         }
         if (card == null) {
-            System.out.println("No card data yet.");
         } else {
-            System.out.println("Card data: " + card.toString());
         }
         if (onCardSelected != null) {
             onCardSelected.accept(index);
