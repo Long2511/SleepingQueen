@@ -60,10 +60,12 @@ public class BoardViewController {
     private boolean isQueenCardSelected;
     private List<Integer> currentSubPlayerIndex;
 
+    private int selectedSleepingQueenIndex;
     private int awakenQueenHolderIndex;
     private int selectedAwakenQueenIndex;
     private boolean isKnightPhase;
     private boolean isDragonPhase;
+    private boolean isPotionPhase;
 
     public static int getPlayerCount() {
         return Integer.parseInt(playerCount);
@@ -141,7 +143,9 @@ public class BoardViewController {
         isQueenCardSelected = false;
         isKnightPhase = false;
         isDragonPhase = false;
+        isPotionPhase = false;
         selectedAwakenQueenIndex = -1;  // no awaken queen card selected
+        selectedSleepingQueenIndex = -1;
         selectedQueenCard = null;  // no queen card selected
     }
 
@@ -203,10 +207,10 @@ public class BoardViewController {
             }
             // reset next player
             nextTurnPlayerIndexForReal = -1;
-        if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
-            // Player gets another turn
-            return;
-        }
+            if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
+                // Player gets another turn
+                return;
+            }
 
             // Swap currentSubPlayerIndex between current player and next player
             int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
@@ -293,6 +297,7 @@ public class BoardViewController {
             isQueenCardSelected = false;
         }
         selectedQueenCard = null;
+        selectedSleepingQueenIndex = -1;
     }
 
     private void DragonLogic() {
@@ -310,6 +315,8 @@ public class BoardViewController {
     }
 
     private void PotionLogic() {
+        isPotionPhase = true;
+        subPlayerFieldController.setIdle(false);
         System.out.println("Potion card can be played");
     }
 
@@ -363,6 +370,7 @@ public class BoardViewController {
 
 
     public void handleQueenCardSelection(int index) {
+        selectedSleepingQueenIndex = index;
         selectedQueenCard = queenFieldController.getQueenCard(index);
         if (selectedQueenCard != null) {
             System.out.println("Selected Queen Card: " + selectedQueenCard.getCardImgPath());
@@ -425,6 +433,25 @@ public class BoardViewController {
             isKnightPhase = false;
             // Enter dragon phase: the targeted player can play Dragon card to defend
             isDragonPhase = true;
+            int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
+            nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
+            endPlayerTurn(targetPlayerIndex);
+            return;
+        } else if (isPotionPhase) {
+            System.out.println("Pick opponent queen card from sub-player");
+            if (selectedAwakenQueenIndex == -1) {
+                // TODO: prompt player to choose a queen card to put to sleep
+                System.out.println("Please pick a queen card to put to sleep");
+                return;
+            }
+            if (selectedSleepingQueenIndex == -1) {
+                // TODO: prompt player to choose a place in queen field to put the queen card to sleep
+                return;
+            }
+            subPlayerFieldController.setIdle(true);
+            isPotionPhase = false;
+            // Enter wand phase: the targeted player can play Wand card to defend
+            isWandPhase = true;
             int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
             nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
             endPlayerTurn(targetPlayerIndex);
@@ -542,6 +569,7 @@ public class BoardViewController {
                         PotionLogic();
                         // Todo Add POTION case logic
                         removeCardsFromPlayerDeck(cards);
+                        replacePlayedCards(chosenCardIndices);
                         break;
                     case WAND:
                         WandLogic();
