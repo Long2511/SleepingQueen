@@ -3,6 +3,7 @@ package com.ouroboros.sleepingqueen.subPlayer;
 import com.ouroboros.sleepingqueen.player.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.effect.Effect;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
@@ -72,6 +73,12 @@ public class SubPlayerFieldController {
     public void setPlayer(int position, Player player) {
         subPlayerLayoutControllers.get(position).setPlayerName(player.getName());
         subPlayerLayoutControllers.get(position).setPlayerQueen(player.getQueenCards(), player.getQueenIndexes());
+    }
+
+    public void setCardEffectByIndex(int index, Effect effect) {
+        for (SubPlayerLayoutController subPlayerLayoutController : subPlayerLayoutControllers) {
+            subPlayerLayoutController.setCardEffectByIndex(index, effect);
+        }
     }
 
 
