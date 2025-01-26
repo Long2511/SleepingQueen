@@ -1,3 +1,15 @@
+/**
+ * OOP Java Project  WiSe 2024/2025
+ * file name: CardDeck.java
+ * The CardDeck class represents a deck of cards in the game.
+ * Including: the deck of cards, the discarded cards, and the card DAO.
+ * The deck of cards is a stack of cards.
+ * The discarded cards are a list of cards that is played by players
+ * The card DAO is used to get data from the JSON file.
+ *
+ * @author Thanh Phuoc Nguyen - 1584468
+ */
+
 package com.ouroboros.sleepingqueen.deck;
 
 import com.ouroboros.sleepingqueen.dao.JSONCardDAO;

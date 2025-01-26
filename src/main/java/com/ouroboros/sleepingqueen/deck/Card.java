@@ -1,10 +1,17 @@
+/**
+ * OOP Java Project  WiSe 2024/2025
+ * file name: Card.java
+ * The Card class represents a card in the game.
+ * Including: the card type, card name, card image path, and back image path.
+ *
+ * @author Thanh Phuoc Nguyen - 1584468
+ */
+
 package com.ouroboros.sleepingqueen.deck;
 
 public class Card {
     protected CardType type;
     private String cardName;
-    private int ownedPlayer;    // 1-5 for 5 players, 0: not owned
-    private int position;
     private String cardImgPath;
     private String backImgPath;
 
@@ -15,25 +22,11 @@ public class Card {
         this.cardName = cardName;
         this.cardImgPath = cardImgPath;
         this.backImgPath = backImgPath;
-        this.ownedPlayer = 0;
-        this.position = -1;
     }
 
     public Card(String cardImgPath) {
         this.cardImgPath = cardImgPath;
     }
-
-    public Card(int ownedPlayer, int position) {
-        this.ownedPlayer = ownedPlayer;
-        this.position = position;
-    }
-
-//    void DisplayCard() {
-//    Should be in CONTROLLER as DisplayCard(Card, posID)
-//    }
-
-/*    public void PlayCard(List<Card> cards) {
-    }*/
 
     public String getCardImgPath() {
         return cardImgPath;
