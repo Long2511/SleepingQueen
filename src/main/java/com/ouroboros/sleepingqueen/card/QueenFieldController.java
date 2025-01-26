@@ -4,6 +4,7 @@ package com.ouroboros.sleepingqueen.card;
 import com.ouroboros.sleepingqueen.dao.JSONCardDAO;
 import com.ouroboros.sleepingqueen.deck.Card;
 import javafx.fxml.FXML;
+import javafx.scene.effect.Effect;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -100,6 +101,18 @@ public class QueenFieldController {
                 cardController.setCard(null);
                 break;
             }
+        }
+    }
+
+    public void setQueenCard(int index, Card card) {
+        if (index >= 0 && index < NUMBER_OF_QUEENS) {
+            queenControllers.get(index).setCard(card);
+        }
+    }
+
+    public void setCardEffectByIndex(int index, Effect effect) {
+        if (index >= 0 && index < NUMBER_OF_QUEENS) {
+            queenControllers.get(index).setCardEffect(effect);
         }
     }
 }

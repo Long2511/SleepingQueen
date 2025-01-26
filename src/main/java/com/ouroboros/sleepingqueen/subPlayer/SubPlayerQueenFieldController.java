@@ -4,6 +4,7 @@ import com.ouroboros.sleepingqueen.card.CardController;
 import com.ouroboros.sleepingqueen.deck.Card;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.effect.Effect;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -80,6 +81,14 @@ public class SubPlayerQueenFieldController {
 
         queenControllers.get(position).setCard(queen);
         queenControllers.get(position).setIndex(index);
+    }
+
+    public void setCardEffectByIndex(int index, Effect effect) {
+        for (CardController queenController : queenControllers) {
+            if (queenController.getIndex() == index) {
+                queenController.setCardEffect(effect);
+            }
+        }
     }
 
 }
