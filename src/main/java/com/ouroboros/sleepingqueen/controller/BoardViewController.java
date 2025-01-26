@@ -191,6 +191,10 @@ public class BoardViewController {
         }
         // reset next player
         nextTurnPlayerIndexForReal = -1;
+        if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
+            // Player gets another turn
+            return;
+        }
 
         // Swap currentSubPlayerIndex between current player and next player
         int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
@@ -417,6 +421,36 @@ public class BoardViewController {
         // unselect all cards after retrieving the chosen cards
         mainPlayerCardFieldController.resetChosenCards();
 
+        if (isDragonPhase) {
+            if (cards.size() > 1) {
+                // TODO: prompt player to select only one card
+                System.out.println("Invalid number of cards selected for Dragon phase");
+                return;
+            }
+            if (cards.isEmpty()) {  // no card is played
+                // The queen will be stolen
+                // the stolen player is the previous player of the TRUE next player
+                int stolenPlayerIndex = (nextTurnPlayerIndexForReal - 1 + getPlayerCount()) % getPlayerCount();
+                playerList.get(stolenPlayerIndex).addQueenCard(getAwakenQueenCard(selectedAwakenQueenIndex));
+                playerList.get(currentTurnPlayerIndex).removeQueenCardByIndex(selectedAwakenQueenIndex);
+                // rerender
+                renderSubPlayer(stolenPlayerIndex, currentSubPlayerIndex.get(stolenPlayerIndex));
+                renderMainPlayerQueenCard(currentTurnPlayerIndex);
+            } else if (cards.get(0).getType() != CardType.DRAGON) {
+                // TODO: prompt fail to defend
+                System.out.println("Invalid card selected for Dragon phase");
+                return;
+            } else if (cards.get(0).getType() == CardType.DRAGON) {
+                // TODO: prompt defend succesfully
+                // played card is dragon => the queen is defended
+                removeCardsFromPlayerDeck(cards);
+                replacePlayedCards(chosenCardIndices);
+            }
+            isDragonPhase = false;
+            selectedAwakenQueenIndex = -1;
+            endPlayerTurn();
+        }
+
         if (cards.isEmpty()) {
             System.out.println("No card selected");
             return;
@@ -505,6 +539,7 @@ public class BoardViewController {
                         DragonLogic();
                         // Todo Add Dragon case Logic
                         removeCardsFromPlayerDeck(cards);
+                        replacePlayedCards(chosenCardIndices);
                         break;
                 }
             }

@@ -74,6 +74,15 @@ public class Player {
         return null;
     }
 
+    public void removeQueenCardByIndex(int index) {
+        for (int i = 0; i < MAX_QUEEN_CARDS; i++) {
+            if (queenIndexes[i] == index) {
+                queenCards[i] = null;
+                break;
+            }
+        }
+    }
+
     public int getMAX_NORMAL_CARDS() {
         return MAX_NORMAL_CARDS;
     }
@@ -106,6 +115,7 @@ public class Player {
             }
         }
     }
+
 
     public void removeNormalCards(List<Card> cards) {
         for (Card card : cards) {
