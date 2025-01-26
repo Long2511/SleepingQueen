@@ -17,24 +17,20 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
-import javafx.scene.media.MediaPlayer;
-
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.*;
 
 public class BoardViewController {
@@ -511,8 +507,7 @@ public class BoardViewController {
             }
 
             if (queenCardCount >= queenCardLimit || queenPointCount >= queenPointLimit) {
-                Toast.show((Stage) rootPane.getScene().getWindow(), player.getName() + " wins the game!", toastTimeOut);
-                // Handle win logic here, e.g., end the game, show a win screen, etc.
+                showWinningScreen(player.getName());
                 return;
             }
         }
@@ -522,9 +517,23 @@ public class BoardViewController {
                     .max(Comparator.comparingInt(player -> Arrays.stream(player.getQueenCards())
                             .filter(Objects::nonNull)
                             .mapToInt(card -> ((QueenCard) card).getPoint())
-                            .sum())).ifPresent(highestPointPlayer -> Toast.show((Stage) rootPane.getScene().getWindow(),
-                            highestPointPlayer.getName() + " wins the game with the most points!", toastTimeOut));
+                            .sum())).ifPresent(highestPointPlayer -> showWinningScreen(highestPointPlayer.getName()));
 
+        }
+    }
+
+    private void showWinningScreen(String playerName) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/winning-screen.fxml"));
+            Scene scene = new Scene(loader.load());
+            WinningScreenController controller = loader.getController();
+            controller.setWinningPlayerName(playerName);
+
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
