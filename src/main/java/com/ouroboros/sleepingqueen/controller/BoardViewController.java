@@ -271,7 +271,7 @@ public class BoardViewController {
     private void pickQueenCardFromField() {
 
         if (selectedQueenCard == null) {
-            Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a queen card first!", toastTimeOut);
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a valid queen card first!", toastTimeOut);
             return;
         }
         boolean addQueen = true;
@@ -340,6 +340,8 @@ public class BoardViewController {
 
     private void PotionLogic() {
         isPotionPhase = true;
+        Toast.show((Stage) rootPane.getScene().getWindow(), "Pick opponent queen card from other players", toastTimeOut);
+        Toast.show((Stage) rootPane.getScene().getWindow(), "Pick position for the sleeping queen", toastTimeOut);
         subPlayerFieldController.setIdle(false);
         queenFieldController.setIdleQueenField(false);
         System.out.println("Potion card can be played");
@@ -444,25 +446,6 @@ public class BoardViewController {
         return null;
     }
 
-    public void handleAwakenQueenCardSelection(int index) {
-        selectedAwakenQueenIndex = index;
-        Card selectedAwakenQueenCard = getAwakenQueenCard(index);
-        if (selectedAwakenQueenCard != null) {
-            System.out.println("Selected Awaken Queen Card: " + selectedAwakenQueenCard.getCardImgPath());
-        } else {
-            System.out.println("Invalid awaken queen card selection.");
-        }
-    }
-
-    private Card getAwakenQueenCard(int index) {
-        for (Player player : playerList) {
-            if (player.ownQueenCardByIndex(index)) {
-                return player.getQueenCardByIndex(index);
-            }
-        }
-        return null;
-    }
-
     private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
         playerList.get(currentTurnPlayerIndex).removeNormalCards(cardsTobeRemove);
         // add discarded cards to the discarded card deck
@@ -505,16 +488,17 @@ public class BoardViewController {
             int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
             nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
             endPlayerTurn(targetPlayerIndex);
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Play a dragon card to protect the queen", toastTimeOut);
             return;
         } else if (isPotionPhase) {
             System.out.println("Pick opponent queen card from sub-player");
             if (selectedAwakenQueenCard == null) {
-                // TODO: prompt player to choose a queen card to put to sleep
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Pick a queen to be fall asleep", toastTimeOut);
                 System.out.println("Please pick a queen card to put to sleep");
                 return;
             }
             if (selectedQueenCard != null) {
-                // TODO: prompt player to choose a place in queen field to put the queen card to sleep
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Choose an empty place to put the queen to asleep", toastTimeOut);
                 return;
             }
             subPlayerFieldController.setIdle(true);
@@ -530,6 +514,7 @@ public class BoardViewController {
             int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
             nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
             endPlayerTurn(targetPlayerIndex);
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Play a wand card to protect the queen", toastTimeOut);
             return;
         }
 
@@ -542,13 +527,14 @@ public class BoardViewController {
 
         if (isDragonPhase) {
             if (cards.size() > 1) {
-                Toast.show((Stage) rootPane.getScene().getWindow(), "Please select one Queen card only", toastTimeOut);
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Please select 1 card only", toastTimeOut);
                 System.out.println("Invalid number of cards selected for Dragon phase");
                 return;
             }
             if (cards.isEmpty()) {  // no card is played
                 // The queen will be stolen
                 // the stolen player is the previous player of the TRUE next player
+                Toast.show((Stage) rootPane.getScene().getWindow(), "The queen has been stolen", toastTimeOut);
                 int stolenPlayerIndex = (nextTurnPlayerIndexForReal - 1 + getPlayerCount()) % getPlayerCount();
                 playerList.get(stolenPlayerIndex).addQueenCard(selectedAwakenQueenCard);
                 playerList.get(currentTurnPlayerIndex).removeQueenCardByIndex(selectedAwakenQueenIndex);
@@ -572,23 +558,25 @@ public class BoardViewController {
             return;
         } else if (isWandPhase) {
             if (cards.size() > 1) {
-                // TODO: prompt player to select only one card
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Use 1 Wand card to defend.", toastTimeOut);
                 System.out.println("Invalid number of cards selected for Wand phase");
                 return;
             }
             if (cards.isEmpty()) {  // no card is played
                 // The queen will be put to sleep
                 // the stolen player is the previous player of the TRUE next player
+
+                Toast.show((Stage) rootPane.getScene().getWindow(), "The queen has been slept.", toastTimeOut);
                 queenFieldController.setQueenCard(selectedSleepingQueenIndex, selectedAwakenQueenCard);
                 playerList.get(currentTurnPlayerIndex).removeQueenCardByIndex(selectedAwakenQueenIndex);
                 // rerender
                 renderMainPlayerQueenCard(currentTurnPlayerIndex);
             } else if (cards.get(0).getType() != CardType.WAND) {
-                // TODO: prompt fail to defend
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Please only use Wand card.", toastTimeOut);
                 System.out.println("Invalid card selected for Wand phase");
                 return;
             } else if (cards.get(0).getType() == CardType.WAND) {
-                // TODO: prompt defend succesfully
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Defend successfully.", toastTimeOut);
                 // played card is wand => the queen is defended
                 removeCardsFromPlayerDeck(cards);
                 replacePlayedCards(chosenCardIndices);
