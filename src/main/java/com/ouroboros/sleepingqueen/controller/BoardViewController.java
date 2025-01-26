@@ -727,7 +727,7 @@ public class BoardViewController {
 
         if (isDragonPhase) {
             if (cards.size() > 1) {
-                Toast.show((Stage) rootPane.getScene().getWindow(), "Only one card can be played for Dragon phase", toastTimeOut);
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Please select 1 card only", toastTimeOut);
                 System.out.println("Invalid number of cards selected for Dragon phase");
                 return;
             }
