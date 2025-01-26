@@ -19,8 +19,8 @@ public class NumberCard extends Card {
     public NumberCard() {
     }
 
-    public NumberCard(String cardName, String cardImgPath, String backImgPath) {
-        super(cardName, cardImgPath, backImgPath);
+    public NumberCard(String cardName, String cardImgPath, String backImgPath, String cardDescription) {
+        super(cardName, cardImgPath, backImgPath, cardDescription);
         this.cardNumber = Integer.parseInt(cardName.split(" ")[1]);
         this.type = CardType.NUMBER;
     }

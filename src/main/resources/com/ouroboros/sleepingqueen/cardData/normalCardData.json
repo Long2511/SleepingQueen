@@ -60,7 +60,7 @@
       "cardName": "Jester",
       "quantity": 5,
       "cardType": "JESTER",
-      "cardDescription": "Play the Jester and take a chance: If you draw a spell card, keep it and take another turn. If you draw a number card, then count the players from 1 to the number on the card starting with yourself. The player you land gets to awaken a Sleeping Queen.",
+      "cardDescription": "Play the Jester: draw a spell card, keep it and take another turn. \nDraw a number card n, count the players from 1 to n starting with yourself. \nLast player awakens a Sleeping Queen.",
       "cardImage": "/com/ouroboros/sleepingqueen/cardImg/jester.jpg"
     },
     {

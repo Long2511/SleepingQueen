@@ -57,9 +57,9 @@ public class JSONCardDAO implements CardDAO {
                 for (int i = 0; i < quantity; i++) {
                     if (cardType.equals("QUEEN")) {
                         int point = (int) (long) cardObject.get("point");
-                        cardList.add(createQueenCard(name, image, backImage, point));
+                        cardList.add(createQueenCard(name, image, backImage, point, description));
                     } else {
-                        cardList.add(createNormalCard(name, image, backImage, cardType));
+                        cardList.add(createNormalCard(name, image, backImage, cardType, description));
                     }
                 }
             }
@@ -70,28 +70,29 @@ public class JSONCardDAO implements CardDAO {
     }
 
 
-    public Card createQueenCard(String name, String image, String backImage, int point) {
-        return new QueenCard(name, image, backImage, point);
+    public Card createQueenCard(String name, String image, String backImage, int point, String description) {
+        return new QueenCard(name, image, backImage, point, description);
     }
 
     /**
      * Create a normal card based on the card type
      *
-     * @param name      - name of the card
-     * @param image     - image path of the card
-     * @param backImage - back image path of the card
-     * @param cardType  - type of the card
+     * @param name        - name of the card
+     * @param image       - image path of the card
+     * @param backImage   - back image path of the card
+     * @param cardType    - type of the card
+     * @param description - description of the card
      * @return Card
      */
-    public Card createNormalCard(String name, String image, String backImage, String cardType) {
+    public Card createNormalCard(String name, String image, String backImage, String cardType, String description) {
         return switch (cardType) {
-            case "KING" -> new KingCard(name, image, backImage);
-            case "JESTER" -> new JesterCard(name, image, backImage);
-            case "KNIGHT" -> new KnightCard(name, image, backImage);
-            case "POTION" -> new PotionCard(name, image, backImage);
-            case "WAND" -> new WandCard(name, image, backImage);
-            case "DRAGON" -> new DragonCard(name, image, backImage);
-            default -> new NumberCard(name, image, backImage);
+            case "KING" -> new KingCard(name, image, backImage, description);
+            case "JESTER" -> new JesterCard(name, image, backImage, description);
+            case "KNIGHT" -> new KnightCard(name, image, backImage, description);
+            case "POTION" -> new PotionCard(name, image, backImage, description);
+            case "WAND" -> new WandCard(name, image, backImage, description);
+            case "DRAGON" -> new DragonCard(name, image, backImage, description);
+            default -> new NumberCard(name, image, backImage, description);
         };
     }
 

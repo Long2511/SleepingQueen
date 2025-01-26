@@ -2,6 +2,7 @@ package com.ouroboros.sleepingqueen.card;
 
 import com.ouroboros.sleepingqueen.deck.Card;
 import javafx.fxml.FXML;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -82,6 +83,7 @@ public class CardController {
             return;
         }
         if (isFaceup) {
+            Tooltip.install(cardHolder, new Tooltip(card.getCardDescription()));
             Image cardImg = new Image(Objects.requireNonNull(getClass().getResourceAsStream(card.getCardImgPath())));
             cardHolder.setImage(cardImg);
         } else {

@@ -57,6 +57,7 @@ public class CardDeck {
         deck.addAll(discarded);
         discarded.clear();
         shuffle();
+
     }
 
     public void reset() {

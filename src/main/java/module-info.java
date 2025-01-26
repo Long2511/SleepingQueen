@@ -10,7 +10,6 @@ module com.ouroboros.sleepingqueen {
     requires annotations;
     requires com.fasterxml.jackson.databind;
     requires json.simple;
-    requires junit;
 
     opens com.ouroboros.sleepingqueen to javafx.fxml;
     opens com.ouroboros.sleepingqueen.card to javafx.fxml;

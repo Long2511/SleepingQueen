@@ -15,8 +15,8 @@ public class KingCard extends Card {
     public KingCard() {
     }
 
-    public KingCard(String cardName, String cardImgPath, String backImgPath) {
-        super(cardName, cardImgPath, backImgPath);
+    public KingCard(String cardName, String cardImgPath, String backImgPath, String cardDescription) {
+        super(cardName, cardImgPath, backImgPath, cardDescription);
         this.type = CardType.KING;
     }
 }

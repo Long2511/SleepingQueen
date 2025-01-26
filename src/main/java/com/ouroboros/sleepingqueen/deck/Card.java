@@ -14,14 +14,16 @@ public class Card {
     private String cardName;
     private String cardImgPath;
     private String backImgPath;
+    private String cardDescription;
 
     public Card() {
     }
 
-    public Card(String cardName, String cardImgPath, String backImgPath) {
+    public Card(String cardName, String cardImgPath, String backImgPath, String cardDescription) {
         this.cardName = cardName;
         this.cardImgPath = cardImgPath;
         this.backImgPath = backImgPath;
+        this.cardDescription = cardDescription;
     }
 
     public Card(String cardImgPath) {
@@ -42,5 +44,9 @@ public class Card {
 
     public String getCardName() {
         return cardName;
+    }
+
+    public String getCardDescription() {
+        return cardDescription;
     }
 }

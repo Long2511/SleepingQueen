@@ -20,8 +20,8 @@ public class QueenCard extends Card {
     public QueenCard() {
     }
 
-    public QueenCard(String cardName, String cardImgPath, String backImgPath, int point) {
-        super(cardName, cardImgPath, backImgPath);
+    public QueenCard(String cardName, String cardImgPath, String backImgPath, int point, String cardDescription) {
+        super(cardName, cardImgPath, backImgPath, cardDescription);
         this.type = CardType.QUEEN;
         this.point = point;
     }

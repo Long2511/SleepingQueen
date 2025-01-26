@@ -19,7 +19,7 @@ public class GameClient {
     private static final int SERVER_PORT = 8080;
 
     /**
-     * Usage: java GameClient <playerName> <gameId>
+     * Usage: java GameClient playerName gameId
      */
     public static void main(String[] args) {
 

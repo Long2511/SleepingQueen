@@ -16,8 +16,8 @@ public class JesterCard extends Card {
 
     }
 
-    public JesterCard(String cardName, String cardImgPath, String backImgPath) {
-        super(cardName, cardImgPath, backImgPath);
+    public JesterCard(String cardName, String cardImgPath, String backImgPath, String cardDescription) {
+        super(cardName, cardImgPath, backImgPath, cardDescription);
         this.type = CardType.JESTER;
     }
 }
