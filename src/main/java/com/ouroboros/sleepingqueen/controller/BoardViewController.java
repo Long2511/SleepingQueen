@@ -5,6 +5,7 @@ import com.ouroboros.sleepingqueen.card.QueenFieldController;
 import com.ouroboros.sleepingqueen.deck.Card;
 import com.ouroboros.sleepingqueen.deck.CardType;
 import com.ouroboros.sleepingqueen.deck.cardcollection.NumberCard;
+import com.ouroboros.sleepingqueen.deck.cardcollection.QueenCard;
 import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerCardField;
 import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerQueenField;
 import com.ouroboros.sleepingqueen.player.Player;
@@ -24,9 +25,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class BoardViewController {
 
@@ -216,10 +215,25 @@ public class BoardViewController {
         MainPlayer.setText(playerList.get(currentTurnPlayerIndex).getName());
     }
 
+    private boolean isAllQueenCardSelected() {
+        int totalQueenCard = 0;
+        for (Player player : playerList) {
+            for (Card card : player.getQueenCards()) {
+                if (card != null) {
+                    totalQueenCard++;
+                }
+            }
+        }
+        return totalQueenCard == 12;
+    }
+
     private void endPlayerTurn() {
         Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(currentTurnPlayerIndex).getName() + " has ended the turn", toastTimeOut);
         PauseTransition pause = new PauseTransition(Duration.seconds(rootPane.getScene() != null ? 2 : 0));
         pause.setOnFinished(event -> {
+            //Check for win condition
+            checkWinCondition();
+
             int nextTurnPlayerIndex = nextTurnPlayerIndexForReal;
             if (nextTurnPlayerIndex == -1) {
                 nextTurnPlayerIndex = (currentTurnPlayerIndex + 1) % getPlayerCount();
@@ -309,12 +323,14 @@ public class BoardViewController {
             renderMainPlayerQueenCard(currentTurnPlayerIndex);
         }
 
-        if (isRoseQueen) {
+        if (isRoseQueen && !isAllQueenCardSelected()) {
             // Rose Queen - player can pick another queen
             isQueenCardSelected = true;
             Toast.show((Stage) rootPane.getScene().getWindow(), "Picked Rose Queen, please select another Queen", toastTimeOut);
-        } else {
+        } else if (!isAllQueenCardSelected()) {
             isQueenCardSelected = false;
+        } else {
+            endPlayerTurn();
         }
 
         // remove selected card effect
@@ -349,7 +365,8 @@ public class BoardViewController {
 
     private void KnightLogic() {
         isKnightPhase = true;
-        Toast.show((Stage) rootPane.getScene().getWindow(), "Knight card can be played, pick opponent queen card from other players", toastTimeOut);
+        Toast.show((Stage) rootPane.getScene().getWindow(), "Select Queen Card from other players", toastTimeOut);
+        // Enter knight phase: player can select opponent queen
         subPlayerFieldController.setIdle(false);
     }
 
@@ -463,6 +480,40 @@ public class BoardViewController {
         return -1;
     }
 
+    private void checkWinCondition() {
+        int playerCount = getPlayerCount();
+        int queenCardLimit = (playerCount <= 3) ? 5 : 4;
+        int queenPointLimit = (playerCount <= 3) ? 50 : 40;
+
+        for (Player player : playerList) {
+            int queenCardCount = 0;
+            int queenPointCount = 0;
+
+            for (Card card : player.getQueenCards()) {
+                if (card != null) {
+                    queenCardCount++;
+                    queenPointCount += ((QueenCard) card).getPoint();
+                }
+            }
+
+            if (queenCardCount >= queenCardLimit || queenPointCount >= queenPointLimit) {
+                Toast.show((Stage) rootPane.getScene().getWindow(), player.getName() + " wins the game!", toastTimeOut);
+                // Handle win logic here, e.g., end the game, show a win screen, etc.
+                return;
+            }
+        }
+
+        if (isAllQueenCardSelected()) {
+            playerList.stream()
+                    .max(Comparator.comparingInt(player -> Arrays.stream(player.getQueenCards())
+                            .filter(Objects::nonNull)
+                            .mapToInt(card -> ((QueenCard) card).getPoint())
+                            .sum())).ifPresent(highestPointPlayer -> Toast.show((Stage) rootPane.getScene().getWindow(),
+                            highestPointPlayer.getName() + " wins the game with the most points!", toastTimeOut));
+
+        }
+    }
+
     private void handlePlayNowButtonClick() {
         if (isQueenCardSelected) {
             pickQueenCardFromField();
@@ -486,6 +537,7 @@ public class BoardViewController {
             // Enter dragon phase: the targeted player can play Dragon card to defend
             isDragonPhase = true;
             int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
+            Toast.show((Stage) rootPane.getScene().getWindow(), "Player " + playerList.get(targetPlayerIndex).getName() + " can play Dragon card to defend", toastTimeOut);
             nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
             endPlayerTurn(targetPlayerIndex);
             Toast.show((Stage) rootPane.getScene().getWindow(), "Play a dragon card to protect the queen", toastTimeOut);
@@ -527,7 +579,7 @@ public class BoardViewController {
 
         if (isDragonPhase) {
             if (cards.size() > 1) {
-                Toast.show((Stage) rootPane.getScene().getWindow(), "Please select 1 card only", toastTimeOut);
+                Toast.show((Stage) rootPane.getScene().getWindow(), "Only one card can be played for Dragon phase", toastTimeOut);
                 System.out.println("Invalid number of cards selected for Dragon phase");
                 return;
             }
@@ -541,6 +593,7 @@ public class BoardViewController {
                 // rerender
                 renderSubPlayer(stolenPlayerIndex, currentSubPlayerIndex.get(stolenPlayerIndex));
                 renderMainPlayerQueenCard(currentTurnPlayerIndex);
+
             } else if (cards.get(0).getType() != CardType.DRAGON) {
                 Toast.show((Stage) rootPane.getScene().getWindow(), "Only Dragon card can be play", toastTimeOut);
                 System.out.println("Invalid card selected for Dragon phase");
