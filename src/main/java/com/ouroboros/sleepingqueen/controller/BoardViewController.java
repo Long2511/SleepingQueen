@@ -9,14 +9,18 @@ import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerCardField;
 import com.ouroboros.sleepingqueen.mainPlayer.MainPlayerQueenField;
 import com.ouroboros.sleepingqueen.player.Player;
 import com.ouroboros.sleepingqueen.subPlayer.SubPlayerFieldController;
+import com.ouroboros.sleepingqueen.ults.ButtonSound;
+import com.ouroboros.sleepingqueen.ults.ConfirmButtonSound;
 import com.ouroboros.sleepingqueen.ults.Toast;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -32,6 +36,7 @@ public class BoardViewController {
     private final int toastTimeOut = 4000;
     @FXML
     public HBox mainPlayerQueenFieldBox;
+    public Button menuBtn;
     @FXML
     Text MainPlayer;
     @FXML
@@ -64,6 +69,7 @@ public class BoardViewController {
     private int selectedAwakenQueenIndex;
     private boolean isKnightPhase;
     private boolean isDragonPhase;
+    private MediaPlayer mediaPlayer;
 
     public static int getPlayerCount() {
         return Integer.parseInt(playerCount);
@@ -81,6 +87,7 @@ public class BoardViewController {
     @FXML
     public void initialize() {
         try {
+            menuBtn.setOnMouseClicked(event -> ButtonSound.playButtonClickSound());
             // Try  to load Deck to the Board
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/boardView/deck-on-board.fxml"));
             VBox deckPane = loader.load();
@@ -203,10 +210,10 @@ public class BoardViewController {
             }
             // reset next player
             nextTurnPlayerIndexForReal = -1;
-        if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
-            // Player gets another turn
-            return;
-        }
+            if (nextTurnPlayerIndex == currentTurnPlayerIndex) {
+                // Player gets another turn
+                return;
+            }
 
             // Swap currentSubPlayerIndex between current player and next player
             int temp = currentSubPlayerIndex.get(currentTurnPlayerIndex);
@@ -408,6 +415,7 @@ public class BoardViewController {
     }
 
     private void handlePlayNowButtonClick() {
+        ConfirmButtonSound.playButtonClickSound();
         if (isQueenCardSelected) {
             pickQueenCardFromField();
             if (!isQueenCardSelected) {

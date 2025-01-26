@@ -39,7 +39,8 @@
                     <children>
                         <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#handleMenuButtonClick" prefHeight="27.0"
+                                <Button fx:id="menuBtn" mnemonicParsing="false" onAction="#handleMenuButtonClick"
+                                        prefHeight="27.0"
                                         prefWidth="282.0" text="Menu">
                                     <HBox.margin>
                                         <Insets bottom="25.6" left="80.0" right="80.0" top="25.6"/>
