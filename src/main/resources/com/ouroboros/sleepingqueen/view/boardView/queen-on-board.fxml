@@ -8,7 +8,8 @@
       prefHeight="157.0" prefWidth="107.0" xmlns="http://javafx.com/javafx/8"
       fx:controller="com.ouroboros.sleepingqueen.card.CardController">
     <children>
-        <ImageView fx:id="cardHolder" fitHeight="157.0" fitWidth="107.0" onMouseClicked="#flipCard" pickOnBounds="true">
+        <ImageView fx:id="cardHolder" fitHeight="157.0" fitWidth="107.0" onMouseClicked="#clickCard"
+                   pickOnBounds="true">
             <image>
                 <Image url="@../../cardImg/king-1.jpg"/>
             </image>

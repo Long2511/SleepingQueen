@@ -47,9 +47,8 @@ public class CardController {
     }
 
     @FXML
-    public void flipCard(MouseEvent e) {
-
-        // If idle, cannot be flipped
+    public void clickCard(MouseEvent e) {
+        // If idle, do nothing
         if (isIdle) {
             System.out.println("This card is idle.");
             return;
@@ -58,15 +57,12 @@ public class CardController {
             System.out.println("No card data yet.");
             return;
         }
-        System.out.println("Queen flipped");
-        isFaceup = !isFaceup;
+        System.out.println("Card clicked.");
         if (onCardSelected != null) {
             onCardSelected.accept(index);
         }
-        render();
     }
-
-
+    
     public void setIndex(int index) {
         this.index = index;
     }
