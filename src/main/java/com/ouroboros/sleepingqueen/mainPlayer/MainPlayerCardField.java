@@ -70,9 +70,6 @@ public class MainPlayerCardField {
     public void handleCardSelected(int index) {
         System.out.println("Card " + index + " selected.");
 
-        // TODO: delete this setFaceup once do not Flip Card click on
-        cardControllers.get(index).setFaceup(true);
-
         if (isChosen[index]) {
             isChosen[index] = false;
             cardControllers.get(index).setCardEffect(null);
