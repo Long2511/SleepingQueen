@@ -447,9 +447,29 @@ public class BoardViewController {
     }
 
     /**
+     * @return True if there is a Queen card to steal or put to asleep, False otherwise
+     */
+    private boolean hasAwakenQueen() {
+        for (int i = 0; i < getPlayerCount(); i++)
+            if (i != currentTurnPlayerIndex) {
+                for (Card card : playerList.get(i).getQueenCards()) {
+                    if (card != null) {
+                        return true;
+                    }
+                }
+            }
+        return false;
+    }
+
+    /**
      * Potion card logic
      */
     private void PotionLogic() {
+        if (!hasAwakenQueen()) {
+            // There is non queen to put to sleep
+            Toast.show((Stage) rootPane.getScene().getWindow(), "No queen to put to sleep", toastTimeOut);
+            return;
+        }
         isPotionPhase = true;
         Toast.show((Stage) rootPane.getScene().getWindow(), "Pick opponent queen card from other players", toastTimeOut);
         Toast.show((Stage) rootPane.getScene().getWindow(), "Pick position for the sleeping queen", toastTimeOut);
@@ -464,6 +484,11 @@ public class BoardViewController {
      * Player can select opponent queen
      */
     private void KnightLogic() {
+        if (!hasAwakenQueen()) {
+            // There is non queen to steal
+            Toast.show((Stage) rootPane.getScene().getWindow(), "No queen to steal", toastTimeOut);
+            return;
+        }
         isKnightPhase = true;
         Toast.show((Stage) rootPane.getScene().getWindow(), "Select Queen Card from other players", toastTimeOut);
         mainPlayerCardFieldController.setIdle(true); // cannot play card in Knight phase
@@ -593,11 +618,9 @@ public class BoardViewController {
     /**
      * remove cards from players
      */
-    private void removeCardsFromPlayerDeck(List<Card> cardsTobeRemove) {
-        playerList.get(currentTurnPlayerIndex).removeNormalCards(cardsTobeRemove);
-        // add discarded cards to the discarded card deck
-        for (Card card : cardsTobeRemove) {
-            deckController.discardCard(card);
+    private void removeCardsFromPlayerDeck(List<Integer> chosenIndexes) {
+        for (int index : chosenIndexes) {
+            playerList.get(currentTurnPlayerIndex).removeNormalCard(index);
         }
     }
 
@@ -697,7 +720,7 @@ public class BoardViewController {
             // Enter dragon phase: the targeted player can play Dragon card to defend
             isDragonPhase = true;
             int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
-            Toast.show((Stage) rootPane.getScene().getWindow(), "Player " + playerList.get(targetPlayerIndex).getName() + " can play Dragon card to defend", toastTimeOut);
+            Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(targetPlayerIndex).getName() + " can play Dragon card to defend", toastTimeOut);
             nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
             endPlayerTurn(targetPlayerIndex);
             Toast.show((Stage) rootPane.getScene().getWindow(), "Play a dragon card to protect the queen", toastTimeOut);
@@ -763,7 +786,7 @@ public class BoardViewController {
             } else if (cards.get(0).getType() == CardType.DRAGON) {
                 Toast.show((Stage) rootPane.getScene().getWindow(), "Steal blocked", toastTimeOut);
                 // played card is dragon => the queen is defended
-                removeCardsFromPlayerDeck(cards);
+                removeCardsFromPlayerDeck(chosenCardIndices);
                 replacePlayedCards(chosenCardIndices);
             }
             isDragonPhase = false;
@@ -793,7 +816,7 @@ public class BoardViewController {
             } else if (cards.get(0).getType() == CardType.WAND) {
                 Toast.show((Stage) rootPane.getScene().getWindow(), "Defend successfully.", toastTimeOut);
                 // played card is wand => the queen is defended
-                removeCardsFromPlayerDeck(cards);
+                removeCardsFromPlayerDeck(chosenCardIndices);
                 replacePlayedCards(chosenCardIndices);
             }
             isWandPhase = false;
@@ -836,21 +859,21 @@ public class BoardViewController {
 
             //Check the sum of number cards is equal to the last card
             if (cards.size() == 1) {
-                removeCardsFromPlayerDeck(cards);
+                removeCardsFromPlayerDeck(chosenCardIndices);
                 replacePlayedCards(chosenCardIndices);
                 endPlayerTurn();
             } else if (cards.size() == 2) {
                 NumberCard firstCard = (NumberCard) cards.get(0);
                 NumberCard secondCard = (NumberCard) cards.get(1);
                 if (firstCard.GetNumberCardValue() == secondCard.GetNumberCardValue()) {
-                    removeCardsFromPlayerDeck(cards);
+                    removeCardsFromPlayerDeck(chosenCardIndices);
                     replacePlayedCards(chosenCardIndices);
                     endPlayerTurn();
                 } else {
                     Toast.show((Stage) rootPane.getScene().getWindow(), "Invalid Card, Please chose different card.", toastTimeOut);
                 }
             } else if (sumOfCards == numberCards.getLast().GetNumberCardValue()) {
-                removeCardsFromPlayerDeck(cards);
+                removeCardsFromPlayerDeck(chosenCardIndices);
                 replacePlayedCards(chosenCardIndices);
                 endPlayerTurn();
             } else {
@@ -862,33 +885,42 @@ public class BoardViewController {
                 switch (cards.getFirst().getType()) {
                     case KING:
                         KingLogic();
-                        removeCardsFromPlayerDeck(cards);
+                        removeCardsFromPlayerDeck(chosenCardIndices);
                         replacePlayedCards(chosenCardIndices);
                         break;
                     case JESTER:
-                        removeCardsFromPlayerDeck(cards);
+                        removeCardsFromPlayerDeck(chosenCardIndices);
                         JesterLogic(chosenCardIndices);
                         break;
                     case KNIGHT:
                         KnightLogic();
-                        removeCardsFromPlayerDeck(cards);
+                        removeCardsFromPlayerDeck(chosenCardIndices);
                         replacePlayedCards(chosenCardIndices);
+                        if (!hasAwakenQueen()) {
+                            endPlayerTurn();
+                        }
                         break;
                     case POTION:
                         PotionLogic();
-                        // Todo Add POTION case logic
-                        removeCardsFromPlayerDeck(cards);
+                        removeCardsFromPlayerDeck(chosenCardIndices);
                         replacePlayedCards(chosenCardIndices);
+                        if (!hasAwakenQueen()) {
+                            endPlayerTurn();
+                        }
                         break;
                     case WAND:
+                        // Play wand card alone do not affect the game
                         WandLogic();
-                        // Todo Add Wand case Logic
-                        removeCardsFromPlayerDeck(cards);
+                        removeCardsFromPlayerDeck(chosenCardIndices);
+                        replacePlayedCards(chosenCardIndices);
+                        endPlayerTurn();
                         break;
                     case DRAGON:
+                        // Play dragon card alone do not affect the game
                         DragonLogic();
-                        removeCardsFromPlayerDeck(cards);
+                        removeCardsFromPlayerDeck(chosenCardIndices);
                         replacePlayedCards(chosenCardIndices);
+                        endPlayerTurn();
                         break;
                 }
             } else {
