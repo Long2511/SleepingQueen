@@ -26,6 +26,7 @@ public class CardController {
         card = null;  // no data yet
         isFaceup = false;
         isIdle = false;
+        index = -1;
     }
 
     public Card getCard() {
