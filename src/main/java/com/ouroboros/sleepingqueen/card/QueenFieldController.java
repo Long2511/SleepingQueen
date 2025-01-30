@@ -115,4 +115,14 @@ public class QueenFieldController {
             queenControllers.get(index).setCardEffect(effect);
         }
     }
+
+    public int numberOfAwakenQueens() {
+        int count = 0;
+        for (CardController cardController : queenControllers) {
+            if (cardController.getCard() == null) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
