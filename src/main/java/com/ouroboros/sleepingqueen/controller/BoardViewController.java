@@ -72,7 +72,7 @@ public class BoardViewController {
     private MainPlayerQueenField mainPlayerQueenFieldController;
     private List<Player> playerList;
     private int currentTurnPlayerIndex;
-    private int nextTurnPlayerIndexForReal;  // next player index value (if can be determined), -1 If needed to calculate.
+    private Stack<Integer> nextTurnPlayerIndexStack;  // a stack to store the next player index
     private SubPlayerFieldController subPlayerFieldController;
     private DeckController deckController;
     private MainPlayerCardField mainPlayerCardFieldController;
@@ -263,7 +263,8 @@ public class BoardViewController {
         }
         // Player 1 makes a move first
         currentTurnPlayerIndex = 0;
-        nextTurnPlayerIndexForReal = -1;
+        nextTurnPlayerIndexStack = new Stack<>();
+        nextTurnPlayerIndexStack.push(-1);  // -1 means no constraint about the next player
         setUpPlayerTurn();
     }
 
@@ -423,12 +424,13 @@ public class BoardViewController {
      * using nextTurnPlayerIndexForReal if it's not -1
      */
     private void endPlayerTurn() {
-        if (nextTurnPlayerIndexForReal == -1) {
+        if (nextTurnPlayerIndexStack.peek() == -1) {
+            // There is no constraint about the next player
+            // => the next player is the player after the current player in the list
             endPlayerTurn((currentTurnPlayerIndex + 1) % getPlayerCount());
         } else {
-            endPlayerTurn(nextTurnPlayerIndexForReal);
-            // Reset the true next player once used
-            nextTurnPlayerIndexForReal = -1;
+            // pop the next player from the stack to use for the next turn
+            endPlayerTurn(nextTurnPlayerIndexStack.pop());
         }
     }
 
@@ -602,7 +604,7 @@ public class BoardViewController {
             // Rose Queen - player can pick another queen
             // Do not change phase
             // do not change player
-            nextTurnPlayerIndexForReal = currentTurnPlayerIndex;
+            nextTurnPlayerIndexStack.push(currentTurnPlayerIndex);
             Toast.show((Stage) rootPane.getScene().getWindow(), "Picked Rose Queen, please select another Queen", toastTimeOut);
         } else if (!isAllQueenCardSelected()) {
             // End phase
@@ -660,7 +662,7 @@ public class BoardViewController {
         int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
 
         // Save next turn player index to return to the original flow once the defend phase is done
-        nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
+        nextTurnPlayerIndexStack.push((currentTurnPlayerIndex + 1) % getPlayerCount());
 
         // Let the target player defend
         endPlayerTurn(targetPlayerIndex);
@@ -690,7 +692,7 @@ public class BoardViewController {
         int targetPlayerIndex = getPlayerIndexByAwakenQueenIndex(selectedAwakenQueenIndex);
 
         // Save next turn player index to return to the original flow once the defend phase is done
-        nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
+        nextTurnPlayerIndexStack.push((currentTurnPlayerIndex + 1) % getPlayerCount());
 
         // let the target player defend
         endPlayerTurn(targetPlayerIndex);
@@ -714,7 +716,7 @@ public class BoardViewController {
             // The queen will be stolen
             // the stolen player is the previous player of the TRUE next player
             Toast.show((Stage) rootPane.getScene().getWindow(), "The queen has been stolen", toastTimeOut);
-            int stolenPlayerIndex = (nextTurnPlayerIndexForReal - 1 + getPlayerCount()) % getPlayerCount();
+            int stolenPlayerIndex = (nextTurnPlayerIndexStack.peek() - 1 + getPlayerCount()) % getPlayerCount();
             playerList.get(currentTurnPlayerIndex).removeQueenCardByIndex(selectedAwakenQueenIndex);
             playerList.get(stolenPlayerIndex).addQueenCard(selectedAwakenQueenCard);
             // rerender
@@ -920,7 +922,7 @@ public class BoardViewController {
     private void KingLogic() {
         currentPhase = PhaseType.PICK_SLEEPING_QUEEN;
         // Player can select a queen card
-        nextTurnPlayerIndexForReal = currentTurnPlayerIndex;
+        nextTurnPlayerIndexStack.push(currentTurnPlayerIndex);
         Toast.show((Stage) rootPane.getScene().getWindow(), "Please select a Queen card and confirm", toastTimeOut);
     }
 
@@ -974,7 +976,7 @@ public class BoardViewController {
         }
         currentPhase = PhaseType.KNIGHT_ATTACK;
         // Player can select opponent queen
-        nextTurnPlayerIndexForReal = currentTurnPlayerIndex;
+        nextTurnPlayerIndexStack.push(currentTurnPlayerIndex);
         Toast.show((Stage) rootPane.getScene().getWindow(), "Select Queen Card from other players", toastTimeOut);
     }
 
@@ -989,7 +991,7 @@ public class BoardViewController {
         }
         currentPhase = PhaseType.POTION_ATTACK;
         // Player can select opponent queen
-        nextTurnPlayerIndexForReal = currentTurnPlayerIndex;
+        nextTurnPlayerIndexStack.push(currentTurnPlayerIndex);
 
         Toast.show((Stage) rootPane.getScene().getWindow(), "Pick opponent queen card from other players", toastTimeOut);
         Toast.show((Stage) rootPane.getScene().getWindow(), "Pick position for the sleeping queen", toastTimeOut);
@@ -1015,7 +1017,7 @@ public class BoardViewController {
             Toast.show((Stage) rootPane.getScene().getWindow(), "Drawn card is a Number card " + ((NumberCard) drawnCard).GetNumberCardValue(), toastTimeOut);
             Toast.show((Stage) rootPane.getScene().getWindow(), playerList.get(nextTurnPlayerIndex).getName() + " can awake a queen", toastTimeOut);
 
-            nextTurnPlayerIndexForReal = (currentTurnPlayerIndex + 1) % getPlayerCount();
+            nextTurnPlayerIndexStack.push((currentTurnPlayerIndex + 1) % getPlayerCount());
 
             // Set up pick queen phase for the player granted the privilege
             currentPhase = PhaseType.PICK_SLEEPING_QUEEN;
