@@ -3,7 +3,7 @@
  * <p>
  * Entry point of the application.
  *
- * @Author Hai Long Mac
+ * @author Hai Long Mac
  */
 
 package com.ouroboros.sleepingqueen;

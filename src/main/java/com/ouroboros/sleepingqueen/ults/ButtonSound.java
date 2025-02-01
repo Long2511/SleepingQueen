@@ -3,7 +3,7 @@
  * <p>
  * This class is used to play the button click sound.
  *
- * @Author Hai Long Mac
+ * @author Hai Long Mac
  */
 
 package com.ouroboros.sleepingqueen.ults;
@@ -14,6 +14,9 @@ import javafx.scene.media.MediaPlayer;
 import java.util.Objects;
 
 public class ButtonSound {
+    /**
+     * Plays the button click sound.
+     */
     public static void playButtonClickSound() {
         String soundFile = Objects.requireNonNull(ButtonSound.class.getResource("/com/ouroboros/sleepingqueen/music/buttonSound.mp3")).toExternalForm();
         Media sound = new Media(soundFile);
@@ -21,4 +24,3 @@ public class ButtonSound {
         mediaPlayer.play();
     }
 }
-

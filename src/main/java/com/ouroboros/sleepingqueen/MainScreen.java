@@ -1,6 +1,9 @@
 /**
  * MainScreen.java
- * This class is used to control the main screen. It has a method to set the background music and handle the dragging of the window.
+ * <p>
+ * This class is used to control the main screen. It includes functionality to:
+ * - Set background music.
+ * - Handle window dragging.
  *
  * @author Hai Long Mac
  */
@@ -21,15 +24,15 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.Objects;
 
-
 public class MainScreen extends Application {
     private MediaPlayer mediaPlayer;
-
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainScreen.class.getResource("view/main-screen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+
+        // Load and play background music
         String musicFile = Objects.requireNonNull(getClass().getResource("/com/ouroboros/sleepingqueen/music/mainScreen.mp3")).toExternalForm();
         Media media = new Media(musicFile);
         mediaPlayer = new MediaPlayer(media);
@@ -37,7 +40,7 @@ public class MainScreen extends Application {
         mediaPlayer.play();
         mediaPlayer.setVolume(0.2);
 
-
+        // Enable window dragging
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -51,13 +54,12 @@ public class MainScreen extends Application {
             }
         });
 
+        // Configure stage properties
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setTitle("Sleeping Queen");
         stage.getIcons().add(new Image(Objects.requireNonNull(MainScreen.class.getResourceAsStream("/com/ouroboros/sleepingqueen/icon/icon.png"))));
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
-
     }
-
 }

@@ -1,6 +1,8 @@
 /**
  * Toast.java
- * This class is used to create a toast message.
+ * <p>
+ * This class is used to create and display toast messages.
+ * Toast messages are small notifications that appear temporarily on the screen.
  *
  * @author Hai Long Mac
  */
@@ -21,9 +23,16 @@ import java.util.List;
 
 public class Toast {
 
-    // List to track currently active toasts
+    // List to track currently active toasts to avoid overlapping
     private static final List<Popup> activeToasts = new ArrayList<>();
 
+    /**
+     * Displays a toast message on the screen.
+     *
+     * @param ownerStage      The stage on which the toast should be displayed.
+     * @param message         The message to be shown.
+     * @param durationInMillis Duration for which the toast should be visible (in milliseconds).
+     */
     public static void show(Stage ownerStage, String message, int durationInMillis) {
         Platform.runLater(() -> {
             Popup popup = new Popup();
@@ -32,29 +41,23 @@ public class Toast {
             popup.setHideOnEscape(true);
 
             Label label = new Label(message);
-            label.setStyle("-fx-background-color: black; -fx-text-fill: white; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-label-padding: 10px");
+            label.setStyle("-fx-background-color: black; -fx-text-fill: white; " +
+                    "-fx-border-radius: 10px; -fx-background-radius: 10px; " +
+                    "-fx-label-padding: 10px");
             label.setOpacity(0);
-            //label.setFont(new javafx.scene.text.Font("Great Vibes", 20));
 
             StackPane pane = new StackPane(label);
             pane.setStyle("-fx-background-color: transparent;");
             popup.getContent().add(pane);
 
-            popup.setOnShown(event -> {
-                Scene scene = ownerStage.getScene();
-                popup.setX(scene.getWindow().getX() + (scene.getWidth() - pane.getWidth()) / 2);
-                popup.setY(scene.getWindow().getY() + (scene.getHeight() - pane.getHeight()) / 2 - 130);
-            });
-
-            // Calculate position
+            // Calculate position based on existing toasts
             popup.setOnShown(event -> {
                 Scene scene = ownerStage.getScene();
                 double baseX = scene.getWindow().getX() + (scene.getWidth() - pane.getWidth()) / 2;
-
-                // Position below any existing active toasts
                 double baseY = scene.getWindow().getY() + (scene.getHeight() - pane.getHeight()) / 2 - 130;
+
                 for (Popup activeToast : activeToasts) {
-                    baseY += 50; //
+                    baseY += 50; // Stack toasts below existing ones
                 }
 
                 popup.setX(baseX);
@@ -64,7 +67,6 @@ public class Toast {
 
             // Remove toast from active list when hidden
             popup.setOnHidden(event -> activeToasts.remove(popup));
-
             popup.show(ownerStage);
 
             // Fade in animation

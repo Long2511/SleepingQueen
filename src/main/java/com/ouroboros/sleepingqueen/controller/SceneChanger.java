@@ -1,9 +1,9 @@
 /**
  * SceneChanger.java
  * <p>
- * This class is used to change the scene of the application.
+ * This class provides a utility method to change scenes in the application.
  *
- * @Author Hai Long Mac
+ * @author Hai Long Mac
  */
 package com.ouroboros.sleepingqueen.controller;
 
@@ -17,10 +17,13 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SceneChanger {
+
     /**
-     * @param event    action event
-     * @param fxmlFile path of the fxml file
-     * @throws IOException
+     * Changes the scene of the application to the specified FXML file.
+     *
+     * @param event    The action event triggering the scene change.
+     * @param fxmlFile The path of the FXML file to load.
+     * @throws IOException If the FXML file cannot be loaded.
      */
     public static void changeScene(ActionEvent event, String fxmlFile) throws IOException {
         FXMLLoader loader = new FXMLLoader(SceneChanger.class.getResource(fxmlFile));

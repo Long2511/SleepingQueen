@@ -1,9 +1,9 @@
 /**
  * RuleViewController.java
  * <p>
- * This class is used to control the rule view screen. It has a method to initialize the rule view screen and handle the back button.
+ * This class controls the rule view screen. It initializes the rule view and handles the back button action.
  *
- * @Author Hai Long Mac
+ * @author Hai Long Mac
  */
 
 package com.ouroboros.sleepingqueen.controller;
@@ -19,10 +19,15 @@ import java.net.URL;
 
 public class RuleViewController {
 
-    public Button backBtn;
+    @FXML
+    private Button backBtn;
     @FXML
     private WebView webView;
 
+    /**
+     * Initializes the rule view screen by loading the rule HTML file into the WebView.
+     * Adjusts the zoom level for better readability.
+     */
     @FXML
     public void initialize() {
         URL url = getClass().getResource("/com/ouroboros/sleepingqueen/Rule-Sleeping-Queens.html");
@@ -33,14 +38,13 @@ public class RuleViewController {
             System.err.println("Resource not found: /com/ouroboros/sleepingqueen/Rule-Sleeping-Queens.html");
         }
         backBtn.setCancelButton(true);
-
     }
 
     /**
-     * Handle the back button action
+     * Handles the back button action to navigate back to the main screen.
      *
-     * @param event
-     * @throws IOException
+     * @param event The action event triggered by the button.
+     * @throws IOException If the scene file is not found.
      */
     @FXML
     private void handleBackButtonAction(ActionEvent event) throws IOException {

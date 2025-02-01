@@ -1,16 +1,12 @@
 /**
  * SubPlayerQueenFieldController.java
  * <p>
- * Controller class for the queen field of the sub player
- * This class is responsible for displaying the queens on the sub player's field
- * The queens are displayed faceup and fixed
- * The queens are displayed in a row of 4 queens
- * The queens are displayed with an event handler for awaken queen card
- * The queens are displayed with an effect
- * The queens are displayed with a method to set the queen card
- * The queens are displayed with a method to set the card effect by index
+ * Controller class for the queen field of the sub player.
+ * This class is responsible for displaying the queens on the sub player's field.
+ * The queens are displayed faceup and fixed in a row of 4 queens.
+ * The queens have an event handler for awaken queen card selection.
  *
- * @author: Thanh Phuoc Nguyen - 1584468
+ * @author Thanh Phuoc Nguyen
  */
 
 package com.ouroboros.sleepingqueen.subPlayer;
@@ -27,8 +23,8 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class SubPlayerQueenFieldController {
-    // Game ends if a player has 5 queens
-    // => Maximum displayed queens are 4
+
+    // Maximum displayed queens are 4
     @FXML
     private VBox subQueen1Box;
     @FXML
@@ -41,37 +37,49 @@ public class SubPlayerQueenFieldController {
     private List<CardController> queenControllers;
     private Consumer<Integer> onAwakenQueenCardSelected;
 
-
+    /**
+     * Initializes the sub player's queen field.
+     * Loads and sets up queen cards.
+     */
     public void initialize() {
-        // Initialize queenControllers
         queenControllers = new ArrayList<>();
-
-        // Load the queen card for the sub player
         loadQueen(subQueen1Box);
         loadQueen(subQueen2Box);
         loadQueen(subQueen3Box);
         loadQueen(subQueen4Box);
 
         for (CardController queenController : queenControllers) {
-            // Queens on player's hand should be fixed
-            queenController.setIdle(true);
-            // Queens on player's hand are always faceup
-            queenController.setFaceup(true);
-            // Set event handler for awaken queen card
+            queenController.setIdle(true); // Queens are fixed in place
+            queenController.setFaceup(true); // Always faceup
             queenController.setOnCardSelected(this::handleAwakenQueenCardSelected);
         }
     }
 
+    /**
+     * Sets whether the queens can be interacted with.
+     *
+     * @param idle If true, disables interactions.
+     */
     public void setIdle(boolean idle) {
         for (CardController queenController : queenControllers) {
             queenController.setIdle(idle);
         }
     }
 
+    /**
+     * Sets the event listener for when a queen card is selected.
+     *
+     * @param onQueenCardSelected The event handler function.
+     */
     public void setOnAwakenQueenCardSelected(Consumer<Integer> onQueenCardSelected) {
         this.onAwakenQueenCardSelected = onQueenCardSelected;
     }
 
+    /**
+     * Handles when a queen card is selected.
+     *
+     * @param index The index of the selected queen card.
+     */
     private void handleAwakenQueenCardSelected(int index) {
         if (onAwakenQueenCardSelected != null) {
             onAwakenQueenCardSelected.accept(index);
@@ -79,37 +87,41 @@ public class SubPlayerQueenFieldController {
     }
 
     /**
-     * Load the queen card for the sub player
+     * Loads a queen card into the sub player's field.
      *
-     * @param subQueen the queen card
+     * @param subQueen The VBox container for the queen card.
      */
     private void loadQueen(VBox subQueen) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ouroboros/sleepingqueen/view/subPlayerView/sub-player-queen-on-board.fxml"));
             subQueen.getChildren().add(loader.load());
             queenControllers.add(loader.getController());
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Set the queen card for the sub player
+     * Sets a queen card in the specified position.
      *
-     * @param position position of the queen card
-     * @param queen    the queen card
-     * @param index    the index of the queen card
+     * @param position The position of the queen card.
+     * @param queen The queen card.
+     * @param index The index of the queen card.
      */
     public void setQueen(int position, Card queen, int index) {
         if (position < 0 || position >= 4) {
             return;
         }
-
         queenControllers.get(position).setCard(queen);
         queenControllers.get(position).setIndex(index);
     }
 
+    /**
+     * Applies an effect to a queen card by index.
+     *
+     * @param index The index of the queen card.
+     * @param effect The effect to apply.
+     */
     public void setCardEffectByIndex(int index, Effect effect) {
         for (CardController queenController : queenControllers) {
             if (queenController.getIndex() == index) {
@@ -117,5 +129,4 @@ public class SubPlayerQueenFieldController {
             }
         }
     }
-
 }

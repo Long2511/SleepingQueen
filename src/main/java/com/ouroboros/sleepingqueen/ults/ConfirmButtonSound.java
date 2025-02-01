@@ -14,6 +14,9 @@ import javafx.scene.media.MediaPlayer;
 import java.util.Objects;
 
 public class ConfirmButtonSound {
+    /**
+     * Plays the button click sound.
+     */
     public static void playButtonClickSound() {
         String soundFile = Objects.requireNonNull(ConfirmButtonSound.class.getResource("/com/ouroboros/sleepingqueen/music/confirmButton.mp3")).toExternalForm();
         Media sound = new Media(soundFile);

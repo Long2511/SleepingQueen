@@ -7,10 +7,10 @@
  * It returns a list of all normal cards and a list of all queen cards.
  *
  * @author: Thanh Phuoc Nguyen - 1584468
+ * @author Hai Long Mac - 1534413
  */
 
 package com.ouroboros.sleepingqueen.dao;
-
 
 import com.ouroboros.sleepingqueen.deck.Card;
 import com.ouroboros.sleepingqueen.deck.cardcollection.*;
@@ -28,17 +28,25 @@ public class JSONCardDAO implements CardDAO {
     private final String NORMAL_CARD_DATA_PATH = "/com/ouroboros/sleepingqueen/cardData/normalCardData.json";
     private final String QUEEN_CARD_DATA_PATH = "/com/ouroboros/sleepingqueen/cardData/queenCardData.json";
 
-    List<Card> queenCardList;
-    List<Card> normalCardList; // List of all cards EXCEPT Queen Cards
+    private List<Card> queenCardList;
+    private List<Card> normalCardList; // List of all cards EXCEPT Queen Cards
 
+    /**
+     * Constructor initializes card lists and loads data from JSON files.
+     */
     public JSONCardDAO() {
-        queenCardList = new ArrayList<Card>();
-        normalCardList = new ArrayList<Card>();
+        queenCardList = new ArrayList<>();
+        normalCardList = new ArrayList<>();
         readFromJSON(queenCardList, QUEEN_CARD_DATA_PATH);
         readFromJSON(normalCardList, NORMAL_CARD_DATA_PATH);
     }
 
-
+    /**
+     * Reads card data from a JSON file and adds it to the provided list.
+     *
+     * @param cardList The list to store card objects.
+     * @param path     The file path of the JSON data.
+     */
     public void readFromJSON(List<Card> cardList, String path) {
         JSONParser parser = new JSONParser();
         try (Reader reader = new InputStreamReader(getClass().getResourceAsStream(path))) {
@@ -69,20 +77,29 @@ public class JSONCardDAO implements CardDAO {
         }
     }
 
-
+    /**
+     * Creates a Queen card.
+     *
+     * @param name        The name of the card.
+     * @param image       The image path of the card.
+     * @param backImage   The back image path of the card.
+     * @param point       The point value of the Queen card.
+     * @param description The description of the card.
+     * @return A QueenCard object.
+     */
     public Card createQueenCard(String name, String image, String backImage, int point, String description) {
         return new QueenCard(name, image, backImage, point, description);
     }
 
     /**
-     * Create a normal card based on the card type
+     * Creates a normal card based on the card type.
      *
-     * @param name        - name of the card
-     * @param image       - image path of the card
-     * @param backImage   - back image path of the card
-     * @param cardType    - type of the card
-     * @param description - description of the card
-     * @return Card
+     * @param name        The name of the card.
+     * @param image       The image path of the card.
+     * @param backImage   The back image path of the card.
+     * @param cardType    The type of the card.
+     * @param description The description of the card.
+     * @return A Card object of the corresponding type.
      */
     public Card createNormalCard(String name, String image, String backImage, String cardType, String description) {
         return switch (cardType) {
@@ -96,15 +113,23 @@ public class JSONCardDAO implements CardDAO {
         };
     }
 
-
+    /**
+     * Retrieves a list of all normal cards.
+     *
+     * @return List of normal cards.
+     */
     @Override
     public List<Card> getAllNormalCard() {
         return normalCardList;
     }
 
+    /**
+     * Retrieves a list of all Queen cards.
+     *
+     * @return List of Queen cards.
+     */
     @Override
     public List<Card> getAllQueenCard() {
         return queenCardList;
     }
 }
-
